@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIRAJ.hr - Hrvatski oglasni portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: #ff6b6b;
+        }
+
+        .btn-primary:hover {
+            background-color: #f5f5f5;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: white;
+            color: #ff6b6b;
+            transform: translateY(-2px);
+        }
+
+        /* Info Section */
+        .info {
+            padding: 80px 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .info h2 {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        .info-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 60px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+        }
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #222;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        /* CTA Section */
+        .cta {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta .btn-primary {
+            background-color: white;
+            color: #ff6b6b;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .info h2 {
+                font-size: 32px;
+            }
+
+            .cta h2 {
+                font-size: 28px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>BIRAJ.hr</h1>
+        <p>Najveći portal za kupovinu i prodaju u Hrvatskoj</p>
+        <div class="buttons">
+            <button class="btn btn-primary">Kreni sada</button>
+            <button class="btn btn-secondary">Pogledaj oglase</button>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="info">
+        <div class="container">
+            <h2>Dobrodošao na BIRAJ.hr</h2>
+            <p class="info-subtitle">Platforma za sigurnu kupovinu i prodaju u Hrvatskoj</p>
+            
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">🚗</div>
+                    <h3>Automobili</h3>
+                    <p>Kupi i prodaj vozila sigurno i brzo</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏗️</div>
+                    <h3>Usluge</h3>
+                    <p>Pronađi profesionalce za svaki posao</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <h3>Jednostavno</h3>
+                    <p>Brz i siguran proces kupovine</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Želiš prodati nešto?</h2>
+        <p>Krenijem sa BIRAJ.hr-om i dosegni tisuće kupaca</p>
+        <button class="btn btn-primary">Kreiraj oglas sada</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 BIRAJ.hr - Svi su prava zadržana</p>
+        <p><a href="#">Privatnost</a> | <a href="#">Uvjeti korištenja</a> | <a href="#">Kontakt</a></p>
+    </footer>
+</body>
+</html>
