@@ -73,7 +73,7 @@ export const createCheckoutSession = server$(async (props: {
         },
       ],
       mode: "payment",
-      success_url: `${process.env.VITE_APP_URL || "https://biraj.hr"}/racun/oglasi?payment=success`,
+      success_url: `${process.env.VITE_APP_URL || "https://biraj.hr"}/racun/plaćanje-potvrda?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.VITE_APP_URL || "https://biraj.hr"}/objavi?payment=cancelled`,
       customer_email: props.userEmail,
       metadata: {

@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Check, ChevronLeft, ChevronRight, Upload, X } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Upload, X, AlertCircle } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { SiteShell } from "@/components/site/SiteShell";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth";
 import { CATEGORIES, CITIES_LIST } from "@/lib/mock/data";
 import { createListing } from "@/lib/listings.functions";
+import { createCheckoutSession } from "@/lib/stripe.functions";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/objavi")({
@@ -33,7 +34,7 @@ type Form = {
   images: string[];
 };
 
-const STEPS = ["Kategorija", "Detalji", "Lokacija", "Kontakt", "Pregled"] as const;
+const STEPS = ["Kategorija", "Detalji", "Lokacija", "Kontakt", "Pregled", "Plaćanje"] as const;
 
 function PostListing() {
   const { user } = useAuth();
@@ -43,7 +44,10 @@ function PostListing() {
   const [err, setErr] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [createdId, setCreatedId] = useState<string | null>(null);
+  const [paymentUrl, setPaymentUrl] = useState<string | null>(null);
+  const [listingType, setListingType] = useState<"standard" | "premium">("standard");
   const create = useServerFn(createListing);
+  const checkout = useServerFn(createCheckoutSession);
   const [form, setForm] = useState<Form>({
     category: "",
     subcategory: "",
@@ -108,25 +112,34 @@ function PostListing() {
     if (v) { setErr(v); return; }
     setErr(null);
     if (step < STEPS.length - 1) { setStep(step + 1); return; }
-    // Final submit → persist to Supabase
+    // Payment step - create checkout session
     setSubmitting(true);
     try {
-      const row = await create({
-        data: {
+      const prices: Record<"standard" | "premium", number> = { standard: 9.99, premium: 19.99 };
+      const session = await checkout({
+        listingType,
+        categorySlug: form.category,
+        userEmail: user?.email || "user@biraj.hr",
+        listingTitle: form.title,
+      });
+      if (session.url) {
+        setPaymentUrl(session.url);
+        // Store form data in sessionStorage for post-payment verification
+        sessionStorage.setItem("pendingListing", JSON.stringify({
+          ...form,
+          price_eur: Number(form.price),
           category_slug: form.category,
           subcategory_slug: form.subcategory,
-          title: form.title.trim(),
-          description: form.description.trim(),
-          price_eur: Number(form.price),
           location: form.city,
           images: form.images,
           metadata: { contact_phone: form.contactPhone },
-        },
-      });
-      setCreatedId(row?.id ?? null);
-      setDone(true);
+          listingType,
+        }));
+      } else {
+        setErr("Neuspjelo stvaranje session-a za plaćanje.");
+      }
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Neuspjelo spremanje oglasa.");
+      setErr(e instanceof Error ? e.message : "Greška pri stvaranju plaćanja.");
     } finally {
       setSubmitting(false);
     }
@@ -306,14 +319,63 @@ function PostListing() {
             </div>
           )}
 
+          {step === 5 && (
+            <div className="space-y-4">
+              <h2 className="font-display text-xl font-semibold">Odaberite vrstu objave</h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  { type: "standard" as const, name: "Standardna objava", price: 9.99, duration: "30 dana", features: ["Vidljivost u kategoriji", "Do 10 fotografija", "Razmjena poruka"] },
+                  { type: "premium" as const, name: "TOP istaknut", price: 19.99, duration: "7 dana", features: ["Na vrhu kategorije", "Highlights u sekcijama", "Prioritetna pozicija"], badge: true },
+                ].map(({ type, name, price, duration, features, badge }) => (
+                  <button
+                    key={type}
+                    onClick={() => setListingType(type)}
+                    className={`rounded-xl border-2 p-4 text-left transition ${
+                      listingType === type
+                        ? "border-[color:var(--gold-deep)] bg-[color:var(--gold)]/5"
+                        : "border-border hover:border-[color:var(--gold)]/50"
+                    }`}
+                  >
+                    {badge && <span className="mb-2 inline-block text-[10px] font-bold uppercase tracking-widest text-[color:var(--gold-deep)]">Preporučeno</span>}
+                    <div className="font-display text-lg font-semibold">{name}</div>
+                    <div className="mt-1 font-display text-2xl font-bold text-[color:var(--navy)]">{price.toFixed(2)} €</div>
+                    <div className="text-xs text-muted-foreground">{duration}</div>
+                    <ul className="mt-3 space-y-1">
+                      {features.map((f) => <li key={f} className="text-xs text-foreground/80">✓ {f}</li>)}
+                    </ul>
+                  </button>
+                ))}
+              </div>
+              <div className="rounded-lg bg-secondary/30 p-3 text-sm">
+                <p className="font-medium">Plaćanje je sigurno</p>
+                <p className="mt-1 text-xs text-foreground/80">Koristi se Stripe za sigurnu obradu kartičnih plaćanja. Nakon uspješnog plaćanja, vaš oglas će biti objavljen.</p>
+              </div>
+            </div>
+          )}
+
+          {paymentUrl && (
+            <div className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/5 p-4">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="mt-0.5 h-5 w-5 text-amber-600" />
+                <div className="text-sm">
+                  <p className="font-medium">Preusmjeravanje na plaćanje...</p>
+                  <p className="mt-1 text-xs text-foreground/80">Otvorite novi prozor ako niste automatski preusmjereni.</p>
+                  <a href={paymentUrl} target="_blank" rel="noreferrer" className="mt-2 inline-flex h-9 items-center rounded-md bg-[color:var(--gold)] px-4 text-xs font-semibold text-[color:var(--navy)] hover:opacity-90">
+                    Idi na plaćanje
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+
           {err && <p className="mt-4 text-sm text-destructive">{err}</p>}
 
           <div className="mt-6 flex items-center justify-between">
-            <Button type="button" variant="outline" onClick={back} disabled={step === 0}>
+            <Button type="button" variant="outline" onClick={back} disabled={step === 0 || paymentUrl !== null}>
               <ChevronLeft className="h-4 w-4" /> Natrag
             </Button>
-            <Button type="button" onClick={next} disabled={submitting} className="bg-[color:var(--navy)] text-[color:var(--cream)] hover:bg-[color:var(--navy-deep)]">
-              {step === STEPS.length - 1 ? (submitting ? "Objavljivanje…" : "Objavi oglas") : <>Dalje <ChevronRight className="h-4 w-4" /></>}
+            <Button type="button" onClick={next} disabled={submitting || paymentUrl !== null} className="bg-[color:var(--navy)] text-[color:var(--cream)] hover:bg-[color:var(--navy-deep)]">
+              {step === STEPS.length - 1 ? (submitting ? "Obrada plaćanja…" : "Nastavi na plaćanje") : <>Dalje <ChevronRight className="h-4 w-4" /></>}
             </Button>
           </div>
         </div>

@@ -29,6 +29,7 @@ import { Route as RacunIndexRouteImport } from './routes/racun.index'
 import { Route as RacunSpremljenoRouteImport } from './routes/racun.spremljeno'
 import { Route as RacunProfilRouteImport } from './routes/racun.profil'
 import { Route as RacunPorukeRouteImport } from './routes/racun.poruke'
+import { Route as RacunPlaChar263anjePotvrdaRouteImport } from './routes/racun.plaćanje-potvrda'
 import { Route as RacunOglasiRouteImport } from './routes/racun.oglasi'
 import { Route as ProdavacUserIdRouteImport } from './routes/prodavac.$userId'
 import { Route as PosloviIdRouteImport } from './routes/poslovi.$id'
@@ -136,6 +137,12 @@ const RacunPorukeRoute = RacunPorukeRouteImport.update({
   path: '/poruke',
   getParentRoute: () => RacunRoute,
 } as any)
+const RacunPlaChar263anjePotvrdaRoute =
+  RacunPlaChar263anjePotvrdaRouteImport.update({
+    id: '/plaćanje-potvrda',
+    path: '/plaćanje-potvrda',
+    getParentRoute: () => RacunRoute,
+  } as any)
 const RacunOglasiRoute = RacunOglasiRouteImport.update({
   id: '/oglasi',
   path: '/oglasi',
@@ -190,6 +197,7 @@ export interface FileRoutesByFullPath {
   '/poslovi/$id': typeof PosloviIdRoute
   '/prodavac/$userId': typeof ProdavacUserIdRoute
   '/racun/oglasi': typeof RacunOglasiRoute
+  '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
   '/racun/poruke': typeof RacunPorukeRoute
   '/racun/profil': typeof RacunProfilRoute
   '/racun/spremljeno': typeof RacunSpremljenoRoute
@@ -217,6 +225,7 @@ export interface FileRoutesByTo {
   '/poslovi/$id': typeof PosloviIdRoute
   '/prodavac/$userId': typeof ProdavacUserIdRoute
   '/racun/oglasi': typeof RacunOglasiRoute
+  '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
   '/racun/poruke': typeof RacunPorukeRoute
   '/racun/profil': typeof RacunProfilRoute
   '/racun/spremljeno': typeof RacunSpremljenoRoute
@@ -246,6 +255,7 @@ export interface FileRoutesById {
   '/poslovi/$id': typeof PosloviIdRoute
   '/prodavac/$userId': typeof ProdavacUserIdRoute
   '/racun/oglasi': typeof RacunOglasiRoute
+  '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
   '/racun/poruke': typeof RacunPorukeRoute
   '/racun/profil': typeof RacunProfilRoute
   '/racun/spremljeno': typeof RacunSpremljenoRoute
@@ -276,6 +286,7 @@ export interface FileRouteTypes {
     | '/poslovi/$id'
     | '/prodavac/$userId'
     | '/racun/oglasi'
+    | '/racun/plaćanje-potvrda'
     | '/racun/poruke'
     | '/racun/profil'
     | '/racun/spremljeno'
@@ -303,6 +314,7 @@ export interface FileRouteTypes {
     | '/poslovi/$id'
     | '/prodavac/$userId'
     | '/racun/oglasi'
+    | '/racun/plaćanje-potvrda'
     | '/racun/poruke'
     | '/racun/profil'
     | '/racun/spremljeno'
@@ -331,6 +343,7 @@ export interface FileRouteTypes {
     | '/poslovi/$id'
     | '/prodavac/$userId'
     | '/racun/oglasi'
+    | '/racun/plaćanje-potvrda'
     | '/racun/poruke'
     | '/racun/profil'
     | '/racun/spremljeno'
@@ -502,6 +515,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RacunPorukeRouteImport
       parentRoute: typeof RacunRoute
     }
+    '/racun/plaćanje-potvrda': {
+      id: '/racun/plaćanje-potvrda'
+      path: '/plaćanje-potvrda'
+      fullPath: '/racun/plaćanje-potvrda'
+      preLoaderRoute: typeof RacunPlaChar263anjePotvrdaRouteImport
+      parentRoute: typeof RacunRoute
+    }
     '/racun/oglasi': {
       id: '/racun/oglasi'
       path: '/oglasi'
@@ -560,6 +580,7 @@ const PosloviRouteWithChildren =
 
 interface RacunRouteChildren {
   RacunOglasiRoute: typeof RacunOglasiRoute
+  RacunPlaChar263anjePotvrdaRoute: typeof RacunPlaChar263anjePotvrdaRoute
   RacunPorukeRoute: typeof RacunPorukeRoute
   RacunProfilRoute: typeof RacunProfilRoute
   RacunSpremljenoRoute: typeof RacunSpremljenoRoute
@@ -568,6 +589,7 @@ interface RacunRouteChildren {
 
 const RacunRouteChildren: RacunRouteChildren = {
   RacunOglasiRoute: RacunOglasiRoute,
+  RacunPlaChar263anjePotvrdaRoute: RacunPlaChar263anjePotvrdaRoute,
   RacunPorukeRoute: RacunPorukeRoute,
   RacunProfilRoute: RacunProfilRoute,
   RacunSpremljenoRoute: RacunSpremljenoRoute,
