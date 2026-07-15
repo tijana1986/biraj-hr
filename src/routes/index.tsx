@@ -101,7 +101,6 @@ function Hero() {
           </p>
         </div>
 
-        {/* Airbnb-style pill search */}
         <form
           action="/pretraga"
           method="get"
@@ -381,4 +380,3 @@ function Newsletter() {
     </section>
   );
 }
-

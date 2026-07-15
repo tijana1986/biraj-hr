@@ -25,7 +25,7 @@ function BrowsePage() {
           <Breadcrumbs items={[{ label: "Početna", to: "/" }, { label: "Katalog" }]} />
           <h1 className="mt-4 font-display text-4xl font-semibold md:text-5xl">Pregledajte cijeli katalog</h1>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            {CATEGORIES.length} glavnih kategorija, po 5 podkategorija (uključujući „Ostalo“) — pregledno i bez nepotrebnog šuma.
+            {CATEGORIES.length} glavnih kategorija, po 5 podkategorija (uključujući „Ostalo") — pregledno i bez nepotrebnog šuma.
           </p>
           <form action="/pretraga" method="get" className="relative mt-6 max-w-xl">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -87,4 +87,4 @@ function BrowsePage() {
       </section>
     </SiteShell>
   );
-
+}

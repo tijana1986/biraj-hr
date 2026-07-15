@@ -50,7 +50,7 @@ function Cjenik() {
                   <ul className="mt-5 space-y-2 text-sm">
                     <Item>Investitori / naručitelji posla objavljuju <strong>besplatno</strong></Item>
                     <Item>Izvođači (obrti i tvrtke) plaćaju <strong>{formatPriceDecimal(c.contactFee ?? 5)}</strong> za otključavanje kontakta</Item>
-                    <Item>Prvi izvođač koji uplati dobiva prioritetnu obavijest „možeš aplicirati prvi"</Item>
+                    <Item>Prvi izvođač koji uplati dobriva prioritetnu obavijest „možeš aplicirati prvi"</Item>
                     <Item>Ostali izvođači ne vide informaciju o prioritetu</Item>
                   </ul>
                   <div className="mt-6 rounded-xl border border-dashed border-[color:var(--gold)]/40 bg-[color:var(--gold)]/5 p-3 text-xs">
@@ -137,4 +137,3 @@ function Item({ children }: { children: React.ReactNode }) {
 function formatPriceDecimal(n: number) {
   return new Intl.NumberFormat("hr-HR", { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
 }
-
