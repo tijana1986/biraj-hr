@@ -13,6 +13,7 @@ import { Route as UvjetiRouteImport } from './routes/uvjeti'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RegistracijaRouteImport } from './routes/registracija'
 import { Route as RacunRouteImport } from './routes/racun'
+import { Route as ProvjeriEmailRouteImport } from './routes/provjeri-email'
 import { Route as PrivatnostRouteImport } from './routes/privatnost'
 import { Route as PrijavaRouteImport } from './routes/prijava'
 import { Route as PretragaRouteImport } from './routes/pretraga'
@@ -55,6 +56,11 @@ const RegistracijaRoute = RegistracijaRouteImport.update({
 const RacunRoute = RacunRouteImport.update({
   id: '/racun',
   path: '/racun',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProvjeriEmailRoute = ProvjeriEmailRouteImport.update({
+  id: '/provjeri-email',
+  path: '/provjeri-email',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivatnostRoute = PrivatnostRouteImport.update({
@@ -188,6 +194,7 @@ export interface FileRoutesByFullPath {
   '/pretraga': typeof PretragaRoute
   '/prijava': typeof PrijavaRoute
   '/privatnost': typeof PrivatnostRoute
+  '/provjeri-email': typeof ProvjeriEmailRoute
   '/racun': typeof RacunRouteWithChildren
   '/registracija': typeof RegistracijaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -217,6 +224,7 @@ export interface FileRoutesByTo {
   '/pretraga': typeof PretragaRoute
   '/prijava': typeof PrijavaRoute
   '/privatnost': typeof PrivatnostRoute
+  '/provjeri-email': typeof ProvjeriEmailRoute
   '/registracija': typeof RegistracijaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/uvjeti': typeof UvjetiRoute
@@ -246,6 +254,7 @@ export interface FileRoutesById {
   '/pretraga': typeof PretragaRoute
   '/prijava': typeof PrijavaRoute
   '/privatnost': typeof PrivatnostRoute
+  '/provjeri-email': typeof ProvjeriEmailRoute
   '/racun': typeof RacunRouteWithChildren
   '/registracija': typeof RegistracijaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -277,6 +286,7 @@ export interface FileRouteTypes {
     | '/pretraga'
     | '/prijava'
     | '/privatnost'
+    | '/provjeri-email'
     | '/racun'
     | '/registracija'
     | '/sitemap.xml'
@@ -306,6 +316,7 @@ export interface FileRouteTypes {
     | '/pretraga'
     | '/prijava'
     | '/privatnost'
+    | '/provjeri-email'
     | '/registracija'
     | '/sitemap.xml'
     | '/uvjeti'
@@ -334,6 +345,7 @@ export interface FileRouteTypes {
     | '/pretraga'
     | '/prijava'
     | '/privatnost'
+    | '/provjeri-email'
     | '/racun'
     | '/registracija'
     | '/sitemap.xml'
@@ -364,6 +376,7 @@ export interface RootRouteChildren {
   PretragaRoute: typeof PretragaRoute
   PrijavaRoute: typeof PrijavaRoute
   PrivatnostRoute: typeof PrivatnostRoute
+  ProvjeriEmailRoute: typeof ProvjeriEmailRoute
   RacunRoute: typeof RacunRouteWithChildren
   RegistracijaRoute: typeof RegistracijaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -401,6 +414,13 @@ declare module '@tanstack/react-router' {
       path: '/racun'
       fullPath: '/racun'
       preLoaderRoute: typeof RacunRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/provjeri-email': {
+      id: '/provjeri-email'
+      path: '/provjeri-email'
+      fullPath: '/provjeri-email'
+      preLoaderRoute: typeof ProvjeriEmailRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privatnost': {
@@ -622,6 +642,7 @@ const rootRouteChildren: RootRouteChildren = {
   PretragaRoute: PretragaRoute,
   PrijavaRoute: PrijavaRoute,
   PrivatnostRoute: PrivatnostRoute,
+  ProvjeriEmailRoute: ProvjeriEmailRoute,
   RacunRoute: RacunRouteWithChildren,
   RegistracijaRoute: RegistracijaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
