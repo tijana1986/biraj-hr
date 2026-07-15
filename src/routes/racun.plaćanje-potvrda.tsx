@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { Check, AlertCircle, Loader2 } from "lucide-react";
 import { SiteShell } from "@/components/site/SiteShell";
 import { createListing } from "@/lib/listings.functions";
+import { sendListingCreatedEmail, sendPaymentConfirmationEmail } from "@/lib/email-notifications";
 import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/racun/plaćanje-potvrda")({
@@ -28,6 +29,8 @@ function PaymentConfirmation() {
   const [status, setStatus] = useState<"processing" | "success" | "error">("processing");
   const [message, setMessage] = useState<string>("");
   const createListingFn = useServerFn(createListing);
+  const sendPaymentEmailFn = useServerFn(sendPaymentConfirmationEmail);
+  const sendListingEmailFn = useServerFn(sendListingCreatedEmail);
 
   useEffect(() => {
     const processPendingListing = async () => {
@@ -51,7 +54,7 @@ function PaymentConfirmation() {
         }
 
         // Create the listing
-        await createListingFn({
+        const createdListing = await createListingFn({
           data: {
             category_slug: listingData.category_slug,
             subcategory_slug: listingData.subcategory_slug,
@@ -67,6 +70,27 @@ function PaymentConfirmation() {
             },
           },
         });
+
+        // Send payment confirmation email
+        if (user?.email) {
+          const prices: Record<"standard" | "premium", number> = { standard: 9.99, premium: 19.99 };
+          await sendPaymentEmailFn({
+            email: user.email,
+            userName: user.user_metadata?.full_name || "Korisniče",
+            amount: prices[listingData.listingType] || 9.99,
+            listingTitle: listingData.title,
+            listingType: listingData.listingType,
+          });
+
+          // Send listing created email
+          await sendListingEmailFn({
+            email: user.email,
+            userName: user.user_metadata?.full_name || "Korisniče",
+            listingTitle: listingData.title,
+            listingId: createdListing?.id || "unknown",
+            listingType: listingData.listingType,
+          });
+        }
 
         // Clear sessionStorage
         sessionStorage.removeItem("pendingListing");
