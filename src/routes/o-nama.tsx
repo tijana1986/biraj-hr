@@ -80,4 +80,4 @@ function About() {
       </section>
     </SiteShell>
   );
-}</content>
+

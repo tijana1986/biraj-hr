@@ -137,4 +137,4 @@ function Item({ children }: { children: React.ReactNode }) {
 function formatPriceDecimal(n: number) {
   return new Intl.NumberFormat("hr-HR", { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
 }
-</content>
+

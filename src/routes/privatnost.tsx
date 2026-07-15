@@ -48,4 +48,4 @@ function S({ t, children }: { t: string; children: React.ReactNode }) {
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{children}</p>
     </section>
   );
-}</content>
+

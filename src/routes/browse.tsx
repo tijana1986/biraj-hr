@@ -87,4 +87,4 @@ function BrowsePage() {
       </section>
     </SiteShell>
   );
-}</content>
+

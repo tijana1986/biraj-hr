@@ -54,4 +54,4 @@ function Section({ n, title, children }: { n: string; title: string; children: R
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{children}</p>
     </section>
   );
-}</content>
+

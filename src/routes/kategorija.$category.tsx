@@ -94,4 +94,4 @@ function CategoryPage() {
       </section>
     </SiteShell>
   );
-}</content>
+

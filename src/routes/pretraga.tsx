@@ -47,4 +47,4 @@ function SearchPage() {
       </section>
     </SiteShell>
   );
-}</content>
+

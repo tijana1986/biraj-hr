@@ -99,4 +99,4 @@ function Register() {
       </section>
     </SiteShell>
   );
-}</content>
+

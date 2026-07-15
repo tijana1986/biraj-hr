@@ -381,4 +381,4 @@ function Newsletter() {
     </section>
   );
 }
-</content>
+

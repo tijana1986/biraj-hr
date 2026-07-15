@@ -95,4 +95,4 @@ function AccountLayout() {
       </section>
     </SiteShell>
   );
-}</content>
+

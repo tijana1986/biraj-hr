@@ -73,4 +73,4 @@ function FAQ() {
       </section>
     </SiteShell>
   );
-}</content>
+
