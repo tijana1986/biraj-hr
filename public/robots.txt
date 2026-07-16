@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /racun
+Disallow: /racun/
+Disallow: /prijava
+Disallow: /registracija
+Disallow: /objavi
+
+Sitemap: https://biraj.hr/sitemap.xml

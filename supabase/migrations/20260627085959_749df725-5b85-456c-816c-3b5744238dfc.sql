@@ -1,0 +1,2 @@
+DROP POLICY IF EXISTS "Signed-in users can read aggregated views" ON public.subcategory_views;
+CREATE POLICY "Users can read their own views" ON public.subcategory_views FOR SELECT TO authenticated USING (auth.uid() = user_id);
