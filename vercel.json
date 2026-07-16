@@ -1,0 +1,30 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "other",
+  "outputDirectory": "dist",
+  "env": {
+    "VITE_SUPABASE_PROJECT_ID": {
+      "description": "Supabase Project ID"
+    },
+    "VITE_SUPABASE_PUBLISHABLE_KEY": {
+      "description": "Supabase Publishable Key"
+    },
+    "VITE_SUPABASE_URL": {
+      "description": "Supabase URL"
+    },
+    "VITE_STRIPE_PUBLISHABLE_KEY": {
+      "description": "Stripe Publishable Key"
+    },
+    "STRIPE_SECRET_KEY": {
+      "description": "Stripe Secret Key"
+    },
+    "RESEND_API_KEY": {
+      "description": "Resend API Key"
+    },
+    "VITE_APP_URL": {
+      "description": "App URL (for email verification links)"
+    }
+  }
+}
