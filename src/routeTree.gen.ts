@@ -32,11 +32,15 @@ import { Route as RacunProfilRouteImport } from './routes/racun.profil'
 import { Route as RacunPorukeRouteImport } from './routes/racun.poruke'
 import { Route as RacunPlaChar263anjePotvrdaRouteImport } from './routes/racun.plaćanje-potvrda'
 import { Route as RacunOglasiRouteImport } from './routes/racun.oglasi'
+import { Route as RacunKycRouteImport } from './routes/racun.kyc'
 import { Route as ProdavacUserIdRouteImport } from './routes/prodavac.$userId'
 import { Route as PosloviIdRouteImport } from './routes/poslovi.$id'
 import { Route as OglasIdRouteImport } from './routes/oglas.$id'
 import { Route as KategorijaCategoryRouteImport } from './routes/kategorija.$category'
 import { Route as KategorijaCategorySubcategoryRouteImport } from './routes/kategorija.$category.$subcategory'
+import { Route as ApiOgSellerIdRouteImport } from './routes/api/og/seller.$id'
+import { Route as ApiOgListingIdRouteImport } from './routes/api/og/listing.$id'
+import { Route as ApiOgCategorySlugRouteImport } from './routes/api/og/category.$slug'
 
 const UvjetiRoute = UvjetiRouteImport.update({
   id: '/uvjeti',
@@ -154,6 +158,11 @@ const RacunOglasiRoute = RacunOglasiRouteImport.update({
   path: '/oglasi',
   getParentRoute: () => RacunRoute,
 } as any)
+const RacunKycRoute = RacunKycRouteImport.update({
+  id: '/kyc',
+  path: '/kyc',
+  getParentRoute: () => RacunRoute,
+} as any)
 const ProdavacUserIdRoute = ProdavacUserIdRouteImport.update({
   id: '/prodavac/$userId',
   path: '/prodavac/$userId',
@@ -180,6 +189,21 @@ const KategorijaCategorySubcategoryRoute =
     path: '/$subcategory',
     getParentRoute: () => KategorijaCategoryRoute,
   } as any)
+const ApiOgSellerIdRoute = ApiOgSellerIdRouteImport.update({
+  id: '/api/og/seller/$id',
+  path: '/api/og/seller/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOgListingIdRoute = ApiOgListingIdRouteImport.update({
+  id: '/api/og/listing/$id',
+  path: '/api/og/listing/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOgCategorySlugRoute = ApiOgCategorySlugRouteImport.update({
+  id: '/api/og/category/$slug',
+  path: '/api/og/category/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -203,6 +227,7 @@ export interface FileRoutesByFullPath {
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
   '/prodavac/$userId': typeof ProdavacUserIdRoute
+  '/racun/kyc': typeof RacunKycRoute
   '/racun/oglasi': typeof RacunOglasiRoute
   '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
   '/racun/poruke': typeof RacunPorukeRoute
@@ -210,6 +235,9 @@ export interface FileRoutesByFullPath {
   '/racun/spremljeno': typeof RacunSpremljenoRoute
   '/racun/': typeof RacunIndexRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
+  '/api/og/category/$slug': typeof ApiOgCategorySlugRoute
+  '/api/og/listing/$id': typeof ApiOgListingIdRoute
+  '/api/og/seller/$id': typeof ApiOgSellerIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -232,6 +260,7 @@ export interface FileRoutesByTo {
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
   '/prodavac/$userId': typeof ProdavacUserIdRoute
+  '/racun/kyc': typeof RacunKycRoute
   '/racun/oglasi': typeof RacunOglasiRoute
   '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
   '/racun/poruke': typeof RacunPorukeRoute
@@ -239,6 +268,9 @@ export interface FileRoutesByTo {
   '/racun/spremljeno': typeof RacunSpremljenoRoute
   '/racun': typeof RacunIndexRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
+  '/api/og/category/$slug': typeof ApiOgCategorySlugRoute
+  '/api/og/listing/$id': typeof ApiOgListingIdRoute
+  '/api/og/seller/$id': typeof ApiOgSellerIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -263,6 +295,7 @@ export interface FileRoutesById {
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
   '/prodavac/$userId': typeof ProdavacUserIdRoute
+  '/racun/kyc': typeof RacunKycRoute
   '/racun/oglasi': typeof RacunOglasiRoute
   '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
   '/racun/poruke': typeof RacunPorukeRoute
@@ -270,6 +303,9 @@ export interface FileRoutesById {
   '/racun/spremljeno': typeof RacunSpremljenoRoute
   '/racun/': typeof RacunIndexRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
+  '/api/og/category/$slug': typeof ApiOgCategorySlugRoute
+  '/api/og/listing/$id': typeof ApiOgListingIdRoute
+  '/api/og/seller/$id': typeof ApiOgSellerIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -295,6 +331,7 @@ export interface FileRouteTypes {
     | '/oglas/$id'
     | '/poslovi/$id'
     | '/prodavac/$userId'
+    | '/racun/kyc'
     | '/racun/oglasi'
     | '/racun/plaćanje-potvrda'
     | '/racun/poruke'
@@ -302,6 +339,9 @@ export interface FileRouteTypes {
     | '/racun/spremljeno'
     | '/racun/'
     | '/kategorija/$category/$subcategory'
+    | '/api/og/category/$slug'
+    | '/api/og/listing/$id'
+    | '/api/og/seller/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -324,6 +364,7 @@ export interface FileRouteTypes {
     | '/oglas/$id'
     | '/poslovi/$id'
     | '/prodavac/$userId'
+    | '/racun/kyc'
     | '/racun/oglasi'
     | '/racun/plaćanje-potvrda'
     | '/racun/poruke'
@@ -331,6 +372,9 @@ export interface FileRouteTypes {
     | '/racun/spremljeno'
     | '/racun'
     | '/kategorija/$category/$subcategory'
+    | '/api/og/category/$slug'
+    | '/api/og/listing/$id'
+    | '/api/og/seller/$id'
   id:
     | '__root__'
     | '/'
@@ -354,6 +398,7 @@ export interface FileRouteTypes {
     | '/oglas/$id'
     | '/poslovi/$id'
     | '/prodavac/$userId'
+    | '/racun/kyc'
     | '/racun/oglasi'
     | '/racun/plaćanje-potvrda'
     | '/racun/poruke'
@@ -361,6 +406,9 @@ export interface FileRouteTypes {
     | '/racun/spremljeno'
     | '/racun/'
     | '/kategorija/$category/$subcategory'
+    | '/api/og/category/$slug'
+    | '/api/og/listing/$id'
+    | '/api/og/seller/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -384,6 +432,9 @@ export interface RootRouteChildren {
   KategorijaCategoryRoute: typeof KategorijaCategoryRouteWithChildren
   OglasIdRoute: typeof OglasIdRoute
   ProdavacUserIdRoute: typeof ProdavacUserIdRoute
+  ApiOgCategorySlugRoute: typeof ApiOgCategorySlugRoute
+  ApiOgListingIdRoute: typeof ApiOgListingIdRoute
+  ApiOgSellerIdRoute: typeof ApiOgSellerIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -549,6 +600,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RacunOglasiRouteImport
       parentRoute: typeof RacunRoute
     }
+    '/racun/kyc': {
+      id: '/racun/kyc'
+      path: '/kyc'
+      fullPath: '/racun/kyc'
+      preLoaderRoute: typeof RacunKycRouteImport
+      parentRoute: typeof RacunRoute
+    }
     '/prodavac/$userId': {
       id: '/prodavac/$userId'
       path: '/prodavac/$userId'
@@ -584,6 +642,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KategorijaCategorySubcategoryRouteImport
       parentRoute: typeof KategorijaCategoryRoute
     }
+    '/api/og/seller/$id': {
+      id: '/api/og/seller/$id'
+      path: '/api/og/seller/$id'
+      fullPath: '/api/og/seller/$id'
+      preLoaderRoute: typeof ApiOgSellerIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/og/listing/$id': {
+      id: '/api/og/listing/$id'
+      path: '/api/og/listing/$id'
+      fullPath: '/api/og/listing/$id'
+      preLoaderRoute: typeof ApiOgListingIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/og/category/$slug': {
+      id: '/api/og/category/$slug'
+      path: '/api/og/category/$slug'
+      fullPath: '/api/og/category/$slug'
+      preLoaderRoute: typeof ApiOgCategorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -599,6 +678,7 @@ const PosloviRouteWithChildren =
   PosloviRoute._addFileChildren(PosloviRouteChildren)
 
 interface RacunRouteChildren {
+  RacunKycRoute: typeof RacunKycRoute
   RacunOglasiRoute: typeof RacunOglasiRoute
   RacunPlaChar263anjePotvrdaRoute: typeof RacunPlaChar263anjePotvrdaRoute
   RacunPorukeRoute: typeof RacunPorukeRoute
@@ -608,6 +688,7 @@ interface RacunRouteChildren {
 }
 
 const RacunRouteChildren: RacunRouteChildren = {
+  RacunKycRoute: RacunKycRoute,
   RacunOglasiRoute: RacunOglasiRoute,
   RacunPlaChar263anjePotvrdaRoute: RacunPlaChar263anjePotvrdaRoute,
   RacunPorukeRoute: RacunPorukeRoute,
@@ -650,6 +731,9 @@ const rootRouteChildren: RootRouteChildren = {
   KategorijaCategoryRoute: KategorijaCategoryRouteWithChildren,
   OglasIdRoute: OglasIdRoute,
   ProdavacUserIdRoute: ProdavacUserIdRoute,
+  ApiOgCategorySlugRoute: ApiOgCategorySlugRoute,
+  ApiOgListingIdRoute: ApiOgListingIdRoute,
+  ApiOgSellerIdRoute: ApiOgSellerIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
