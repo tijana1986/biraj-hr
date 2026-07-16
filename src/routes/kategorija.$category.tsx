@@ -16,6 +16,11 @@ export const Route = createFileRoute("/kategorija/$category")({
       { name: "description", content: `${loaderData?.cat.tagline}. Pregledajte sve oglase u kategoriji ${loaderData?.cat.name}.` },
       { property: "og:title", content: `${loaderData?.cat.name} — Biraj.HR` },
       { property: "og:description", content: loaderData?.cat.tagline ?? "" },
+      { property: "og:image", content: `/api/og/category/${loaderData?.cat.slug}` ?? "" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "twitter:image", content: `/api/og/category/${loaderData?.cat.slug}` ?? "" },
+      { property: "twitter:card", content: "summary_large_image" },
     ],
   }),
   notFoundComponent: () => (

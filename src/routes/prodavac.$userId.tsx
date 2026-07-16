@@ -23,6 +23,12 @@ export const Route = createFileRoute("/prodavac/$userId")({
       { title: `${loaderData?.seller.full_name ?? "Prodavač"} — Profil prodavača | Biraj.HR` },
       { name: "description", content: `Pregledajte oglase prodavača ${loaderData?.seller.full_name ?? ""} na Biraj.HR.` },
       { property: "og:title", content: `${loaderData?.seller.full_name ?? "Prodavač"} — Biraj.HR` },
+      { property: "og:description", content: `Pregledajte oglase prodavača ${loaderData?.seller.full_name ?? ""} na Biraj.HR.` },
+      { property: "og:image", content: `/api/og/seller/${loaderData?.seller.id}` ?? "" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "twitter:image", content: `/api/og/seller/${loaderData?.seller.id}` ?? "" },
+      { property: "twitter:card", content: "summary_large_image" },
     ],
     scripts: loaderData
       ? [

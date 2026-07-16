@@ -29,8 +29,11 @@ export const Route = createFileRoute("/oglas/$id")({
       { name: "description", content: loaderData?.listing.description.slice(0, 155) ?? "" },
       { property: "og:title", content: loaderData?.listing.title ?? "" },
       { property: "og:description", content: loaderData?.listing.description.slice(0, 155) ?? "" },
-      { property: "og:image", content: resolveImages(loaderData?.listing.images)[0] ?? "" },
-      { property: "twitter:image", content: resolveImages(loaderData?.listing.images)[0] ?? "" },
+      { property: "og:image", content: `/api/og/listing/${loaderData?.listing.id}` ?? "" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "twitter:image", content: `/api/og/listing/${loaderData?.listing.id}` ?? "" },
+      { property: "twitter:card", content: "summary_large_image" },
     ],
     scripts: loaderData
       ? [
