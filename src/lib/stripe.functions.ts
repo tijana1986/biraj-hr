@@ -1,4 +1,4 @@
-import { server$ } from "@tanstack/react-start";
+import { server$ } from "@tanstack/react-start/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {

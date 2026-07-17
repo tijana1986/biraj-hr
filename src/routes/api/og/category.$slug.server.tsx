@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { generateCategoryOGImage } from "@/lib/og-image.functions";
 import { CATEGORIES } from "@/lib/mock/data";
 
-export const Route = createFileRoute("/api/og/category/$slug")({
+export const Route = createFileRoute("/api/og/category/$slug/server")({
   async beforeLoad({ params }) {
     try {
       // Find category from mock data
