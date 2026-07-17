@@ -1,10 +1,10 @@
-import { server$ } from "@tanstack/react-start/server";
+import { createServerFn } from "@tanstack/react-start/server";
 import { Resend } from "resend";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const sendVerificationEmail = server$(async (props: {
+export const sendVerificationEmail = createServerFn({ method: "POST" }).handler(async (props: {
   email: string;
   verificationToken: string;
   userName?: string;
@@ -60,12 +60,12 @@ export const sendVerificationEmail = server$(async (props: {
   }
 });
 
-export const verifyEmail = server$(async (props: {
+export const verifyEmail = createServerFn({ method: "POST" }).handler(async (props: {
   token: string;
   userId: string;
 }) => {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("email_verifications")
       .select("*")
       .eq("token", props.token)
@@ -81,7 +81,7 @@ export const verifyEmail = server$(async (props: {
     }
 
     // Update email_verifications table
-    const { error: updateError } = await supabase
+    const { error: updateError } = await supabaseAdmin
       .from("email_verifications")
       .update({ verified_at: new Date().toISOString() })
       .eq("id", data.id);
@@ -89,7 +89,7 @@ export const verifyEmail = server$(async (props: {
     if (updateError) throw updateError;
 
     // Update user profile to mark email as verified
-    const { error: profileError } = await supabase
+    const { error: profileError } = await supabaseAdmin
       .from("profiles")
       .update({ email_verified: true })
       .eq("id", props.userId);
@@ -105,13 +105,13 @@ export const verifyEmail = server$(async (props: {
   }
 });
 
-export const resendVerificationEmail = server$(async (props: {
+export const resendVerificationEmail = createServerFn({ method: "POST" }).handler(async (props: {
   userId: string;
   email: string;
 }) => {
   try {
     // Check if already verified
-    const { data: profile } = await supabase
+    const { data: profile } = await supabaseAdmin
       .from("profiles")
       .select("email_verified")
       .eq("id", props.userId)
@@ -125,7 +125,7 @@ export const resendVerificationEmail = server$(async (props: {
     const token = crypto.getRandomValues(new Uint8Array(32)).join(":");
 
     // Update or create email verification record
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from("email_verifications")
       .upsert(
         {
@@ -138,10 +138,28 @@ export const resendVerificationEmail = server$(async (props: {
 
     if (error) throw error;
 
-    // Send email (placeholder)
-    await sendVerificationEmail({
-      email: props.email,
-      verificationToken: token,
+    // Send verification email directly
+    const verificationUrl = `${process.env.VITE_APP_URL || "https://biraj.hr"}/provjeri-email?token=${token}`;
+    await resend.emails.send({
+      from: "noreply@biraj.hr",
+      to: props.email,
+      subject: "Potvrdi svoj e-mail na Biraj.HR",
+      html: `
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: linear-gradient(135deg, #1a2647 0%, #2d3e5f 100%); padding: 40px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">Biraj.HR</h1>
+          </div>
+          <div style="padding: 40px; background: #f9fafb;">
+            <p style="color: #1f2937; font-size: 16px; margin-bottom: 24px;">Pozdrav!</p>
+            <p style="color: #1f2937; font-size: 14px; line-height: 1.6; margin-bottom: 24px;">
+              Hvala na registraciji na Biraj.HR. Molimo potvrdi svoj e-mail adresu kako bi završio registraciju i mogao početi s objavljivanjem oglasa.
+            </p>
+            <a href="${verificationUrl}" style="display: inline-block; background: #d4a574; color: #1a2647; padding: 12px 32px; text-decoration: none; border-radius: 6px; font-weight: 600; margin: 24px 0;">
+              Potvrdi e-mail
+            </a>
+          </div>
+        </div>
+      `,
     });
 
     return {

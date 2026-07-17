@@ -38,9 +38,6 @@ import { Route as PosloviIdRouteImport } from './routes/poslovi.$id'
 import { Route as OglasIdRouteImport } from './routes/oglas.$id'
 import { Route as KategorijaCategoryRouteImport } from './routes/kategorija.$category'
 import { Route as KategorijaCategorySubcategoryRouteImport } from './routes/kategorija.$category.$subcategory'
-import { Route as ApiOgSellerIdServerRouteImport } from './routes/api/og/seller.$id.server'
-import { Route as ApiOgListingIdServerRouteImport } from './routes/api/og/listing.$id.server'
-import { Route as ApiOgCategorySlugServerRouteImport } from './routes/api/og/category.$slug.server'
 
 const UvjetiRoute = UvjetiRouteImport.update({
   id: '/uvjeti',
@@ -189,21 +186,6 @@ const KategorijaCategorySubcategoryRoute =
     path: '/$subcategory',
     getParentRoute: () => KategorijaCategoryRoute,
   } as any)
-const ApiOgSellerIdServerRoute = ApiOgSellerIdServerRouteImport.update({
-  id: '/api/og/seller/$id/server',
-  path: '/api/og/seller/$id/server',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiOgListingIdServerRoute = ApiOgListingIdServerRouteImport.update({
-  id: '/api/og/listing/$id/server',
-  path: '/api/og/listing/$id/server',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiOgCategorySlugServerRoute = ApiOgCategorySlugServerRouteImport.update({
-  id: '/api/og/category/$slug/server',
-  path: '/api/og/category/$slug/server',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -235,9 +217,6 @@ export interface FileRoutesByFullPath {
   '/racun/spremljeno': typeof RacunSpremljenoRoute
   '/racun/': typeof RacunIndexRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
-  '/api/og/category/$slug/server': typeof ApiOgCategorySlugServerRoute
-  '/api/og/listing/$id/server': typeof ApiOgListingIdServerRoute
-  '/api/og/seller/$id/server': typeof ApiOgSellerIdServerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -268,9 +247,6 @@ export interface FileRoutesByTo {
   '/racun/spremljeno': typeof RacunSpremljenoRoute
   '/racun': typeof RacunIndexRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
-  '/api/og/category/$slug/server': typeof ApiOgCategorySlugServerRoute
-  '/api/og/listing/$id/server': typeof ApiOgListingIdServerRoute
-  '/api/og/seller/$id/server': typeof ApiOgSellerIdServerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -303,9 +279,6 @@ export interface FileRoutesById {
   '/racun/spremljeno': typeof RacunSpremljenoRoute
   '/racun/': typeof RacunIndexRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
-  '/api/og/category/$slug/server': typeof ApiOgCategorySlugServerRoute
-  '/api/og/listing/$id/server': typeof ApiOgListingIdServerRoute
-  '/api/og/seller/$id/server': typeof ApiOgSellerIdServerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -339,9 +312,6 @@ export interface FileRouteTypes {
     | '/racun/spremljeno'
     | '/racun/'
     | '/kategorija/$category/$subcategory'
-    | '/api/og/category/$slug/server'
-    | '/api/og/listing/$id/server'
-    | '/api/og/seller/$id/server'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -372,9 +342,6 @@ export interface FileRouteTypes {
     | '/racun/spremljeno'
     | '/racun'
     | '/kategorija/$category/$subcategory'
-    | '/api/og/category/$slug/server'
-    | '/api/og/listing/$id/server'
-    | '/api/og/seller/$id/server'
   id:
     | '__root__'
     | '/'
@@ -406,9 +373,6 @@ export interface FileRouteTypes {
     | '/racun/spremljeno'
     | '/racun/'
     | '/kategorija/$category/$subcategory'
-    | '/api/og/category/$slug/server'
-    | '/api/og/listing/$id/server'
-    | '/api/og/seller/$id/server'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -432,9 +396,6 @@ export interface RootRouteChildren {
   KategorijaCategoryRoute: typeof KategorijaCategoryRouteWithChildren
   OglasIdRoute: typeof OglasIdRoute
   ProdavacUserIdRoute: typeof ProdavacUserIdRoute
-  ApiOgCategorySlugServerRoute: typeof ApiOgCategorySlugServerRoute
-  ApiOgListingIdServerRoute: typeof ApiOgListingIdServerRoute
-  ApiOgSellerIdServerRoute: typeof ApiOgSellerIdServerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -642,27 +603,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KategorijaCategorySubcategoryRouteImport
       parentRoute: typeof KategorijaCategoryRoute
     }
-    '/api/og/seller/$id/server': {
-      id: '/api/og/seller/$id/server'
-      path: '/api/og/seller/$id/server'
-      fullPath: '/api/og/seller/$id/server'
-      preLoaderRoute: typeof ApiOgSellerIdServerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/og/listing/$id/server': {
-      id: '/api/og/listing/$id/server'
-      path: '/api/og/listing/$id/server'
-      fullPath: '/api/og/listing/$id/server'
-      preLoaderRoute: typeof ApiOgListingIdServerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/og/category/$slug/server': {
-      id: '/api/og/category/$slug/server'
-      path: '/api/og/category/$slug/server'
-      fullPath: '/api/og/category/$slug/server'
-      preLoaderRoute: typeof ApiOgCategorySlugServerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -731,9 +671,6 @@ const rootRouteChildren: RootRouteChildren = {
   KategorijaCategoryRoute: KategorijaCategoryRouteWithChildren,
   OglasIdRoute: OglasIdRoute,
   ProdavacUserIdRoute: ProdavacUserIdRoute,
-  ApiOgCategorySlugServerRoute: ApiOgCategorySlugServerRoute,
-  ApiOgListingIdServerRoute: ApiOgListingIdServerRoute,
-  ApiOgSellerIdServerRoute: ApiOgSellerIdServerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
