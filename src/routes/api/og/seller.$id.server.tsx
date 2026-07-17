@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { generateSellerOGImage } from "@/lib/og-image.functions";
-import { supabase } from "@/integrations/supabase/client.server";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 export const Route = createFileRoute("/api/og/seller/$id")({
   async beforeLoad({ params }) {
     try {
       // Fetch seller details
-      const { data: profile } = await supabase
+      const { data: profile } = await supabaseAdmin
         .from("profiles")
         .select("full_name, avg_rating, trust_score")
         .eq("id", params.id)

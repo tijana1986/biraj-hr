@@ -1,4 +1,4 @@
-import { server$ } from "@tanstack/react-start";
+import { server$ } from "@tanstack/react-start/server";
 import sharp from "sharp";
 
 interface OGImageOptions {

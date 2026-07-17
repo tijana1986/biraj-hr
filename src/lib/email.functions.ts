@@ -1,6 +1,6 @@
-import { server$ } from "@tanstack/react-start";
+import { server$ } from "@tanstack/react-start/server";
 import { Resend } from "resend";
-import { supabase } from "@/integrations/supabase/client.server";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
