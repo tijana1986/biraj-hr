@@ -117,10 +117,12 @@ function PostListing() {
     try {
       const prices: Record<"standard" | "premium", number> = { standard: 9.99, premium: 19.99 };
       const session = await checkout({
-        listingType,
-        categorySlug: form.category,
-        userEmail: user?.email || "user@biraj.hr",
-        listingTitle: form.title,
+        data: {
+          listingType,
+          categorySlug: form.category,
+          userEmail: user?.email || "user@biraj.hr",
+          listingTitle: form.title,
+        },
       });
       if (session.url) {
         setPaymentUrl(session.url);

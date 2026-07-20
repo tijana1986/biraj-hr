@@ -1,7 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { supabase } from "@/integrations/supabase/client.server";
 
 // KYC Schemas
 const kycSubmissionSchema = z.object({
@@ -27,7 +26,7 @@ export const submitKYCData = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     try {
       // Check if already submitted
-      const { data: existing } = await supabase
+      const { data: existing } = await context.supabase
         .from("kyc_submissions")
         .select("id, status")
         .eq("user_id", context.userId)
@@ -42,7 +41,7 @@ export const submitKYCData = createServerFn({ method: "POST" })
       }
 
       // Create KYC submission
-      const { data: submission, error } = await supabase
+      const { data: submission, error } = await context.supabase
         .from("kyc_submissions")
         .insert({
           user_id: context.userId,
@@ -76,7 +75,7 @@ export const getKYCStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await context.supabase
         .from("kyc_submissions")
         .select("id, status, created_at, verified_at, rejection_reason")
         .eq("user_id", context.userId)
@@ -103,7 +102,7 @@ export const uploadIDDocument = createServerFn({ method: "POST" })
   .inputValidator((input) => idUploadSchema.parse(input))
   .handler(async ({ data, context }) => {
     try {
-      const { error } = await supabase
+      const { error } = await context.supabase
         .from("kyc_id_documents")
         .insert({
           user_id: context.userId,
@@ -124,7 +123,7 @@ export const calculateTrustScore = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     try {
-      const { data: profile } = await supabase
+      const { data: profile } = await context.supabase
         .from("profiles")
         .select("email_verified, kyc_verified, reviews_count, avg_rating, listings_created, violation_count")
         .eq("id", context.userId)

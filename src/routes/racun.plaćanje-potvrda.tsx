@@ -75,20 +75,24 @@ function PaymentConfirmation() {
         if (user?.email) {
           const prices: Record<"standard" | "premium", number> = { standard: 9.99, premium: 19.99 };
           await sendPaymentEmailFn({
-            email: user.email,
-            userName: user.user_metadata?.full_name || "Korisniče",
-            amount: prices[listingData.listingType] || 9.99,
-            listingTitle: listingData.title,
-            listingType: listingData.listingType,
+            data: {
+              email: user.email,
+              userName: user.user_metadata?.full_name || "Korisniče",
+              amount: prices[listingData.listingType] || 9.99,
+              listingTitle: listingData.title,
+              listingType: listingData.listingType,
+            },
           });
 
           // Send listing created email
           await sendListingEmailFn({
-            email: user.email,
-            userName: user.user_metadata?.full_name || "Korisniče",
-            listingTitle: listingData.title,
-            listingId: createdListing?.id || "unknown",
-            listingType: listingData.listingType,
+            data: {
+              email: user.email,
+              userName: user.user_metadata?.full_name || "Korisniče",
+              listingTitle: listingData.title,
+              listingId: createdListing?.id || "unknown",
+              listingType: listingData.listingType,
+            },
           });
         }
 
