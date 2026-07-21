@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UvjetiKoristenjaRouteImport } from './routes/uvjeti-koristenja'
 import { Route as UvjetiRouteImport } from './routes/uvjeti'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RegistracijaRouteImport } from './routes/registracija'
@@ -18,6 +19,8 @@ import { Route as PrivatnostRouteImport } from './routes/privatnost'
 import { Route as PrijavaRouteImport } from './routes/prijava'
 import { Route as PretragaRouteImport } from './routes/pretraga'
 import { Route as PosloviRouteImport } from './routes/poslovi'
+import { Route as PolitikaPrivatnostiRouteImport } from './routes/politika-privatnosti'
+import { Route as PolitikaKolacicaRouteImport } from './routes/politika-kolacica'
 import { Route as ObjaviRouteImport } from './routes/objavi'
 import { Route as ONamaRouteImport } from './routes/o-nama'
 import { Route as ModeratorRouteImport } from './routes/moderator'
@@ -39,6 +42,11 @@ import { Route as OglasIdRouteImport } from './routes/oglas.$id'
 import { Route as KategorijaCategoryRouteImport } from './routes/kategorija.$category'
 import { Route as KategorijaCategorySubcategoryRouteImport } from './routes/kategorija.$category.$subcategory'
 
+const UvjetiKoristenjaRoute = UvjetiKoristenjaRouteImport.update({
+  id: '/uvjeti-koristenja',
+  path: '/uvjeti-koristenja',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UvjetiRoute = UvjetiRouteImport.update({
   id: '/uvjeti',
   path: '/uvjeti',
@@ -82,6 +90,16 @@ const PretragaRoute = PretragaRouteImport.update({
 const PosloviRoute = PosloviRouteImport.update({
   id: '/poslovi',
   path: '/poslovi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PolitikaPrivatnostiRoute = PolitikaPrivatnostiRouteImport.update({
+  id: '/politika-privatnosti',
+  path: '/politika-privatnosti',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PolitikaKolacicaRoute = PolitikaKolacicaRouteImport.update({
+  id: '/politika-kolacica',
+  path: '/politika-kolacica',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ObjaviRoute = ObjaviRouteImport.update({
@@ -196,6 +214,8 @@ export interface FileRoutesByFullPath {
   '/moderator': typeof ModeratorRoute
   '/o-nama': typeof ONamaRoute
   '/objavi': typeof ObjaviRoute
+  '/politika-kolacica': typeof PolitikaKolacicaRoute
+  '/politika-privatnosti': typeof PolitikaPrivatnostiRoute
   '/poslovi': typeof PosloviRouteWithChildren
   '/pretraga': typeof PretragaRoute
   '/prijava': typeof PrijavaRoute
@@ -205,6 +225,7 @@ export interface FileRoutesByFullPath {
   '/registracija': typeof RegistracijaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/uvjeti': typeof UvjetiRoute
+  '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
@@ -227,6 +248,8 @@ export interface FileRoutesByTo {
   '/moderator': typeof ModeratorRoute
   '/o-nama': typeof ONamaRoute
   '/objavi': typeof ObjaviRoute
+  '/politika-kolacica': typeof PolitikaKolacicaRoute
+  '/politika-privatnosti': typeof PolitikaPrivatnostiRoute
   '/poslovi': typeof PosloviRouteWithChildren
   '/pretraga': typeof PretragaRoute
   '/prijava': typeof PrijavaRoute
@@ -235,6 +258,7 @@ export interface FileRoutesByTo {
   '/registracija': typeof RegistracijaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/uvjeti': typeof UvjetiRoute
+  '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
@@ -258,6 +282,8 @@ export interface FileRoutesById {
   '/moderator': typeof ModeratorRoute
   '/o-nama': typeof ONamaRoute
   '/objavi': typeof ObjaviRoute
+  '/politika-kolacica': typeof PolitikaKolacicaRoute
+  '/politika-privatnosti': typeof PolitikaPrivatnostiRoute
   '/poslovi': typeof PosloviRouteWithChildren
   '/pretraga': typeof PretragaRoute
   '/prijava': typeof PrijavaRoute
@@ -267,6 +293,7 @@ export interface FileRoutesById {
   '/registracija': typeof RegistracijaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/uvjeti': typeof UvjetiRoute
+  '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
@@ -291,6 +318,8 @@ export interface FileRouteTypes {
     | '/moderator'
     | '/o-nama'
     | '/objavi'
+    | '/politika-kolacica'
+    | '/politika-privatnosti'
     | '/poslovi'
     | '/pretraga'
     | '/prijava'
@@ -300,6 +329,7 @@ export interface FileRouteTypes {
     | '/registracija'
     | '/sitemap.xml'
     | '/uvjeti'
+    | '/uvjeti-koristenja'
     | '/kategorija/$category'
     | '/oglas/$id'
     | '/poslovi/$id'
@@ -322,6 +352,8 @@ export interface FileRouteTypes {
     | '/moderator'
     | '/o-nama'
     | '/objavi'
+    | '/politika-kolacica'
+    | '/politika-privatnosti'
     | '/poslovi'
     | '/pretraga'
     | '/prijava'
@@ -330,6 +362,7 @@ export interface FileRouteTypes {
     | '/registracija'
     | '/sitemap.xml'
     | '/uvjeti'
+    | '/uvjeti-koristenja'
     | '/kategorija/$category'
     | '/oglas/$id'
     | '/poslovi/$id'
@@ -352,6 +385,8 @@ export interface FileRouteTypes {
     | '/moderator'
     | '/o-nama'
     | '/objavi'
+    | '/politika-kolacica'
+    | '/politika-privatnosti'
     | '/poslovi'
     | '/pretraga'
     | '/prijava'
@@ -361,6 +396,7 @@ export interface FileRouteTypes {
     | '/registracija'
     | '/sitemap.xml'
     | '/uvjeti'
+    | '/uvjeti-koristenja'
     | '/kategorija/$category'
     | '/oglas/$id'
     | '/poslovi/$id'
@@ -384,6 +420,8 @@ export interface RootRouteChildren {
   ModeratorRoute: typeof ModeratorRoute
   ONamaRoute: typeof ONamaRoute
   ObjaviRoute: typeof ObjaviRoute
+  PolitikaKolacicaRoute: typeof PolitikaKolacicaRoute
+  PolitikaPrivatnostiRoute: typeof PolitikaPrivatnostiRoute
   PosloviRoute: typeof PosloviRouteWithChildren
   PretragaRoute: typeof PretragaRoute
   PrijavaRoute: typeof PrijavaRoute
@@ -393,6 +431,7 @@ export interface RootRouteChildren {
   RegistracijaRoute: typeof RegistracijaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UvjetiRoute: typeof UvjetiRoute
+  UvjetiKoristenjaRoute: typeof UvjetiKoristenjaRoute
   KategorijaCategoryRoute: typeof KategorijaCategoryRouteWithChildren
   OglasIdRoute: typeof OglasIdRoute
   ProdavacUserIdRoute: typeof ProdavacUserIdRoute
@@ -400,6 +439,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/uvjeti-koristenja': {
+      id: '/uvjeti-koristenja'
+      path: '/uvjeti-koristenja'
+      fullPath: '/uvjeti-koristenja'
+      preLoaderRoute: typeof UvjetiKoristenjaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/uvjeti': {
       id: '/uvjeti'
       path: '/uvjeti'
@@ -461,6 +507,20 @@ declare module '@tanstack/react-router' {
       path: '/poslovi'
       fullPath: '/poslovi'
       preLoaderRoute: typeof PosloviRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politika-privatnosti': {
+      id: '/politika-privatnosti'
+      path: '/politika-privatnosti'
+      fullPath: '/politika-privatnosti'
+      preLoaderRoute: typeof PolitikaPrivatnostiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politika-kolacica': {
+      id: '/politika-kolacica'
+      path: '/politika-kolacica'
+      fullPath: '/politika-kolacica'
+      preLoaderRoute: typeof PolitikaKolacicaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/objavi': {
@@ -659,6 +719,8 @@ const rootRouteChildren: RootRouteChildren = {
   ModeratorRoute: ModeratorRoute,
   ONamaRoute: ONamaRoute,
   ObjaviRoute: ObjaviRoute,
+  PolitikaKolacicaRoute: PolitikaKolacicaRoute,
+  PolitikaPrivatnostiRoute: PolitikaPrivatnostiRoute,
   PosloviRoute: PosloviRouteWithChildren,
   PretragaRoute: PretragaRoute,
   PrijavaRoute: PrijavaRoute,
@@ -668,6 +730,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegistracijaRoute: RegistracijaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   UvjetiRoute: UvjetiRoute,
+  UvjetiKoristenjaRoute: UvjetiKoristenjaRoute,
   KategorijaCategoryRoute: KategorijaCategoryRouteWithChildren,
   OglasIdRoute: OglasIdRoute,
   ProdavacUserIdRoute: ProdavacUserIdRoute,
