@@ -23,12 +23,12 @@ function PrivacyPolicy() {
         </div>
 
         {/* Intro */}
-        <section className="rounded-xl border border-border bg-card p-6">
+        <section className="rounded-lg border border-border/50 bg-background p-6">
           <div className="flex gap-3">
-            <Shield className="h-5 w-5 shrink-0 text-[color:var(--gold-deep)]" />
-            <div className="space-y-2 text-sm">
-              <p className="font-medium">Važno:</p>
-              <p>Vaša privatnost je naša prioriteta. Ova politika objašnjava kako prikupljamo, koristimo, čuvamo i štitimo vaše osobne podatke u skladu s Uredbom (EU) 2016/679 (GDPR) i Zakonom o zaštiti podataka Republike Hrvatske.</p>
+            <Shield className="h-4 w-4 shrink-0 text-muted-foreground mt-0.5" />
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Važno:</p>
+              <p className="text-sm text-muted-foreground">Vaša privatnost je naša prioriteta. Ova politika objašnjava kako prikupljamo, koristimo, čuvamo i štitimo vaše osobne podatke u skladu s Uredbom (EU) 2016/679 (GDPR) i Zakonom o zaštiti podataka Republike Hrvatske.</p>
             </div>
           </div>
         </section>
@@ -36,7 +36,7 @@ function PrivacyPolicy() {
         {/* 1. Voditelj podataka */}
         <section className="space-y-4">
           <h2 className="flex items-center gap-2 font-display text-2xl font-semibold">
-            <Building2 className="h-6 w-6 text-[color:var(--gold-deep)]" />
+            <Building2 className="h-5 w-5 text-muted-foreground" />
             1. Voditelj podataka
           </h2>
           <div className="space-y-3 rounded-lg border border-border bg-background p-4 text-sm">
@@ -61,7 +61,7 @@ function PrivacyPolicy() {
         {/* 2. Koje podatke prikupljamo */}
         <section className="space-y-4">
           <h2 className="flex items-center gap-2 font-display text-2xl font-semibold">
-            <Eye className="h-6 w-6 text-[color:var(--gold-deep)]" />
+            <Eye className="h-5 w-5 text-muted-foreground" />
             2. Prikupljanje podataka
           </h2>
           <p className="text-sm text-muted-foreground">Prikupljamo podatke koje nam proslijedite ili koje nastanu korištenjem naše platforme:</p>
@@ -93,25 +93,25 @@ function PrivacyPolicy() {
         {/* 3. Pravna osnova */}
         <section className="space-y-4">
           <h2 className="flex items-center gap-2 font-display text-2xl font-semibold">
-            <FileText className="h-6 w-6 text-[color:var(--gold-deep)]" />
+            <FileText className="h-5 w-5 text-muted-foreground" />
             3. Pravna osnova za obradu podataka
           </h2>
           <p className="text-sm text-muted-foreground">Obradu podataka temeljimo na sljedećim pravnim osnovama prema GDPR članu 6:</p>
 
           <div className="space-y-3">
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium text-sm mb-2">Ugovor (Član 6(1)(b) GDPR):</p>
               <p className="text-sm text-muted-foreground">Podaci potrebni za izvršenje ugovora (registracija, oglašavanje, plaćanja, dostava računa).</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium text-sm mb-2">Pravni naziv (Član 6(1)(c) GDPR):</p>
               <p className="text-sm text-muted-foreground">Skladištenje dokaza o transakcijama, izdavanje računa (Zakon o PDV-u, Opći porezni zakon).</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium text-sm mb-2">Legitimni interes (Član 6(1)(f) GDPR):</p>
               <p className="text-sm text-muted-foreground">Sprječavanje prijevare, sigurnost sustava, poboljšanja servisa, analitika.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium text-sm mb-2">Pristanak (Član 6(1)(a) GDPR):</p>
               <p className="text-sm text-muted-foreground">Verifikacija identiteta, dodatni marketing materijali (samo nakon eksplicitnog pristanka).</p>
             </div>
@@ -121,32 +121,32 @@ function PrivacyPolicy() {
         {/* 4. Kako koristimo podatke */}
         <section className="space-y-4">
           <h2 className="flex items-center gap-2 font-display text-2xl font-semibold">
-            <Lock className="h-6 w-6 text-[color:var(--gold-deep)]" />
+            <Lock className="h-5 w-5 text-muted-foreground" />
             4. Namjena obrade podataka
           </h2>
 
           <div className="space-y-3 text-sm">
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Pružanje usluga:</p>
               <p className="text-muted-foreground">Registracija, kreiranja profila, objavljivanja oglasa, uređivanja oglednog kataloga.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Plaćanja i naplata:</p>
               <p className="text-muted-foreground">Obrada plaćanja preko Stripe, izdavanje računa, upravljanje transakcijama.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Sigurnost i zaštita od prijevare:</p>
               <p className="text-muted-foreground">Detekcija neobičnih aktivnosti, sprječavanje zlouporabe, compliance s regulativom.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Komunikacija:</p>
               <p className="text-muted-foreground">Odgovori na upite, obavijesti o statusu računa, verifikacijski e-mailovi.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Poboljšanje servisa:</p>
               <p className="text-muted-foreground">Analiza korištenja, razvoj novih funkcionalnosti, optimizacija korisničkog doživljaja.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Compliance i zakonski obaveze:</p>
               <p className="text-muted-foreground">Zadovoljavanje zakonskih obveza, sprječavanje pranja novca (AML), KYC verifikacija.</p>
             </div>
@@ -160,23 +160,23 @@ function PrivacyPolicy() {
           <p className="text-sm text-muted-foreground">Vaše podatke dijelimo samo s:</p>
 
           <div className="space-y-3 text-sm">
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Stripe (američki procesor plaćanja):</p>
               <p className="text-muted-foreground">Obrada kreditnih kartica i plaćanja. Stripe podaci se obrađuju u skladu s njihovom <a href="https://stripe.com/privacy" className="font-medium text-[color:var(--gold-deep)] hover:underline">politikom privatnosti</a>.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Resend (usluga e-mailiranja):</p>
               <p className="text-muted-foreground">Slanje verifikacijskih e-mailova, obavijesti o oglasima, potvrde plaćanja.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Supabase (baza podataka):</p>
               <p className="text-muted-foreground">Hosting i skladištenje podataka. Supabase koristi infrastrukturu s razumnom zaštitom podataka.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Vercel (hosting platform):</p>
               <p className="text-muted-foreground">Hosting web aplikacije i izvođenje server-side funkcija.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Vlasti i sudski zahtjevi:</p>
               <p className="text-muted-foreground">Ako je zakonom obavezno, možemo proslijediti podatke nadležnim organima (FINA, MUP, sud, itd.) bez vašeg pristanka.</p>
             </div>
@@ -194,8 +194,8 @@ function PrivacyPolicy() {
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Dodatni tehnički i organizacijski mjere:</strong> Enkripcija, pseudonimizacija.</span></li>
           </ul>
 
-          <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50 p-4">
-            <p className="text-xs text-amber-900">Prenošenjem podataka u SAD, znate da tu razinu zaštite prihvaćate. Ako se ne slažete, možete odbiti dostavu određenih podataka, ali onda ne možete koristiti sve funkcionalnosti platforme.</p>
+          <div className="mt-3 rounded-lg border border-border/50 bg-background p-4">
+            <p className="text-xs text-muted-foreground">Prenošenjem podataka u SAD, znate da tu razinu zaštite prihvaćate. Ako se ne slažete, možete odbiti dostavu određenih podataka, ali onda ne možete koristiti sve funkcionalnosti platforme.</p>
           </div>
         </section>
 
@@ -204,23 +204,23 @@ function PrivacyPolicy() {
           <h2 className="font-display text-2xl font-semibold">7. Razdoblje čuvanja podataka</h2>
 
           <div className="space-y-3 text-sm">
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Korisnički profil i podaci:</p>
               <p className="text-muted-foreground">Čuvamo dok je račun aktivan. Nakon brisanja računa, izbrisani su u roku od 30 dana osim ako zakonska obveza zahtijeva drugačije.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Podaci za izdavanje računa i plaćanja:</p>
               <p className="text-muted-foreground">Sukladno Zakonu o PDV-u i Općem poreznom zakonu — najmanje 8 godina.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Podaci o oglasima:</p>
               <p className="text-muted-foreground">Čuvamo kako bi očuvali integritet platforme. Arhiviraju se nakon 12 mjeseci neaktivnosti.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Analitički i tehnički podaci:</p>
               <p className="text-muted-foreground">Čuvamo 12 mjeseci, zatim anonimiziramo.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">Podatke o verifikaciji identiteta (KYC/AML):</p>
               <p className="text-muted-foreground">Minimum 5 godina nakon završetka poslovanja s vama (zakonska obveza za sprječavanje pranja novca).</p>
             </div>
@@ -234,31 +234,31 @@ function PrivacyPolicy() {
           <p className="text-sm text-muted-foreground mb-4">U skladu s GDPR-om, imate pravo na:</p>
 
           <div className="space-y-3 text-sm">
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">🔍 Pravo na pristup (Član 15 GDPR):</p>
               <p className="text-muted-foreground">Možete tražiti koje podatke o vama čuvamo i kako ih obrađujemo.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">✏️ Pravo na ispravak (Član 16 GDPR):</p>
               <p className="text-muted-foreground">Ako su vaši podaci netočni ili nepotpuni, možete ih zahtjevati ispraviti.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">🗑️ Pravo na brisanje (Član 17 GDPR):</p>
               <p className="text-muted-foreground">Možete tražiti brisanje podataka, osim ako postoji zakonska obveza čuvanja (npr. računi, KYC).</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">🛑 Pravo na ograničenje obrade (Član 18 GDPR):</p>
               <p className="text-muted-foreground">Možete tražiti ograničenje obrade dok se vaš prigovor razriješi.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">📊 Pravo na prenosivost podataka (Član 20 GDPR):</p>
               <p className="text-muted-foreground">Možete tražiti svoje podatke u strojnom čitljivom formatu (CSV, JSON) kako bi ih prebacili drugdje.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">❌ Pravo na prigovor (Član 21 GDPR):</p>
               <p className="text-muted-foreground">Možete se suprotstaviti obradi podataka koja se temelji na legitimnom interesu.</p>
             </div>
-            <div className="rounded-lg border border-border bg-background p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-3">
               <p className="font-medium mb-1">⚖️ Pravo na podnošenje tužbe:</p>
               <p className="text-muted-foreground">Ako smatrate da su vaša prava povrijeđena, možete podnijeti tužbu nadležnom sudu ili Povjereniku za informacijsku sigurnost (AZOP).</p>
             </div>
@@ -272,7 +272,7 @@ function PrivacyPolicy() {
         {/* 9. Sigurnost podataka */}
         <section className="space-y-4">
           <h2 className="flex items-center gap-2 font-display text-2xl font-semibold">
-            <Shield className="h-6 w-6 text-[color:var(--gold-deep)]" />
+            <Shield className="h-5 w-5 text-muted-foreground" />
             9. Sigurnost i zaštita podataka
           </h2>
 
@@ -332,8 +332,8 @@ function PrivacyPolicy() {
         </section>
 
         {/* Kontakt */}
-        <section className="space-y-4 rounded-xl border border-border bg-card p-6">
-          <h2 className="font-display text-lg font-semibold">Kontaktirajte nas</h2>
+        <section className="space-y-4 rounded-lg border border-border/50 bg-background p-6 mt-8">
+          <h2 className="text-lg font-medium text-foreground">Kontaktirajte nas</h2>
           <p className="text-sm text-muted-foreground">
             Ako imate pitanja ili željete postaviti zahtjev u vezi s vašim podacima:
           </p>

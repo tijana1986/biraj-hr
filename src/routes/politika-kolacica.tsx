@@ -23,12 +23,12 @@ function CookiePolicy() {
         </div>
 
         {/* Intro */}
-        <section className="rounded-xl border border-border bg-card p-6">
+        <section className="rounded-lg border border-border/50 bg-background p-6">
           <div className="flex gap-3">
-            <Cookie className="h-5 w-5 shrink-0 text-[color:var(--gold-deep)]" />
-            <div className="space-y-2 text-sm">
-              <p className="font-medium">Što su kolačići?</p>
-              <p>Kolačići su male datoteke koje se pohranjuju na vašem uređaju. Pomažu nam da vas prepoznamo, omogućavaju vam da ostanete prijavljeni i poboljšavaju vašu iskustvo. Ova politika objašnjava sve kolačiće koje koristimo.</p>
+            <Cookie className="h-4 w-4 shrink-0 text-muted-foreground mt-0.5" />
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">Što su kolačići?</p>
+              <p className="text-sm text-muted-foreground">Kolačići su male datoteke koje se pohranjuju na vašem uređaju. Pomažu nam da vas prepoznamo, omogućavaju vam da ostanete prijavljeni i poboljšavaju vašu iskustvo. Ova politika objašnjava sve kolačiće koje koristimo.</p>
             </div>
           </div>
         </section>
@@ -39,12 +39,12 @@ function CookiePolicy() {
 
           <div className="space-y-4">
             {/* Strogo potrebni */}
-            <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-4">
               <div className="flex gap-3 mb-3">
-                <CheckCircle2 className="h-5 w-5 shrink-0 text-green-600" />
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-muted-foreground" />
                 <div>
-                  <h3 className="font-semibold text-green-900">1.1. Strogo potrebni kolačići (obvezni)</h3>
-                  <p className="text-xs text-green-800 mt-1">MOGU se koristiti bez vašeg pristanka — potrebni su za sigurnost i funkcionalnost.</p>
+                  <h3 className="text-base font-medium text-foreground">1.1. Strogo potrebni kolačići (obvezni)</h3>
+                  <p className="text-xs text-muted-foreground mt-1">MOGU se koristiti bez vašeg pristanka — potrebni su za sigurnost i funkcionalnost.</p>
                 </div>
               </div>
               <div className="space-y-3 text-sm">
@@ -57,17 +57,17 @@ function CookiePolicy() {
                     <li>• <strong>preferences:</strong> Vaš odabrani jezik, tema (tamna/svijetla)</li>
                   </ul>
                 </div>
-                <p className="text-xs text-green-800 font-medium">✓ Ne trebate dati pristanak za ove kolačiće — oni su essencijalni.</p>
+                <p className="text-xs text-muted-foreground font-medium">✓ Ne trebate dati pristanak za ove kolačiće — oni su essencijalni.</p>
               </div>
             </div>
 
             {/* Funkcionalni */}
-            <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-4">
               <div className="flex gap-3 mb-3">
-                <Cookie className="h-5 w-5 shrink-0 text-blue-600" />
+                <Cookie className="h-5 w-5 shrink-0 text-muted-foreground" />
                 <div>
-                  <h3 className="font-semibold text-blue-900">1.2. Funkcionalni kolačići (opcionalni)</h3>
-                  <p className="text-xs text-blue-800 mt-1">TREBATE dati pristanak — poboljšavaju iskustvo.</p>
+                  <h3 className="text-base font-medium text-foreground">1.2. Funkcionalni kolačići (opcionalni)</h3>
+                  <p className="text-xs text-muted-foreground mt-1">TREBATE dati pristanak — poboljšavaju iskustvo.</p>
                 </div>
               </div>
               <div className="space-y-3 text-sm">
@@ -80,17 +80,17 @@ function CookiePolicy() {
                     <li>• <strong>notification_settings:</strong> Vaše preference za obavijesti</li>
                   </ul>
                 </div>
-                <p className="text-xs text-blue-800 font-medium">⚙️ Možete odbiti ove kolačiće — Platforma će i dalje raditi, ali s manje mogućnosti.</p>
+                <p className="text-xs text-muted-foreground font-medium">⚙️ Možete odbiti ove kolačiće — Platforma će i dalje raditi, ali s manje mogućnosti.</p>
               </div>
             </div>
 
             {/* Analitički */}
-            <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-4">
               <div className="flex gap-3 mb-3">
-                <AlertCircle className="h-5 w-5 shrink-0 text-purple-600" />
+                <AlertCircle className="h-5 w-5 shrink-0 text-muted-foreground" />
                 <div>
-                  <h3 className="font-semibold text-purple-900">1.3. Analitički kolačići (opcionalni)</h3>
-                  <p className="text-xs text-purple-800 mt-1">TREBATE dati pristanak — pomažu nam razumjeti kako koristite Platformu.</p>
+                  <h3 className="text-base font-medium text-foreground">1.3. Analitički kolačići (opcionalni)</h3>
+                  <p className="text-xs text-muted-foreground mt-1">TREBATE dati pristanak — pomažu nam razumjeti kako koristite Platformu.</p>
                 </div>
               </div>
               <div className="space-y-3 text-sm">
@@ -111,17 +111,17 @@ function CookiePolicy() {
                     <li>• <strong>Sentry:</strong> Praćenje grešaka i performansi</li>
                   </ul>
                 </div>
-                <p className="text-xs text-purple-800 font-medium">📊 Možete odbiti — to ne utječe na sigurnost, ali nam pomaže da poboljšamo servis.</p>
+                <p className="text-xs text-muted-foreground font-medium">📊 Možete odbiti — to ne utječe na sigurnost, ali nam pomaže da poboljšamo servis.</p>
               </div>
             </div>
 
             {/* Marketinški */}
-            <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
+            <div className="rounded-lg border border-border/50 bg-background p-4">
               <div className="flex gap-3 mb-3">
-                <XCircle className="h-5 w-5 shrink-0 text-orange-600" />
+                <XCircle className="h-5 w-5 shrink-0 text-muted-foreground" />
                 <div>
-                  <h3 className="font-semibold text-orange-900">1.4. Marketinški kolačići (opcionalni)</h3>
-                  <p className="text-xs text-orange-800 mt-1">TREBATE dati pristanak — koriste se za personalizirane oglase.</p>
+                  <h3 className="text-base font-medium text-foreground">1.4. Marketinški kolačići (opcionalni)</h3>
+                  <p className="text-xs text-muted-foreground mt-1">TREBATE dati pristanak — koriste se za personalizirane oglase.</p>
                 </div>
               </div>
               <div className="space-y-3 text-sm">
@@ -141,7 +141,7 @@ function CookiePolicy() {
                     <li>• <strong>Google Ads:</strong> Praćenje za Google oglase</li>
                   </ul>
                 </div>
-                <p className="text-xs text-orange-800 font-medium">🎯 Možete odbiti — još uvijek ćete vidjeti oglase, ali neće biti personalizirani.</p>
+                <p className="text-xs text-muted-foreground font-medium">🎯 Možete odbiti — još uvijek ćete vidjeti oglase, ali neće biti personalizirani.</p>
               </div>
             </div>
           </div>
@@ -190,8 +190,8 @@ function CookiePolicy() {
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Edge:</strong> Postavke → Privatnost → Kolačići i druge web lokacije</span></li>
           </ul>
 
-          <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50 p-4">
-            <p className="text-xs text-amber-900"><strong>Napomena:</strong> Ako odbijete strogo potrebne kolačiće, možda nećete moći koristiti sve funkcionalnosti (logiranje, sigurnost).</p>
+          <div className="mt-3 rounded-lg border border-border/50 bg-background p-4">
+            <p className="text-xs text-muted-foreground"><strong>Napomena:</strong> Ako odbijete strogo potrebne kolačiće, možda nećete moći koristiti sve funkcionalnosti (logiranje, sigurnost).</p>
           </div>
         </section>
 
@@ -270,8 +270,8 @@ function CookiePolicy() {
         </section>
 
         {/* 8. Kontakt */}
-        <section className="space-y-4 rounded-xl border border-border bg-card p-6">
-          <h2 className="font-display text-lg font-semibold">Pitanja ili žalbe?</h2>
+        <section className="space-y-4 rounded-lg border border-border/50 bg-background p-6">
+          <h2 className="text-lg font-medium text-foreground">Pitanja ili žalbe?</h2>
           <div className="space-y-2 text-sm">
             <p>Ako imate pitanja o kolačićima ili željite povući pristanak:</p>
             <p><strong>Email:</strong> <a href="mailto:support@biraj.hr" className="text-[color:var(--gold-deep)] hover:underline">support@biraj.hr</a></p>
