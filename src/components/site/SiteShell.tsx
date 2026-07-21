@@ -270,8 +270,9 @@ export function SiteFooter() {
             { to: "/faq", label: "Česta pitanja" },
           ]} />
           <FCol title="Pravno" links={[
-            { to: "/uvjeti", label: "Uvjeti korištenja" },
-            { to: "/privatnost", label: "Privatnost" },
+            { to: "/uvjeti-koristenja", label: "Uvjeti korištenja" },
+            { to: "/politika-privatnosti", label: "Politika privatnosti" },
+            { to: "/politika-kolacica", label: "Politika kolačića" },
           ]} />
         </div>
         <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center">
