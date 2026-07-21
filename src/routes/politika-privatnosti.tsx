@@ -70,7 +70,7 @@ function PrivacyPolicy() {
             <div>
               <h3 className="font-semibold mb-2">2.1. Podaci koje nam direktno proslijedite:</h3>
               <ul className="space-y-2 text-sm">
-                <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Registracija i profil:</strong> Ime, prezime, e-mail, telefonski broj, město boravka</span></li>
+                <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Registracija i profil:</strong> Ime, prezime, e-mail, telefonski broj, mjesto boravka</span></li>
                 <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Verifikacija identiteta (KYC):</strong> Tip dokumenta, broj dokumenta, datum rođenja, adresa, mjesto boravka (samo nakon eksplicitnog pristanka)</span></li>
                 <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Podaci za izdavanje računa:</strong> OIB, naziv tvrtke, PDV ID, adresa sjedišta, e-mail za račun, IBAN</span></li>
                 <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Oglasi i sadržaj:</strong> Nazivi oglasa, opisi, kategorije, slike, cijena, lokacija</span></li>
@@ -157,12 +157,12 @@ function PrivacyPolicy() {
         <section className="space-y-4">
           <h2 className="font-display text-2xl font-semibold">5. Dijeljenje podataka s trećim stranama</h2>
 
-          <p className="text-sm text-muted-foreground">Vaše podatke dijeljenja samo s:</p>
+          <p className="text-sm text-muted-foreground">Vaše podatke dijelimo samo s:</p>
 
           <div className="space-y-3 text-sm">
             <div className="rounded-lg border border-border bg-background p-4">
               <p className="font-medium mb-1">Stripe (američki procesor plaćanja):</p>
-              <p className="text-muted-foreground">Obrada kreditnih kartice i plaćanja. Stripe podaci se obrađuju u skladu s njihovim <a href="https://stripe.com/privacy" className="font-medium text-[color:var(--gold-deep)] hover:underline">politikom privatnosti</a>.</p>
+              <p className="text-muted-foreground">Obrada kreditnih kartica i plaćanja. Stripe podaci se obrađuju u skladu s njihovom <a href="https://stripe.com/privacy" className="font-medium text-[color:var(--gold-deep)] hover:underline">politikom privatnosti</a>.</p>
             </div>
             <div className="rounded-lg border border-border bg-background p-4">
               <p className="font-medium mb-1">Resend (usluga e-mailiranja):</p>
@@ -177,7 +177,7 @@ function PrivacyPolicy() {
               <p className="text-muted-foreground">Hosting web aplikacije i izvođenje server-side funkcija.</p>
             </div>
             <div className="rounded-lg border border-border bg-background p-4">
-              <p className="font-medium mb-1">Vlasti i zakonsudski zahtjevi:</p>
+              <p className="font-medium mb-1">Vlasti i sudski zahtjevi:</p>
               <p className="text-muted-foreground">Ako je zakonom obavezno, možemo proslijediti podatke nadležnim organima (FINA, MUP, sud, itd.) bez vašeg pristanka.</p>
             </div>
           </div>
@@ -214,7 +214,7 @@ function PrivacyPolicy() {
             </div>
             <div className="rounded-lg border border-border bg-background p-4">
               <p className="font-medium mb-1">Podaci o oglasima:</p>
-              <p className="text-muted-foreground">Čuvamo kako bi očuvali integritet platforme. Arihiviraju se nakon 12 mjeseci neaktivnosti.</p>
+              <p className="text-muted-foreground">Čuvamo kako bi očuvali integritet platforme. Arhiviraju se nakon 12 mjeseci neaktivnosti.</p>
             </div>
             <div className="rounded-lg border border-border bg-background p-4">
               <p className="font-medium mb-1">Analitički i tehnički podaci:</p>

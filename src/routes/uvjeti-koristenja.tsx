@@ -50,7 +50,7 @@ function TermsOfService() {
         {/* 2. Pregled servisa */}
         <section className="space-y-4">
           <h2 className="font-display text-2xl font-semibold">2. Pregled servisa</h2>
-          <p className="text-sm text-muted-foreground">Biraj.HR je <strong>tržnica koja povezuje kupce i prodavače</strong>. Nije primjer za kupnju direktno od nas — vi kupujete od drugih korisnika koji su registrirani na Platformi. Vlasnica nije dio svake transakcije i ne može se smatrati nuditeljima proizvoda.</p>
+          <p className="text-sm text-muted-foreground">Biraj.HR je <strong>tržnica koja povezuje kupce i prodavače</strong>. Nismo prodavač — vi kupujete od drugih korisnika koji su registrirani na Platformi. Vlasnica nije dio svake transakcije i ne može se smatrati nudiocem proizvoda.</p>
         </section>
 
         {/* 3. Registracija i račun */}
@@ -62,7 +62,7 @@ function TermsOfService() {
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span>Morate biti <strong>najmanje 18 godina</strong> (ili starost punoletnosti u vašoj državi)</span></li>
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span>Morate koristiti <strong>stvarna imena i točne podatke</strong></span></li>
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span>Morate biti <strong>pravno sposobni</strong> sklapati ugovore</span></li>
-            <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span>Morate <strong>potvrdit e-mail</strong> prije pristupa svim funkcionalnostima</span></li>
+            <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span>Morate <strong>potvrditi e-mail</strong> prije pristupa svim funkcionalnostima</span></li>
           </ul>
 
           <h3 className="font-semibold mt-4">3.2. Pristup i odgovornost:</h3>
@@ -70,12 +70,12 @@ function TermsOfService() {
           <ul className="space-y-2 text-sm ml-4">
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span>Dijeliti pristupne podatke s drugima</span></li>
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span>Kreirati više računa kako bi obišli ograničenja</span></li>
-            <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span>Koristi čitanaka imena ili fake podatke</span></li>
+            <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span>Koristiti lažna imena ili lažne podatke</span></li>
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span>Dozvoliti drugima da koriste vaš račun</span></li>
           </ul>
 
           <h3 className="font-semibold mt-4">3.3. Suspenzija računa:</h3>
-          <p className="text-sm text-muted-foreground">Zapretila možemo suspenziju ili trajno brisanje računa ako ste kršili ove uvjete, zakon ili ako postojanice prevare.</p>
+          <p className="text-sm text-muted-foreground">Možemo suspenziju ili trajno brisanje računa ako ste kršili ove uvjete ili zakon, ili ako postoje dokazi o prijevari.</p>
         </section>
 
         {/* 4. Oglašavanje i sadržaj */}
@@ -110,7 +110,7 @@ function TermsOfService() {
             </div>
             <div className="flex gap-2 items-start">
               <XCircle className="h-5 w-5 shrink-0 text-red-600" />
-              <span><strong>Seksualnom eksploataciju:</strong> Nada, pronađite, pornografski sadržaj</span>
+              <span><strong>Seksualnu eksploataciju:</strong> Nasilje, pornografski sadržaj, seksualna zloupotrebljavanje</span>
             </div>
             <div className="flex gap-2 items-start">
               <XCircle className="h-5 w-5 shrink-0 text-red-600" />
@@ -130,11 +130,11 @@ function TermsOfService() {
             </div>
             <div className="flex gap-2 items-start">
               <XCircle className="h-5 w-5 shrink-0 text-red-600" />
-              <span><strong>Malvare i sječenje:</strong> Linkovi ili datoteke koja sadržavaju štetni kod</span>
+              <span><strong>Zlonamjerni kod:</strong> Linkovi ili datoteke koje sadržavaju štetni kod, malvere ili viruse</span>
             </div>
             <div className="flex gap-2 items-start">
               <XCircle className="h-5 w-5 shrink-0 text-red-600" />
-              <span><strong>Intelektualno vlasništvo:</strong> Sadržaj koji krši autorska prava ili prava od znakova</span>
+              <span><strong>Intelektualno vlasništvo:</strong> Sadržaj koji krši autorska prava ili prava na znakove</span>
             </div>
           </div>
 
@@ -243,8 +243,8 @@ function TermsOfService() {
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span>Logiranje između korisnika ili sporove privatni između njih</span></li>
           </ul>
 
-          <h3 className="font-semibold mt-4">9.1. Maximalna odgovornost:</h3>
-          <p className="text-sm text-muted-foreground">U nijednom slučaju Biraj.HR nije odgovorna za <strong>više od 100 EUR</strong> za bilo koju naknadu ili štetu.</p>
+          <h3 className="font-semibold mt-4">9.1. Ograničenja odgovornosti:</h3>
+          <p className="text-sm text-muted-foreground">Biraj.HR nije odgovorna za indirektne gubitke ili štete koji nastanu korištenjem Platforme, čak i ako smo upozoreni na mogućnost takve štete. Međutim, ova ograničenja se ne primjenjuju u slučajevima gdje je zakonom predviđena neograničena odgovornost.</p>
         </section>
 
         {/* 10. Rješavanje sporova */}
@@ -255,10 +255,10 @@ function TermsOfService() {
           <p className="text-sm text-muted-foreground">Ako imate spor s drugom osobom na Platformi, molimo pokušajte riješiti direktnom komunikacijom. Ako to ne uspije, kontaktirajte nas na support@biraj.hr s detaljima.</p>
 
           <h3 className="font-semibold mt-4">10.2. Arbitraža ili sud:</h3>
-          <p className="text-sm text-muted-foreground">Ako je spor između vas i Biraj.HR-a, pristanjete na <strong>arbitraža prije suda</strong> prema pravilima Hrvatske arbitraže. Ako neki spor ne može biti rješen arbitražom, primjenjuje se redovni sudski postupak u <strong>Zagrebu</strong>.</p>
+          <p className="text-sm text-muted-foreground">Ako je spor između vas i Biraj.HR-a, pristanjete na <strong>rješavanje arbitražom</strong> prema pravilima Hrvatske arbitraže. Ako neki spor ne može biti rješen arbitražom, primjenjuje se redovni sudski postupak pred <strong>Trgovačkim sudom u Zagrebu</strong>.</p>
 
-          <h3 className="font-semibold mt-4">10.3. Odricanje od grupnog tužbe:</h3>
-          <p className="text-sm text-muted-foreground">Pristanite da se sporovi rješavaju <strong>individualno</strong>, ne kao grupne tužbe (class action). Arbitraž se ne može kombinirati s drugim sporovima.</p>
+          <h3 className="font-semibold mt-4">10.3. Odricanje od grupne tužbe:</h3>
+          <p className="text-sm text-muted-foreground">Pristanite da se sporovi rješavaju <strong>individualno</strong>, ne kao grupne tužbe (class action). Arbitraža se rješava između vas i Biraj.HR-a kao zasebne strane.</p>
         </section>
 
         {/* 11. Primjena zakona */}
@@ -268,7 +268,7 @@ function TermsOfService() {
           <p className="text-sm text-muted-foreground">Ovi uvjeti se reguliraju <strong>zakonima Republike Hrvatske</strong> i <strong>EU zakonodavstvom</strong>:</p>
 
           <ul className="space-y-2 text-sm ml-4">
-            <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Zakon o zaštiti potrošača:</strong> Preuteživanja transakcija</span></li>
+            <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Zakon o zaštiti potrošača:</strong> Rješavanje sporova, povrat sredstava i prava potrošača</span></li>
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Zakon o elektroničkoj trgovini:</strong> Međunarodna prodaja</span></li>
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Zakon o plaćanjima:</strong> PSD2 compliance za transakcije</span></li>
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Zakon o sprječavanju pranja novca:</strong> AML/KYC proceduri</span></li>

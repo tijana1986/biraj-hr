@@ -100,7 +100,7 @@ function CookiePolicy() {
                     <li>• Koji dijelovi Platforme su najkorišteniji</li>
                     <li>• Gdje korisnici dolaze s interneta (referrer)</li>
                     <li>• Kako dugo ostanete na stranici</li>
-                    <li>• Koji linkovi su najčešće klikati</li>
+                    <li>• Koji linkovi su najčešće klikani</li>
                     <li>• Greške i crash-evi u aplikaciji (debugging)</li>
                   </ul>
                 </div>
