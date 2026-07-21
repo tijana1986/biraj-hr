@@ -28,8 +28,10 @@ import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CjenikRouteImport } from './routes/cjenik'
 import { Route as BrowseRouteImport } from './routes/browse'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RacunIndexRouteImport } from './routes/racun.index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as RacunSpremljenoRouteImport } from './routes/racun.spremljeno'
 import { Route as RacunProfilRouteImport } from './routes/racun.profil'
 import { Route as RacunPorukeRouteImport } from './routes/racun.poruke'
@@ -40,6 +42,8 @@ import { Route as ProdavacUserIdRouteImport } from './routes/prodavac.$userId'
 import { Route as PosloviIdRouteImport } from './routes/poslovi.$id'
 import { Route as OglasIdRouteImport } from './routes/oglas.$id'
 import { Route as KategorijaCategoryRouteImport } from './routes/kategorija.$category'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminFaqRouteImport } from './routes/admin.faq'
 import { Route as KategorijaCategorySubcategoryRouteImport } from './routes/kategorija.$category.$subcategory'
 
 const UvjetiKoristenjaRoute = UvjetiKoristenjaRouteImport.update({
@@ -137,6 +141,11 @@ const BrowseRoute = BrowseRouteImport.update({
   path: '/browse',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -146,6 +155,11 @@ const RacunIndexRoute = RacunIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => RacunRoute,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const RacunSpremljenoRoute = RacunSpremljenoRouteImport.update({
   id: '/spremljeno',
@@ -198,6 +212,16 @@ const KategorijaCategoryRoute = KategorijaCategoryRouteImport.update({
   path: '/kategorija/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFaqRoute = AdminFaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => AdminRoute,
+} as any)
 const KategorijaCategorySubcategoryRoute =
   KategorijaCategorySubcategoryRouteImport.update({
     id: '/$subcategory',
@@ -207,6 +231,7 @@ const KategorijaCategorySubcategoryRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/browse': typeof BrowseRoute
   '/cjenik': typeof CjenikRoute
   '/faq': typeof FaqRoute
@@ -226,6 +251,8 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/uvjeti': typeof UvjetiRoute
   '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
+  '/admin/faq': typeof AdminFaqRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
@@ -236,6 +263,7 @@ export interface FileRoutesByFullPath {
   '/racun/poruke': typeof RacunPorukeRoute
   '/racun/profil': typeof RacunProfilRoute
   '/racun/spremljeno': typeof RacunSpremljenoRoute
+  '/admin/': typeof AdminIndexRoute
   '/racun/': typeof RacunIndexRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
 }
@@ -259,6 +287,8 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/uvjeti': typeof UvjetiRoute
   '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
+  '/admin/faq': typeof AdminFaqRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
@@ -269,12 +299,14 @@ export interface FileRoutesByTo {
   '/racun/poruke': typeof RacunPorukeRoute
   '/racun/profil': typeof RacunProfilRoute
   '/racun/spremljeno': typeof RacunSpremljenoRoute
+  '/admin': typeof AdminIndexRoute
   '/racun': typeof RacunIndexRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/browse': typeof BrowseRoute
   '/cjenik': typeof CjenikRoute
   '/faq': typeof FaqRoute
@@ -294,6 +326,8 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/uvjeti': typeof UvjetiRoute
   '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
+  '/admin/faq': typeof AdminFaqRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
@@ -304,6 +338,7 @@ export interface FileRoutesById {
   '/racun/poruke': typeof RacunPorukeRoute
   '/racun/profil': typeof RacunProfilRoute
   '/racun/spremljeno': typeof RacunSpremljenoRoute
+  '/admin/': typeof AdminIndexRoute
   '/racun/': typeof RacunIndexRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
 }
@@ -311,6 +346,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/browse'
     | '/cjenik'
     | '/faq'
@@ -330,6 +366,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/uvjeti'
     | '/uvjeti-koristenja'
+    | '/admin/faq'
+    | '/admin/settings'
     | '/kategorija/$category'
     | '/oglas/$id'
     | '/poslovi/$id'
@@ -340,6 +378,7 @@ export interface FileRouteTypes {
     | '/racun/poruke'
     | '/racun/profil'
     | '/racun/spremljeno'
+    | '/admin/'
     | '/racun/'
     | '/kategorija/$category/$subcategory'
   fileRoutesByTo: FileRoutesByTo
@@ -363,6 +402,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/uvjeti'
     | '/uvjeti-koristenja'
+    | '/admin/faq'
+    | '/admin/settings'
     | '/kategorija/$category'
     | '/oglas/$id'
     | '/poslovi/$id'
@@ -373,11 +414,13 @@ export interface FileRouteTypes {
     | '/racun/poruke'
     | '/racun/profil'
     | '/racun/spremljeno'
+    | '/admin'
     | '/racun'
     | '/kategorija/$category/$subcategory'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/browse'
     | '/cjenik'
     | '/faq'
@@ -397,6 +440,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/uvjeti'
     | '/uvjeti-koristenja'
+    | '/admin/faq'
+    | '/admin/settings'
     | '/kategorija/$category'
     | '/oglas/$id'
     | '/poslovi/$id'
@@ -407,12 +452,14 @@ export interface FileRouteTypes {
     | '/racun/poruke'
     | '/racun/profil'
     | '/racun/spremljeno'
+    | '/admin/'
     | '/racun/'
     | '/kategorija/$category/$subcategory'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
   BrowseRoute: typeof BrowseRoute
   CjenikRoute: typeof CjenikRoute
   FaqRoute: typeof FaqRoute
@@ -572,6 +619,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrowseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -585,6 +639,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/racun/'
       preLoaderRoute: typeof RacunIndexRouteImport
       parentRoute: typeof RacunRoute
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/racun/spremljeno': {
       id: '/racun/spremljeno'
@@ -656,6 +717,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KategorijaCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/faq': {
+      id: '/admin/faq'
+      path: '/faq'
+      fullPath: '/admin/faq'
+      preLoaderRoute: typeof AdminFaqRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/kategorija/$category/$subcategory': {
       id: '/kategorija/$category/$subcategory'
       path: '/$subcategory'
@@ -665,6 +740,20 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AdminRouteChildren {
+  AdminFaqRoute: typeof AdminFaqRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminFaqRoute: AdminFaqRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface PosloviRouteChildren {
   PosloviIdRoute: typeof PosloviIdRoute
@@ -712,6 +801,7 @@ const KategorijaCategoryRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
   BrowseRoute: BrowseRoute,
   CjenikRoute: CjenikRoute,
   FaqRoute: FaqRoute,
