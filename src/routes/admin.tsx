@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { LayoutDashboard, FileText, Settings, Users } from "lucide-react";
+import { LayoutDashboard, FileText, Settings, Users, MessageSquare } from "lucide-react";
 import { SiteShell } from "@/components/site/SiteShell";
 import { useAuth } from "@/lib/auth";
 import { useQuery } from "@tanstack/react-query";
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/admin")({
 });
 
 const ADMIN_NAV: {
-  to: "/admin" | "/admin/faq" | "/admin/settings" | "/admin/users";
+  to: "/admin" | "/admin/faq" | "/admin/settings" | "/admin/users" | "/admin/testimonials";
   label: string;
   icon: typeof LayoutDashboard;
   exact?: boolean;
@@ -28,6 +28,7 @@ const ADMIN_NAV: {
   { to: "/admin/faq", label: "Česta pitanja", icon: FileText },
   { to: "/admin/settings", label: "Postavke", icon: Settings },
   { to: "/admin/users", label: "Korisnici", icon: Users },
+  { to: "/admin/testimonials", label: "Testimonijali", icon: MessageSquare },
 ];
 
 function AdminLayout() {

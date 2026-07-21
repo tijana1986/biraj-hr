@@ -21,6 +21,19 @@ export interface SiteSetting {
   updated_at: string;
 }
 
+export interface Testimonial {
+  id: string;
+  author_name: string;
+  author_title: string;
+  content: string;
+  rating: number;
+  active: boolean;
+  featured: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
 // Fetch all active FAQ items (public, no auth required)
 export const fetchFAQItems = createServerFn({ method: "GET" }).handler(async () => {
   // Create a minimal Supabase client for public reads
@@ -201,4 +214,149 @@ export const updateSiteSetting = createServerFn({ method: "POST" })
 
     if (error) throw new Error(`Failed to update setting: ${error.message}`);
     return result;
+  });
+
+// Fetch all testimonials (public)
+export const fetchTestimonials = createServerFn({ method: "GET" }).handler(async () => {
+  const { createClient } = await import("@supabase/supabase-js");
+  const sb = createClient(
+    import.meta.env.VITE_SUPABASE_URL || "",
+    import.meta.env.VITE_SUPABASE_ANON_KEY || "",
+  );
+
+  const { data, error } = await sb
+    .from("testimonials")
+    .select("*")
+    .eq("active", true)
+    .order("sort_order");
+
+  if (error) throw new Error(`Failed to fetch testimonials: ${error.message}`);
+  return data || [];
+});
+
+// Fetch featured testimonials only
+export const fetchFeaturedTestimonials = createServerFn({ method: "GET" }).handler(async () => {
+  const { createClient } = await import("@supabase/supabase-js");
+  const sb = createClient(
+    import.meta.env.VITE_SUPABASE_URL || "",
+    import.meta.env.VITE_SUPABASE_ANON_KEY || "",
+  );
+
+  const { data, error } = await sb
+    .from("testimonials")
+    .select("*")
+    .eq("active", true)
+    .eq("featured", true)
+    .order("sort_order");
+
+  if (error) throw new Error(`Failed to fetch testimonials: ${error.message}`);
+  return data || [];
+});
+
+// Create testimonial (requires admin)
+export const createTestimonial = createServerFn({ method: "POST" })
+  .inputValidator((input) =>
+    z.object({
+      author_name: z.string().min(1),
+      author_title: z.string().optional(),
+      content: z.string().min(1),
+      rating: z.number().min(1).max(5),
+      featured: z.boolean().optional(),
+      sort_order: z.number().optional(),
+    }).parse(input),
+  )
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ data, context }) => {
+    const { data: admin } = await context.supabase
+      .from("admin_users")
+      .select("role")
+      .eq("id", context.userId)
+      .maybeSingle();
+
+    if (!admin || (admin.role !== "admin" && admin.role !== "editor")) {
+      throw new Error("Unauthorized");
+    }
+
+    const { data: result, error } = await context.supabase
+      .from("testimonials")
+      .insert([{
+        author_name: data.author_name,
+        author_title: data.author_title || null,
+        content: data.content,
+        rating: data.rating,
+        featured: data.featured || false,
+        sort_order: data.sort_order || 0,
+        active: true,
+      }])
+      .select()
+      .single();
+
+    if (error) throw new Error(`Failed to create testimonial: ${error.message}`);
+    return result;
+  });
+
+// Update testimonial (requires admin)
+export const updateTestimonial = createServerFn({ method: "POST" })
+  .inputValidator((input) =>
+    z.object({
+      id: z.string(),
+      author_name: z.string().optional(),
+      author_title: z.string().optional(),
+      content: z.string().optional(),
+      rating: z.number().min(1).max(5).optional(),
+      featured: z.boolean().optional(),
+    }).parse(input),
+  )
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ data, context }) => {
+    const { data: admin } = await context.supabase
+      .from("admin_users")
+      .select("role")
+      .eq("id", context.userId)
+      .maybeSingle();
+
+    if (!admin || (admin.role !== "admin" && admin.role !== "editor")) {
+      throw new Error("Unauthorized");
+    }
+
+    const updateData: any = { updated_at: new Date().toISOString() };
+    if (data.author_name) updateData.author_name = data.author_name;
+    if (data.author_title !== undefined) updateData.author_title = data.author_title;
+    if (data.content) updateData.content = data.content;
+    if (data.rating) updateData.rating = data.rating;
+    if (data.featured !== undefined) updateData.featured = data.featured;
+
+    const { data: result, error } = await context.supabase
+      .from("testimonials")
+      .update(updateData)
+      .eq("id", data.id)
+      .select()
+      .single();
+
+    if (error) throw new Error(`Failed to update testimonial: ${error.message}`);
+    return result;
+  });
+
+// Delete testimonial (soft delete - set active to false)
+export const deleteTestimonial = createServerFn({ method: "POST" })
+  .inputValidator((input) => z.object({ id: z.string() }).parse(input))
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ data, context }) => {
+    const { data: admin } = await context.supabase
+      .from("admin_users")
+      .select("role")
+      .eq("id", context.userId)
+      .maybeSingle();
+
+    if (!admin || (admin.role !== "admin" && admin.role !== "editor")) {
+      throw new Error("Unauthorized");
+    }
+
+    const { error } = await context.supabase
+      .from("testimonials")
+      .update({ active: false, updated_at: new Date().toISOString() })
+      .eq("id", data.id);
+
+    if (error) throw new Error(`Failed to delete testimonial: ${error.message}`);
+    return { success: true };
   });

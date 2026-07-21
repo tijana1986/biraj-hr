@@ -44,6 +44,7 @@ import { Route as PosloviIdRouteImport } from './routes/poslovi.$id'
 import { Route as OglasIdRouteImport } from './routes/oglas.$id'
 import { Route as KategorijaCategoryRouteImport } from './routes/kategorija.$category'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminTestimonialsRouteImport } from './routes/admin.testimonials'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminFaqRouteImport } from './routes/admin.faq'
 import { Route as KategorijaCategorySubcategoryRouteImport } from './routes/kategorija.$category.$subcategory'
@@ -224,6 +225,11 @@ const AdminUsersRoute = AdminUsersRouteImport.update({
   path: '/users',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminTestimonialsRoute = AdminTestimonialsRouteImport.update({
+  id: '/testimonials',
+  path: '/testimonials',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -266,6 +272,7 @@ export interface FileRoutesByFullPath {
   '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
   '/admin/faq': typeof AdminFaqRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin/users': typeof AdminUsersRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
@@ -304,6 +311,7 @@ export interface FileRoutesByTo {
   '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
   '/admin/faq': typeof AdminFaqRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin/users': typeof AdminUsersRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
@@ -345,6 +353,7 @@ export interface FileRoutesById {
   '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
   '/admin/faq': typeof AdminFaqRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin/users': typeof AdminUsersRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
@@ -387,6 +396,7 @@ export interface FileRouteTypes {
     | '/uvjeti-koristenja'
     | '/admin/faq'
     | '/admin/settings'
+    | '/admin/testimonials'
     | '/admin/users'
     | '/kategorija/$category'
     | '/oglas/$id'
@@ -425,6 +435,7 @@ export interface FileRouteTypes {
     | '/uvjeti-koristenja'
     | '/admin/faq'
     | '/admin/settings'
+    | '/admin/testimonials'
     | '/admin/users'
     | '/kategorija/$category'
     | '/oglas/$id'
@@ -465,6 +476,7 @@ export interface FileRouteTypes {
     | '/uvjeti-koristenja'
     | '/admin/faq'
     | '/admin/settings'
+    | '/admin/testimonials'
     | '/admin/users'
     | '/kategorija/$category'
     | '/oglas/$id'
@@ -756,6 +768,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/testimonials': {
+      id: '/admin/testimonials'
+      path: '/testimonials'
+      fullPath: '/admin/testimonials'
+      preLoaderRoute: typeof AdminTestimonialsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/settings': {
       id: '/admin/settings'
       path: '/settings'
@@ -783,6 +802,7 @@ declare module '@tanstack/react-router' {
 interface AdminRouteChildren {
   AdminFaqRoute: typeof AdminFaqRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminTestimonialsRoute: typeof AdminTestimonialsRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
@@ -790,6 +810,7 @@ interface AdminRouteChildren {
 const AdminRouteChildren: AdminRouteChildren = {
   AdminFaqRoute: AdminFaqRoute,
   AdminSettingsRoute: AdminSettingsRoute,
+  AdminTestimonialsRoute: AdminTestimonialsRoute,
   AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
 }

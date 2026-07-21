@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { FileText, Settings, Users } from "lucide-react";
+import { FileText, Settings, Users, MessageSquare } from "lucide-react";
 
 export const Route = createFileRoute("/admin/")({
   component: AdminDefaultPage,
@@ -30,6 +30,12 @@ function AdminDefaultPage() {
           <Users className="h-8 w-8 text-[color:var(--gold-deep)]" />
           <h2 className="mt-4 font-display text-lg font-semibold">Korisnici</h2>
           <p className="mt-2 text-sm text-muted-foreground">Upravljajte admin korisnicima.</p>
+        </Link>
+
+        <Link to="/admin/testimonials" className="rounded-2xl border border-border bg-card p-6 hover:border-[color:var(--gold-deep)] transition">
+          <MessageSquare className="h-8 w-8 text-[color:var(--gold-deep)]" />
+          <h2 className="mt-4 font-display text-lg font-semibold">Testimonijali</h2>
+          <p className="mt-2 text-sm text-muted-foreground">Upravljajte recenzijama korisnika.</p>
         </Link>
       </div>
 
