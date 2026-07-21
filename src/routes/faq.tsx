@@ -1,8 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { SiteShell, Breadcrumbs } from "@/components/site/SiteShell";
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
+import { fetchFAQItems } from "@/lib/cms.functions";
+import { Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
@@ -15,38 +19,26 @@ export const Route = createFileRoute("/faq")({
   component: FAQ,
 });
 
-const SECTIONS: { title: string; items: { q: string; a: string }[] }[] = [
-  {
-    title: "Kupovanje",
-    items: [
-      { q: "Kako kontaktiram prodavatelja?", a: "Otvorite oglas i kliknite 'Kontaktiraj prodavatelja'. Razgovor ostaje unutar platforme radi vaše sigurnosti." },
-      { q: "Mogu li pregledati artikl uživo?", a: "Da. Termin dogovorite kroz poruke; preporučujemo pregled prije bilo kakve uplate." },
-      { q: "Naplaćujete li nešto kupcima?", a: "Ne. Pretraga oglasa, kontakt s prodavateljima i poruke su za kupce uvijek besplatni." },
-      { q: "Što ako artikl ne odgovara opisu?", a: "Biraj.HR ne posreduje u kupoprodaji — uvjete dogovarate izravno s prodavateljem. Sumnjive oglase ili korisnike prijavite našoj podršci." },
-    ],
-  },
-  {
-    title: "Prodaja i objava oglasa",
-    items: [
-      { q: "Kako objavim oglas?", a: "Prijavite se i kliknite 'Objavi oglas'. Vodimo vas kroz 5 koraka — od kategorije do pregleda." },
-      { q: "Koliko košta objava?", a: "Cijena ovisi o kategoriji i kreće se od besplatne (npr. dječji svijet) do 9,99 € za 30 dana (nekretnine). Cijeli cjenik dostupan je na stranici Cjenik." },
-      { q: "Kako se naplaćuje objava?", a: "Naknadu plaćate Biraj.HR-u prilikom kreiranja oglasa, karticom ili IBAN-om. Biraj.HR ne uzima proviziju na prodajnu cijenu." },
-      { q: "Što je 'Top' pozicioniranje?", a: "Premium istaknuti oglas pojavljuje se na vrhu kategorije i u izdvojenim sekcijama 7 dana. Cijena ovisi o kategoriji (od 2,99 € do 14,99 €)." },
-      { q: "Koliko traje provjera oglasa?", a: "U pravilu do 24 sata. O statusu vas obavještavamo e-poštom." },
-    ],
-  },
-  {
-    title: "Sigurnost i povjerenje",
-    items: [
-      { q: "Kako provjeravate korisnike?", a: "Tražimo verifikaciju identiteta (KYC), potvrđenu e-poštu i broj telefona. Pravne osobe verificiramo dodatno putem OIB-a." },
-      { q: "Posredujete li u plaćanju?", a: "Ne. Biraj.HR je platforma za objavu oglasa — kupac i prodavatelj dogovaraju plaćanje i preuzimanje izravno. Preporučujemo pregled uživo prije bilo kakve uplate." },
-      { q: "Što je trust score?", a: "Ocjena pouzdanosti korisnika izračunata iz povijesti objava, ocjena drugih korisnika i razine verifikacije." },
-      { q: "Kako prijaviti sumnjivi oglas?", a: "Na svakom oglasu nalazi se gumb 'Prijavi'. Naš tim provjerava prijave unutar 24 sata." },
-    ],
-  },
-];
-
 function FAQ() {
+  const fetchFn = useServerFn(fetchFAQItems);
+
+  const { data: faqGroups = {}, isLoading } = useQuery({
+    queryKey: ["faq-items"],
+    queryFn: () => fetchFn(),
+  });
+
+  const sections = Object.keys(faqGroups).sort();
+
+  if (isLoading) {
+    return (
+      <SiteShell>
+        <section className="mx-auto max-w-3xl px-6 py-16 text-center">
+          <Loader2 className="mx-auto h-8 w-8 animate-spin text-muted-foreground" />
+        </section>
+      </SiteShell>
+    );
+  }
+
   return (
     <SiteShell>
       <section className="border-b border-border bg-[color:var(--cream)]">
@@ -57,14 +49,14 @@ function FAQ() {
         </div>
       </section>
       <section className="mx-auto max-w-3xl px-6 py-16">
-        {SECTIONS.map((sec) => (
-          <div key={sec.title} className="mb-10">
-            <h2 className="font-display text-2xl font-semibold">{sec.title}</h2>
+        {sections.map((section) => (
+          <div key={section} className="mb-10">
+            <h2 className="font-display text-2xl font-semibold">{section}</h2>
             <Accordion type="single" collapsible className="mt-3">
-              {sec.items.map((it, i) => (
-                <AccordionItem key={i} value={`${sec.title}-${i}`}>
-                  <AccordionTrigger className="text-left text-base font-medium">{it.q}</AccordionTrigger>
-                  <AccordionContent className="text-sm text-muted-foreground">{it.a}</AccordionContent>
+              {(faqGroups[section] || []).map((item: any, i: number) => (
+                <AccordionItem key={item.id} value={`${section}-${i}`}>
+                  <AccordionTrigger className="text-left text-base font-medium">{item.question}</AccordionTrigger>
+                  <AccordionContent className="text-sm text-muted-foreground">{item.answer}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>

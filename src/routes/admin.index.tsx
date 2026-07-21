@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { FileText, Settings } from "lucide-react";
+import { FileText, Settings, Users } from "lucide-react";
 
 export const Route = createFileRoute("/admin/")({
   component: AdminDefaultPage,
@@ -13,7 +13,7 @@ function AdminDefaultPage() {
         <p className="mt-1 text-sm text-muted-foreground">Upravljajte sadržajem i postavkama Biraj.HR aplikacije.</p>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <Link to="/admin/faq" className="rounded-2xl border border-border bg-card p-6 hover:border-[color:var(--gold-deep)] transition">
           <FileText className="h-8 w-8 text-[color:var(--gold-deep)]" />
           <h2 className="mt-4 font-display text-lg font-semibold">Česta pitanja</h2>
@@ -24,6 +24,12 @@ function AdminDefaultPage() {
           <Settings className="h-8 w-8 text-[color:var(--gold-deep)]" />
           <h2 className="mt-4 font-display text-lg font-semibold">Postavke</h2>
           <p className="mt-2 text-sm text-muted-foreground">Osnovne postavke stranice.</p>
+        </Link>
+
+        <Link to="/admin/users" className="rounded-2xl border border-border bg-card p-6 hover:border-[color:var(--gold-deep)] transition">
+          <Users className="h-8 w-8 text-[color:var(--gold-deep)]" />
+          <h2 className="mt-4 font-display text-lg font-semibold">Korisnici</h2>
+          <p className="mt-2 text-sm text-muted-foreground">Upravljajte admin korisnicima.</p>
         </Link>
       </div>
 

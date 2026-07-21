@@ -28,6 +28,7 @@ import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CjenikRouteImport } from './routes/cjenik'
 import { Route as BrowseRouteImport } from './routes/browse'
+import { Route as AdminSetupRouteImport } from './routes/admin-setup'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RacunIndexRouteImport } from './routes/racun.index'
@@ -42,6 +43,7 @@ import { Route as ProdavacUserIdRouteImport } from './routes/prodavac.$userId'
 import { Route as PosloviIdRouteImport } from './routes/poslovi.$id'
 import { Route as OglasIdRouteImport } from './routes/oglas.$id'
 import { Route as KategorijaCategoryRouteImport } from './routes/kategorija.$category'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminFaqRouteImport } from './routes/admin.faq'
 import { Route as KategorijaCategorySubcategoryRouteImport } from './routes/kategorija.$category.$subcategory'
@@ -141,6 +143,11 @@ const BrowseRoute = BrowseRouteImport.update({
   path: '/browse',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSetupRoute = AdminSetupRouteImport.update({
+  id: '/admin-setup',
+  path: '/admin-setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -212,6 +219,11 @@ const KategorijaCategoryRoute = KategorijaCategoryRouteImport.update({
   path: '/kategorija/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -232,6 +244,7 @@ const KategorijaCategorySubcategoryRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/admin-setup': typeof AdminSetupRoute
   '/browse': typeof BrowseRoute
   '/cjenik': typeof CjenikRoute
   '/faq': typeof FaqRoute
@@ -253,6 +266,7 @@ export interface FileRoutesByFullPath {
   '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
   '/admin/faq': typeof AdminFaqRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
@@ -269,6 +283,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin-setup': typeof AdminSetupRoute
   '/browse': typeof BrowseRoute
   '/cjenik': typeof CjenikRoute
   '/faq': typeof FaqRoute
@@ -289,6 +304,7 @@ export interface FileRoutesByTo {
   '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
   '/admin/faq': typeof AdminFaqRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
@@ -307,6 +323,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/admin-setup': typeof AdminSetupRoute
   '/browse': typeof BrowseRoute
   '/cjenik': typeof CjenikRoute
   '/faq': typeof FaqRoute
@@ -328,6 +345,7 @@ export interface FileRoutesById {
   '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
   '/admin/faq': typeof AdminFaqRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
@@ -347,6 +365,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/admin-setup'
     | '/browse'
     | '/cjenik'
     | '/faq'
@@ -368,6 +387,7 @@ export interface FileRouteTypes {
     | '/uvjeti-koristenja'
     | '/admin/faq'
     | '/admin/settings'
+    | '/admin/users'
     | '/kategorija/$category'
     | '/oglas/$id'
     | '/poslovi/$id'
@@ -384,6 +404,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin-setup'
     | '/browse'
     | '/cjenik'
     | '/faq'
@@ -404,6 +425,7 @@ export interface FileRouteTypes {
     | '/uvjeti-koristenja'
     | '/admin/faq'
     | '/admin/settings'
+    | '/admin/users'
     | '/kategorija/$category'
     | '/oglas/$id'
     | '/poslovi/$id'
@@ -421,6 +443,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/admin-setup'
     | '/browse'
     | '/cjenik'
     | '/faq'
@@ -442,6 +465,7 @@ export interface FileRouteTypes {
     | '/uvjeti-koristenja'
     | '/admin/faq'
     | '/admin/settings'
+    | '/admin/users'
     | '/kategorija/$category'
     | '/oglas/$id'
     | '/poslovi/$id'
@@ -460,6 +484,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
+  AdminSetupRoute: typeof AdminSetupRoute
   BrowseRoute: typeof BrowseRoute
   CjenikRoute: typeof CjenikRoute
   FaqRoute: typeof FaqRoute
@@ -619,6 +644,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrowseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin-setup': {
+      id: '/admin-setup'
+      path: '/admin-setup'
+      fullPath: '/admin-setup'
+      preLoaderRoute: typeof AdminSetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -717,6 +749,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KategorijaCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/settings': {
       id: '/admin/settings'
       path: '/settings'
@@ -744,12 +783,14 @@ declare module '@tanstack/react-router' {
 interface AdminRouteChildren {
   AdminFaqRoute: typeof AdminFaqRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminFaqRoute: AdminFaqRoute,
   AdminSettingsRoute: AdminSettingsRoute,
+  AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
@@ -802,6 +843,7 @@ const KategorijaCategoryRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
+  AdminSetupRoute: AdminSetupRoute,
   BrowseRoute: BrowseRoute,
   CjenikRoute: CjenikRoute,
   FaqRoute: FaqRoute,
