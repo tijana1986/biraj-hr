@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import {
   Search, MapPin, ShieldCheck, BadgeCheck, Lock, Camera, Sparkles,
   ArrowRight, Star, Quote, Mail,
-  Home as HomeIcon, Car, Smartphone, Tv, Briefcase, Hammer,
+  Home as HomeIcon, Car, Briefcase, MapPin as MapPinIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchListings } from "@/lib/catalog";
 import { ListingCard } from "@/components/site/ListingCard";
 import { Loader2 } from "lucide-react";
+import { CATEGORIES } from "@/lib/mock/data";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,14 +30,12 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const categories = [
-  { icon: HomeIcon, label: "Nekretnine", slug: "nekretnine" },
-  { icon: Car, label: "Vozila", slug: "vozila" },
-  { icon: Smartphone, label: "Mobiteli", slug: "mobiteli-tableti" },
-  { icon: Tv, label: "TV i foto", slug: "tv-audio-foto" },
-  { icon: Briefcase, label: "Poslovi", slug: "poslovi-usluge" },
-  { icon: Hammer, label: "Usluge", slug: "poslovi-usluge" },
-];
+const categoryIconMap: Record<string, typeof HomeIcon> = {
+  "nekretnine": HomeIcon,
+  "vozila": Car,
+  "poslovi-usluge": Briefcase,
+  "turizm-smjestaj": MapPinIcon,
+};
 
 const steps = [
   { n: "01", title: "Registracija i verifikacija", desc: "Kreirajte profil i prođite verifikaciju identiteta za pristup zajednici." },
@@ -156,20 +155,23 @@ function Stat({ n, label }: { n: string; label: string }) {
 function CategoryStrip() {
   return (
     <section className="border-b border-border bg-background">
-      <div className="mx-auto grid max-w-7xl grid-cols-3 gap-2 px-6 py-8 md:grid-cols-6">
-        {categories.map(({ icon: Icon, label, slug }) => (
-          <Link
-            key={slug}
-            to="/kategorija/$category"
-            params={{ category: slug }}
-            className="group flex flex-col items-center gap-3 rounded-2xl p-3 transition hover:bg-[color:var(--surface-muted)]"
-          >
-            <span className="grid h-14 w-14 place-items-center rounded-full bg-[color:var(--surface-muted)] transition group-hover:bg-white group-hover:shadow-[var(--shadow-raised)]">
-              <Icon className="h-5 w-5" style={{ color: "var(--navy)" }} />
-            </span>
-            <span className="text-xs font-medium tracking-wide text-foreground/80">{label}</span>
-          </Link>
-        ))}
+      <div className="mx-auto grid max-w-7xl gap-2 px-6 py-8" style={{ gridTemplateColumns: `repeat(${CATEGORIES.length}, minmax(0, 1fr))` }}>
+        {CATEGORIES.map(({ name, slug }) => {
+          const Icon = categoryIconMap[slug] || HomeIcon;
+          return (
+            <Link
+              key={slug}
+              to="/kategorija/$category"
+              params={{ category: slug }}
+              className="group flex flex-col items-center gap-3 rounded-2xl p-3 transition hover:bg-[color:var(--surface-muted)]"
+            >
+              <span className="grid h-14 w-14 place-items-center rounded-full bg-[color:var(--surface-muted)] transition group-hover:bg-white group-hover:shadow-[var(--shadow-raised)]">
+                <Icon className="h-5 w-5" style={{ color: "var(--navy)" }} />
+              </span>
+              <span className="text-xs font-medium tracking-wide text-foreground/80">{name}</span>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );
