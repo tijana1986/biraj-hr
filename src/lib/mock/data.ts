@@ -153,62 +153,18 @@ const REVIEW_TEXTS = [
   "Transakcija kao iz udžbenika — sve transparentno i prema dogovoru.",
 ];
 
-function seedReviews(): Review[] {
-  const reviews: Review[] = [];
-  let id = 1;
-
-  for (const seller of SELLERS) {
-    const reviewCount = 5 + Math.floor(Math.random() * 45);
-    for (let i = 0; i < reviewCount; i++) {
-      const rating = Math.random() < 0.85 ? (4 + Math.random()) : (2 + Math.random() * 3);
-      reviews.push({
-        id: `r${id++}`,
-        sellerId: seller.id,
-        buyerId: `b${Math.floor(Math.random() * 50) + 1}`,
-        buyerName: BUYER_NAMES[Math.floor(Math.random() * BUYER_NAMES.length)],
-        listingId: String(Math.floor(Math.random() * LISTINGS.length) + 1),
-        listingTitle: LISTINGS[Math.floor(Math.random() * LISTINGS.length)].title,
-        rating: Math.round(rating * 2) / 2,
-        title: REVIEW_TITLES[Math.floor(Math.random() * REVIEW_TITLES.length)],
-        text: REVIEW_TEXTS[Math.floor(Math.random() * REVIEW_TEXTS.length)],
-        verified: Math.random() < 0.9,
-        helpful: Math.floor(Math.random() * 20),
-        createdAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString(),
-      });
-    }
-  }
-
-  return reviews;
-}
-
-export const REVIEWS: Review[] = seedReviews();
-
-export const SELLERS: Seller[] = FIRST_NAMES.map((fn, i) => {
-  const sellerReviews = REVIEWS.filter((r) => r.sellerId === `s${i + 1}`);
-  const avgRating = sellerReviews.length > 0
-    ? sellerReviews.reduce((sum, r) => sum + r.rating, 0) / sellerReviews.length
-    : 0;
-
-  let badge: ReputationBadge | undefined;
-  if (avgRating >= 4.7 && sellerReviews.length >= 20) badge = "outstanding";
-  else if (avgRating >= 4.5 && sellerReviews.length >= 10) badge = "excellent";
-  else if (avgRating >= 4.0 && sellerReviews.length >= 5) badge = "trusted";
-
-  return {
-    id: `s${i + 1}`,
-    name: `${fn} ${LAST_NAMES[i]}`,
-    city: CITIES[i % CITIES.length],
-    avatarLetter: fn[0],
-    trustScore: 80 + ((i * 7) % 20),
-    listingsCount: 3 + ((i * 11) % 24),
-    joinedYear: 2019 + (i % 6),
-    verified: i % 4 !== 0,
-    bio: "Verificirani prodavač s pažljivo odabranim oglasima i transparentnim povijesnim ocjenama.",
-    reviewCount: sellerReviews.length,
-    averageRating: avgRating,
-    reputationBadge: badge,
-  };
-});
+// Initialize SELLERS first without reviews
+export const SELLERS: Seller[] = FIRST_NAMES.map((fn, i) => ({
+  id: `s${i + 1}`,
+  name: `${fn} ${LAST_NAMES[i]}`,
+  city: CITIES[i % CITIES.length],
+  avatarLetter: fn[0],
+  trustScore: 80 + ((i * 7) % 20),
+  listingsCount: 3 + ((i * 11) % 24),
+  joinedYear: 2019 + (i % 6),
+  verified: i % 4 !== 0,
+  bio: "Verificirani prodavač s pažljivo odabranim oglasima i transparentnim povijesnim ocjenama.",
+}));
 
 export type PromotionTier = "none" | "spotlight" | "premium" | "vip";
 
@@ -370,6 +326,55 @@ function seedListings(): Listing[] {
 }
 
 export const LISTINGS: Listing[] = seedListings();
+
+// Now that LISTINGS is initialized, seed reviews
+function seedReviews(): Review[] {
+  const reviews: Review[] = [];
+  let id = 1;
+
+  for (const seller of SELLERS) {
+    const reviewCount = 5 + Math.floor(Math.random() * 45);
+    for (let i = 0; i < reviewCount; i++) {
+      const rating = Math.random() < 0.85 ? (4 + Math.random()) : (2 + Math.random() * 3);
+      reviews.push({
+        id: `r${id++}`,
+        sellerId: seller.id,
+        buyerId: `b${Math.floor(Math.random() * 50) + 1}`,
+        buyerName: BUYER_NAMES[Math.floor(Math.random() * BUYER_NAMES.length)],
+        listingId: String(Math.floor(Math.random() * LISTINGS.length) + 1),
+        listingTitle: LISTINGS[Math.floor(Math.random() * LISTINGS.length)].title,
+        rating: Math.round(rating * 2) / 2,
+        title: REVIEW_TITLES[Math.floor(Math.random() * REVIEW_TITLES.length)],
+        text: REVIEW_TEXTS[Math.floor(Math.random() * REVIEW_TEXTS.length)],
+        verified: Math.random() < 0.9,
+        helpful: Math.floor(Math.random() * 20),
+        createdAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString(),
+      });
+    }
+  }
+
+  return reviews;
+}
+
+export const REVIEWS: Review[] = seedReviews();
+
+// Update SELLERS with review stats
+for (let i = 0; i < SELLERS.length; i++) {
+  const seller = SELLERS[i];
+  const sellerReviews = REVIEWS.filter((r) => r.sellerId === seller.id);
+  const avgRating = sellerReviews.length > 0
+    ? sellerReviews.reduce((sum, r) => sum + r.rating, 0) / sellerReviews.length
+    : 0;
+
+  let badge: ReputationBadge | undefined;
+  if (avgRating >= 4.7 && sellerReviews.length >= 20) badge = "outstanding";
+  else if (avgRating >= 4.5 && sellerReviews.length >= 10) badge = "excellent";
+  else if (avgRating >= 4.0 && sellerReviews.length >= 5) badge = "trusted";
+
+  seller.reviewCount = sellerReviews.length;
+  seller.averageRating = avgRating;
+  seller.reputationBadge = badge;
+}
 
 export function getCategory(slug: string) {
   return CATEGORIES.find((c) => c.slug === slug);
