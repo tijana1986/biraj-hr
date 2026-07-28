@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, Menu, X, Instagram, Facebook, Twitter, ChevronDown, User, Heart, MessageSquare, LayoutDashboard, LogOut, ShieldAlert, TrendingUp } from "lucide-react";
+import { Search, Menu, X, Instagram, Facebook, Twitter, ChevronDown, User, Heart, MessageSquare, LayoutDashboard, LogOut, ShieldAlert, TrendingUp, Bell } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { CATEGORIES } from "@/lib/mock/data";
 import { useAuth } from "@/lib/auth";
@@ -138,6 +138,7 @@ export function SiteHeader() {
                   <Link to="/racun/oglasi" className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-secondary"><User className="h-4 w-4" /> Moji oglasi</Link>
                   <Link to="/racun/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-secondary"><TrendingUp className="h-4 w-4" /> Analitika</Link>
                   <Link to="/racun/poruke" className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-secondary"><MessageSquare className="h-4 w-4" /> Poruke</Link>
+                  <Link to="/racun/notifikacije" className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-secondary"><Bell className="h-4 w-4" /> Obavijesti</Link>
                   <Link to="/racun/spremljeno" className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-secondary"><Heart className="h-4 w-4" /> Spremljeno</Link>
                   <Link to="/racun/profil" className="flex items-center gap-2 border-t border-border px-4 py-2.5 text-sm hover:bg-secondary"><User className="h-4 w-4" /> Profil</Link>
                   {isMod && (

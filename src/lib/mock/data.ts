@@ -121,6 +121,8 @@ export const SELLERS: Seller[] = FIRST_NAMES.map((fn, i) => ({
   bio: "Verificirani prodavač s pažljivo odabranim oglasima i transparentnim povijesnim ocjenama.",
 }));
 
+export type PromotionTier = "none" | "spotlight" | "premium" | "vip";
+
 export type Listing = {
   id: string;
   title: string;
@@ -136,6 +138,8 @@ export type Listing = {
   authenticated: boolean;
   createdAt: string;
   specs: Record<string, string>;
+  promotionTier?: PromotionTier;
+  promotionExpiresAt?: string;
 };
 
 const IMG_POOL = [listing1, listing2, listing3, listing4, heroImg];
@@ -228,6 +232,19 @@ function seedListings(): Listing[] {
           cat.slug === "poslovi-usluge" ? 50 + ((counter * 13) % 400) * 5 :
           800 + ((counter * 23) % 600) * 25;
         const img = IMG_POOL[counter % IMG_POOL.length];
+
+        // Randomly assign promotions to 10-20% of listings
+        const promotionRand = Math.random();
+        let promotionTier: PromotionTier = "none";
+        if (promotionRand < 0.05) promotionTier = "vip";
+        else if (promotionRand < 0.1) promotionTier = "premium";
+        else if (promotionRand < 0.2) promotionTier = "spotlight";
+
+        // Promotion expires in 7 days
+        const promotionExpiresAt = promotionTier !== "none"
+          ? new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+          : undefined;
+
         all.push({
           id: String(counter),
           title: i > 0 ? `${t} — primjerak ${i + 1}` : t,
@@ -251,6 +268,8 @@ function seedListings(): Listing[] {
               : cat.slug === "smjestaj"
               ? { Kapacitet: `${2 + (counter % 8)} osoba`, "Spavaće sobe": `${1 + (counter % 5)}`, "Udaljenost od mora": `${50 + (counter * 17) % 800} m`, "Wi-Fi": "Da" }
               : { Stanje: "Izvrsno", Materijal: "Premium", Dimenzije: "Standard", Porijeklo: "EU" },
+          promotionTier,
+          promotionExpiresAt,
         });
         counter++;
       }
@@ -397,6 +416,63 @@ function generateAnalyticsForListing(listing: Listing, sellerId: string): Listin
     revenue: Math.max(0, revenue),
     price: listing.price,
   };
+}
+
+// Promotion pricing
+export const PROMOTION_PRICING: Record<PromotionTier, { name: string; price: number; period: "week" | "month"; benefits: string[] }> = {
+  none: {
+    name: "Standardna objava",
+    price: 0,
+    period: "month",
+    benefits: ["Vidljivost u kategoriji"],
+  },
+  spotlight: {
+    name: "Spotlight",
+    price: 10,
+    period: "week",
+    benefits: ["Top pozicija u pretrazi", "Istaknuta oznaka", "25% više pregleda (prosječno)"],
+  },
+  premium: {
+    name: "Premium",
+    price: 20,
+    period: "week",
+    benefits: ["Gola pozicija na homepage", "Premium oznaka", "Prioritetna podrška", "50% više pregleda"],
+  },
+  vip: {
+    name: "VIP",
+    price: 35,
+    period: "week",
+    benefits: ["Homepage hero section", "VIP oznaka", "Priority customer support", "75% više pregleda", "Featured social media"],
+  },
+};
+
+export type NotificationPreferences = {
+  userId: string;
+  newListingsInSavedSearches: boolean;
+  priceDropAlerts: boolean;
+  messageReminders: boolean;
+  weeklyDigest: boolean;
+  emailFrequency: "instant" | "daily" | "weekly";
+  savedSearches: Array<{ id: string; category?: string; subcategory?: string; query?: string; maxPrice?: number }>;
+};
+
+export function getPromotedListings(limit?: number): Listing[] {
+  const now = new Date();
+  const promoted = LISTINGS.filter((l) => {
+    if (!l.promotionTier || l.promotionTier === "none") return false;
+    if (!l.promotionExpiresAt) return false;
+    return new Date(l.promotionExpiresAt) > now;
+  });
+
+  // Sort by promotion tier (vip > premium > spotlight)
+  const tierOrder = { vip: 0, premium: 1, spotlight: 2 };
+  promoted.sort((a, b) => {
+    const aOrder = tierOrder[a.promotionTier as "vip" | "premium" | "spotlight"] ?? 99;
+    const bOrder = tierOrder[b.promotionTier as "vip" | "premium" | "spotlight"] ?? 99;
+    return aOrder - bOrder;
+  });
+
+  return limit ? promoted.slice(0, limit) : promoted;
 }
 
 export function getSellerAnalytics(sellerId: string): SellerAnalytics {
