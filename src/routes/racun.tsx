@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { LayoutDashboard, Package, MessageSquare, Heart, User, Shield, Plus } from "lucide-react";
+import { LayoutDashboard, Package, MessageSquare, Heart, User, Shield, Plus, TrendingUp } from "lucide-react";
 import { SiteShell } from "@/components/site/SiteShell";
 import { useAuth } from "@/lib/auth";
 
@@ -14,9 +14,10 @@ export const Route = createFileRoute("/racun")({
   component: AccountLayout,
 });
 
-const NAV: { to: "/racun" | "/racun/oglasi" | "/racun/poruke" | "/racun/spremljeno" | "/racun/profil"; label: string; icon: typeof LayoutDashboard; exact?: boolean }[] = [
+const NAV: { to: "/racun" | "/racun/oglasi" | "/racun/dashboard" | "/racun/poruke" | "/racun/spremljeno" | "/racun/profil"; label: string; icon: typeof LayoutDashboard; exact?: boolean }[] = [
   { to: "/racun", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/racun/oglasi", label: "Moji oglasi", icon: Package },
+  { to: "/racun/dashboard", label: "Analitika", icon: TrendingUp },
   { to: "/racun/poruke", label: "Poruke", icon: MessageSquare },
   { to: "/racun/spremljeno", label: "Spremljeno", icon: Heart },
   { to: "/racun/profil", label: "Profil i sigurnost", icon: User },

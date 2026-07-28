@@ -355,3 +355,105 @@ export function relatedListings(listing: Listing, limit = 4): Listing[] {
 export function listingsBySeller(sellerId: string) {
   return LISTINGS.filter((l) => l.sellerId === sellerId);
 }
+
+// Analytics data types and functions
+export type ListingAnalytics = {
+  listingId: string;
+  title: string;
+  views: number;
+  inquiries: number;
+  conversionRate: number;
+  revenue: number;
+  price: number;
+};
+
+export type SellerAnalytics = {
+  sellerId: string;
+  totalEarningsMonth: number;
+  totalEarningsYear: number;
+  activeListings: number;
+  totalViews: number;
+  totalInquiries: number;
+  conversionRate: number;
+  topProducts: ListingAnalytics[];
+  revenueByMonth: Array<{ month: string; revenue: number }>;
+  viewsTrend: Array<{ day: string; views: number }>;
+};
+
+function generateAnalyticsForListing(listing: Listing, sellerId: string): ListingAnalytics {
+  const daysOld = Math.floor((Date.now() - new Date(listing.createdAt).getTime()) / (1000 * 60 * 60 * 24));
+  const baseViews = 50 + daysOld * (15 + Math.random() * 30);
+  const views = Math.floor(baseViews * (0.8 + Math.random() * 0.4));
+  const inquiries = Math.floor(views * (0.05 + Math.random() * 0.15));
+  const conversionRate = inquiries > 0 ? (Math.random() * 0.3) : 0;
+  const revenue = Math.floor(listing.price * conversionRate * (0.5 + Math.random() * 0.5));
+
+  return {
+    listingId: listing.id,
+    title: listing.title,
+    views: Math.max(0, views),
+    inquiries: Math.max(0, inquiries),
+    conversionRate: Math.min(100, conversionRate * 100),
+    revenue: Math.max(0, revenue),
+    price: listing.price,
+  };
+}
+
+export function getSellerAnalytics(sellerId: string): SellerAnalytics {
+  const sellerListings = listingsBySeller(sellerId);
+  const analyticsPerListing = sellerListings.map((l) => generateAnalyticsForListing(l, sellerId));
+
+  const totalViews = analyticsPerListing.reduce((sum, a) => sum + a.views, 0);
+  const totalInquiries = analyticsPerListing.reduce((sum, a) => sum + a.inquiries, 0);
+  const totalRevenue = analyticsPerListing.reduce((sum, a) => sum + a.revenue, 0);
+  const avgConversionRate = analyticsPerListing.length > 0
+    ? analyticsPerListing.reduce((sum, a) => sum + a.conversionRate, 0) / analyticsPerListing.length
+    : 0;
+
+  // Generate month revenue data (last 12 months)
+  const revenueByMonth = [];
+  const now = new Date();
+  for (let i = 11; i >= 0; i--) {
+    const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const monthLabel = new Intl.DateTimeFormat("hr-HR", { month: "short", year: "2-digit" }).format(date);
+    const monthRevenue = totalRevenue * (0.3 + Math.random() * 0.7) * Math.max(0.2, 1 - i * 0.05);
+    revenueByMonth.push({
+      month: monthLabel,
+      revenue: Math.floor(monthRevenue),
+    });
+  }
+
+  // This month earnings = last month in trend
+  const thisMonthRevenue = revenueByMonth[revenueByMonth.length - 1]?.revenue ?? 0;
+
+  // Generate views trend (last 30 days)
+  const viewsTrend = [];
+  for (let i = 29; i >= 0; i--) {
+    const date = new Date(now);
+    date.setDate(date.getDate() - i);
+    const dayLabel = new Intl.DateTimeFormat("hr-HR", { month: "short", day: "numeric" }).format(date);
+    const dayViews = Math.floor((totalViews / 30) * (0.5 + Math.random() * 1.5));
+    viewsTrend.push({
+      day: dayLabel,
+      views: dayViews,
+    });
+  }
+
+  // Top products (sorted by views)
+  const topProducts = analyticsPerListing
+    .sort((a, b) => b.views - a.views)
+    .slice(0, 5);
+
+  return {
+    sellerId,
+    totalEarningsMonth: thisMonthRevenue,
+    totalEarningsYear: totalRevenue,
+    activeListings: sellerListings.length,
+    totalViews,
+    totalInquiries,
+    conversionRate: avgConversionRate,
+    topProducts,
+    revenueByMonth,
+    viewsTrend,
+  };
+}

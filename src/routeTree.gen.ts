@@ -39,6 +39,7 @@ import { Route as RacunPorukeRouteImport } from './routes/racun.poruke'
 import { Route as RacunPlaChar263anjePotvrdaRouteImport } from './routes/racun.plaćanje-potvrda'
 import { Route as RacunOglasiRouteImport } from './routes/racun.oglasi'
 import { Route as RacunKycRouteImport } from './routes/racun.kyc'
+import { Route as RacunDashboardRouteImport } from './routes/racun.dashboard'
 import { Route as ProdavacUserIdRouteImport } from './routes/prodavac.$userId'
 import { Route as PosloviIdRouteImport } from './routes/poslovi.$id'
 import { Route as OglasIdRouteImport } from './routes/oglas.$id'
@@ -200,6 +201,11 @@ const RacunKycRoute = RacunKycRouteImport.update({
   path: '/kyc',
   getParentRoute: () => RacunRoute,
 } as any)
+const RacunDashboardRoute = RacunDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => RacunRoute,
+} as any)
 const ProdavacUserIdRoute = ProdavacUserIdRouteImport.update({
   id: '/prodavac/$userId',
   path: '/prodavac/$userId',
@@ -278,6 +284,7 @@ export interface FileRoutesByFullPath {
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
   '/prodavac/$userId': typeof ProdavacUserIdRoute
+  '/racun/dashboard': typeof RacunDashboardRoute
   '/racun/kyc': typeof RacunKycRoute
   '/racun/oglasi': typeof RacunOglasiRoute
   '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
@@ -317,6 +324,7 @@ export interface FileRoutesByTo {
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
   '/prodavac/$userId': typeof ProdavacUserIdRoute
+  '/racun/dashboard': typeof RacunDashboardRoute
   '/racun/kyc': typeof RacunKycRoute
   '/racun/oglasi': typeof RacunOglasiRoute
   '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
@@ -359,6 +367,7 @@ export interface FileRoutesById {
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
   '/prodavac/$userId': typeof ProdavacUserIdRoute
+  '/racun/dashboard': typeof RacunDashboardRoute
   '/racun/kyc': typeof RacunKycRoute
   '/racun/oglasi': typeof RacunOglasiRoute
   '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
@@ -402,6 +411,7 @@ export interface FileRouteTypes {
     | '/oglas/$id'
     | '/poslovi/$id'
     | '/prodavac/$userId'
+    | '/racun/dashboard'
     | '/racun/kyc'
     | '/racun/oglasi'
     | '/racun/plaćanje-potvrda'
@@ -441,6 +451,7 @@ export interface FileRouteTypes {
     | '/oglas/$id'
     | '/poslovi/$id'
     | '/prodavac/$userId'
+    | '/racun/dashboard'
     | '/racun/kyc'
     | '/racun/oglasi'
     | '/racun/plaćanje-potvrda'
@@ -482,6 +493,7 @@ export interface FileRouteTypes {
     | '/oglas/$id'
     | '/poslovi/$id'
     | '/prodavac/$userId'
+    | '/racun/dashboard'
     | '/racun/kyc'
     | '/racun/oglasi'
     | '/racun/plaćanje-potvrda'
@@ -733,6 +745,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RacunKycRouteImport
       parentRoute: typeof RacunRoute
     }
+    '/racun/dashboard': {
+      id: '/racun/dashboard'
+      path: '/dashboard'
+      fullPath: '/racun/dashboard'
+      preLoaderRoute: typeof RacunDashboardRouteImport
+      parentRoute: typeof RacunRoute
+    }
     '/prodavac/$userId': {
       id: '/prodavac/$userId'
       path: '/prodavac/$userId'
@@ -829,6 +848,7 @@ const PosloviRouteWithChildren =
   PosloviRoute._addFileChildren(PosloviRouteChildren)
 
 interface RacunRouteChildren {
+  RacunDashboardRoute: typeof RacunDashboardRoute
   RacunKycRoute: typeof RacunKycRoute
   RacunOglasiRoute: typeof RacunOglasiRoute
   RacunPlaChar263anjePotvrdaRoute: typeof RacunPlaChar263anjePotvrdaRoute
@@ -839,6 +859,7 @@ interface RacunRouteChildren {
 }
 
 const RacunRouteChildren: RacunRouteChildren = {
+  RacunDashboardRoute: RacunDashboardRoute,
   RacunKycRoute: RacunKycRoute,
   RacunOglasiRoute: RacunOglasiRoute,
   RacunPlaChar263anjePotvrdaRoute: RacunPlaChar263anjePotvrdaRoute,
