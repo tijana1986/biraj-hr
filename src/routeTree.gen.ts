@@ -37,6 +37,7 @@ import { Route as RacunSpremljenoRouteImport } from './routes/racun.spremljeno'
 import { Route as RacunProfilRouteImport } from './routes/racun.profil'
 import { Route as RacunPorukeRouteImport } from './routes/racun.poruke'
 import { Route as RacunPlaChar263anjePotvrdaRouteImport } from './routes/racun.plaćanje-potvrda'
+import { Route as RacunOstaviRecenzijuRouteImport } from './routes/racun.ostavi-recenziju'
 import { Route as RacunOglasiRouteImport } from './routes/racun.oglasi'
 import { Route as RacunNotifikacijeRouteImport } from './routes/racun.notifikacije'
 import { Route as RacunKycRouteImport } from './routes/racun.kyc'
@@ -192,6 +193,11 @@ const RacunPlaChar263anjePotvrdaRoute =
     path: '/plaćanje-potvrda',
     getParentRoute: () => RacunRoute,
   } as any)
+const RacunOstaviRecenzijuRoute = RacunOstaviRecenzijuRouteImport.update({
+  id: '/ostavi-recenziju',
+  path: '/ostavi-recenziju',
+  getParentRoute: () => RacunRoute,
+} as any)
 const RacunOglasiRoute = RacunOglasiRouteImport.update({
   id: '/oglasi',
   path: '/oglasi',
@@ -294,6 +300,7 @@ export interface FileRoutesByFullPath {
   '/racun/kyc': typeof RacunKycRoute
   '/racun/notifikacije': typeof RacunNotifikacijeRoute
   '/racun/oglasi': typeof RacunOglasiRoute
+  '/racun/ostavi-recenziju': typeof RacunOstaviRecenzijuRoute
   '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
   '/racun/poruke': typeof RacunPorukeRoute
   '/racun/profil': typeof RacunProfilRoute
@@ -335,6 +342,7 @@ export interface FileRoutesByTo {
   '/racun/kyc': typeof RacunKycRoute
   '/racun/notifikacije': typeof RacunNotifikacijeRoute
   '/racun/oglasi': typeof RacunOglasiRoute
+  '/racun/ostavi-recenziju': typeof RacunOstaviRecenzijuRoute
   '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
   '/racun/poruke': typeof RacunPorukeRoute
   '/racun/profil': typeof RacunProfilRoute
@@ -379,6 +387,7 @@ export interface FileRoutesById {
   '/racun/kyc': typeof RacunKycRoute
   '/racun/notifikacije': typeof RacunNotifikacijeRoute
   '/racun/oglasi': typeof RacunOglasiRoute
+  '/racun/ostavi-recenziju': typeof RacunOstaviRecenzijuRoute
   '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
   '/racun/poruke': typeof RacunPorukeRoute
   '/racun/profil': typeof RacunProfilRoute
@@ -424,6 +433,7 @@ export interface FileRouteTypes {
     | '/racun/kyc'
     | '/racun/notifikacije'
     | '/racun/oglasi'
+    | '/racun/ostavi-recenziju'
     | '/racun/plaćanje-potvrda'
     | '/racun/poruke'
     | '/racun/profil'
@@ -465,6 +475,7 @@ export interface FileRouteTypes {
     | '/racun/kyc'
     | '/racun/notifikacije'
     | '/racun/oglasi'
+    | '/racun/ostavi-recenziju'
     | '/racun/plaćanje-potvrda'
     | '/racun/poruke'
     | '/racun/profil'
@@ -508,6 +519,7 @@ export interface FileRouteTypes {
     | '/racun/kyc'
     | '/racun/notifikacije'
     | '/racun/oglasi'
+    | '/racun/ostavi-recenziju'
     | '/racun/plaćanje-potvrda'
     | '/racun/poruke'
     | '/racun/profil'
@@ -743,6 +755,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RacunPlaChar263anjePotvrdaRouteImport
       parentRoute: typeof RacunRoute
     }
+    '/racun/ostavi-recenziju': {
+      id: '/racun/ostavi-recenziju'
+      path: '/ostavi-recenziju'
+      fullPath: '/racun/ostavi-recenziju'
+      preLoaderRoute: typeof RacunOstaviRecenzijuRouteImport
+      parentRoute: typeof RacunRoute
+    }
     '/racun/oglasi': {
       id: '/racun/oglasi'
       path: '/oglasi'
@@ -871,6 +890,7 @@ interface RacunRouteChildren {
   RacunKycRoute: typeof RacunKycRoute
   RacunNotifikacijeRoute: typeof RacunNotifikacijeRoute
   RacunOglasiRoute: typeof RacunOglasiRoute
+  RacunOstaviRecenzijuRoute: typeof RacunOstaviRecenzijuRoute
   RacunPlaChar263anjePotvrdaRoute: typeof RacunPlaChar263anjePotvrdaRoute
   RacunPorukeRoute: typeof RacunPorukeRoute
   RacunProfilRoute: typeof RacunProfilRoute
@@ -883,6 +903,7 @@ const RacunRouteChildren: RacunRouteChildren = {
   RacunKycRoute: RacunKycRoute,
   RacunNotifikacijeRoute: RacunNotifikacijeRoute,
   RacunOglasiRoute: RacunOglasiRoute,
+  RacunOstaviRecenzijuRoute: RacunOstaviRecenzijuRoute,
   RacunPlaChar263anjePotvrdaRoute: RacunPlaChar263anjePotvrdaRoute,
   RacunPorukeRoute: RacunPorukeRoute,
   RacunProfilRoute: RacunProfilRoute,

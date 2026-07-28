@@ -93,6 +93,23 @@ export const CATEGORIES: Category[] = [
   },
 ];
 
+export type Review = {
+  id: string;
+  sellerId: string;
+  buyerId: string;
+  buyerName: string;
+  listingId: string;
+  listingTitle: string;
+  rating: number; // 1-5 stars
+  title: string;
+  text: string;
+  verified: boolean;
+  helpful: number;
+  createdAt: string;
+};
+
+export type ReputationBadge = "trusted" | "excellent" | "outstanding";
+
 export type Seller = {
   id: string;
   name: string;
@@ -103,23 +120,95 @@ export type Seller = {
   joinedYear: number;
   verified: boolean;
   bio: string;
+  reviewCount?: number;
+  averageRating?: number;
+  reputationBadge?: ReputationBadge;
 };
 
 const FIRST_NAMES = ["Ana", "Luka", "Ivana", "Marko", "Petra", "Filip", "Maja", "Tomislav", "Nina", "Andrej", "Dora", "Vedran", "Sara", "Karlo", "Mia"];
 const LAST_NAMES = ["Marić", "Horvat", "Kovač", "Babić", "Šimić", "Novak", "Vuković", "Knežević", "Pavlović", "Tomić", "Jurić", "Matić", "Perić", "Lovrić", "Filipović"];
 const CITIES = ["Zagreb", "Split", "Rijeka", "Dubrovnik", "Pula", "Zadar", "Osijek", "Varaždin", "Šibenik", "Karlovac"];
 
-export const SELLERS: Seller[] = FIRST_NAMES.map((fn, i) => ({
-  id: `s${i + 1}`,
-  name: `${fn} ${LAST_NAMES[i]}`,
-  city: CITIES[i % CITIES.length],
-  avatarLetter: fn[0],
-  trustScore: 80 + ((i * 7) % 20),
-  listingsCount: 3 + ((i * 11) % 24),
-  joinedYear: 2019 + (i % 6),
-  verified: i % 4 !== 0,
-  bio: "Verificirani prodavač s pažljivo odabranim oglasima i transparentnim povijesnim ocjenama.",
-}));
+const BUYER_NAMES = FIRST_NAMES.map((fn, i) => `${fn} ${LAST_NAMES[i]}`);
+
+const REVIEW_TITLES = [
+  "Odličan prodavač, preporučujem!",
+  "Sve kako je napisano",
+  "Brza i pouzdana transakcija",
+  "Profesionalno i pažljivo",
+  "Bez zamjerki, sve savršeno",
+  "Kao na fotografiji",
+  "Odličan izbor",
+  "Preporuka od srca",
+];
+
+const REVIEW_TEXTS = [
+  "Sve je bilo savršeno — brza isporuka, točan opis, odličan proizvod. Siguran sam da će mi poslužiti dugo.",
+  "Prodavač je izuzetno ljubazan i spreman. Pregovora nije bilo, sve se brzo riješilo.",
+  "Obaveza preuzeta, obaveza ispunjena. Točno onako kako je bilo dogovoreno.",
+  "Profesionalni pristup od početka do kraja. Fotografije su točne, kvaliteta je do očekivanja.",
+  "Bez problema, bez žalbi, bez zamjerki. Preporuka za sve koji razmišljaju.",
+  "Odličan proizvod, točan opis, brza dostava. Što se više može tražiti?",
+  "Uvijek je dobro kada kreneš od povjerenja, a ovdje je to bilo opravdano.",
+  "Transakcija kao iz udžbenika — sve transparentno i prema dogovoru.",
+];
+
+function seedReviews(): Review[] {
+  const reviews: Review[] = [];
+  let id = 1;
+
+  for (const seller of SELLERS) {
+    const reviewCount = 5 + Math.floor(Math.random() * 45);
+    for (let i = 0; i < reviewCount; i++) {
+      const rating = Math.random() < 0.85 ? (4 + Math.random()) : (2 + Math.random() * 3);
+      reviews.push({
+        id: `r${id++}`,
+        sellerId: seller.id,
+        buyerId: `b${Math.floor(Math.random() * 50) + 1}`,
+        buyerName: BUYER_NAMES[Math.floor(Math.random() * BUYER_NAMES.length)],
+        listingId: String(Math.floor(Math.random() * LISTINGS.length) + 1),
+        listingTitle: LISTINGS[Math.floor(Math.random() * LISTINGS.length)].title,
+        rating: Math.round(rating * 2) / 2,
+        title: REVIEW_TITLES[Math.floor(Math.random() * REVIEW_TITLES.length)],
+        text: REVIEW_TEXTS[Math.floor(Math.random() * REVIEW_TEXTS.length)],
+        verified: Math.random() < 0.9,
+        helpful: Math.floor(Math.random() * 20),
+        createdAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString(),
+      });
+    }
+  }
+
+  return reviews;
+}
+
+export const REVIEWS: Review[] = seedReviews();
+
+export const SELLERS: Seller[] = FIRST_NAMES.map((fn, i) => {
+  const sellerReviews = REVIEWS.filter((r) => r.sellerId === `s${i + 1}`);
+  const avgRating = sellerReviews.length > 0
+    ? sellerReviews.reduce((sum, r) => sum + r.rating, 0) / sellerReviews.length
+    : 0;
+
+  let badge: ReputationBadge | undefined;
+  if (avgRating >= 4.7 && sellerReviews.length >= 20) badge = "outstanding";
+  else if (avgRating >= 4.5 && sellerReviews.length >= 10) badge = "excellent";
+  else if (avgRating >= 4.0 && sellerReviews.length >= 5) badge = "trusted";
+
+  return {
+    id: `s${i + 1}`,
+    name: `${fn} ${LAST_NAMES[i]}`,
+    city: CITIES[i % CITIES.length],
+    avatarLetter: fn[0],
+    trustScore: 80 + ((i * 7) % 20),
+    listingsCount: 3 + ((i * 11) % 24),
+    joinedYear: 2019 + (i % 6),
+    verified: i % 4 !== 0,
+    bio: "Verificirani prodavač s pažljivo odabranim oglasima i transparentnim povijesnim ocjenama.",
+    reviewCount: sellerReviews.length,
+    averageRating: avgRating,
+    reputationBadge: badge,
+  };
+});
 
 export type PromotionTier = "none" | "spotlight" | "premium" | "vip";
 
@@ -140,6 +229,7 @@ export type Listing = {
   specs: Record<string, string>;
   promotionTier?: PromotionTier;
   promotionExpiresAt?: string;
+  savedCount?: number;
 };
 
 const IMG_POOL = [listing1, listing2, listing3, listing4, heroImg];
@@ -270,6 +360,7 @@ function seedListings(): Listing[] {
               : { Stanje: "Izvrsno", Materijal: "Premium", Dimenzije: "Standard", Porijeklo: "EU" },
           promotionTier,
           promotionExpiresAt,
+          savedCount: Math.floor(Math.random() * 100),
         });
         counter++;
       }
@@ -473,6 +564,40 @@ export function getPromotedListings(limit?: number): Listing[] {
   });
 
   return limit ? promoted.slice(0, limit) : promoted;
+}
+
+export function getSellerReviews(sellerId: string): Review[] {
+  return REVIEWS.filter((r) => r.sellerId === sellerId).sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+}
+
+export function getReviewStats(sellerId: string) {
+  const reviews = getSellerReviews(sellerId);
+  if (reviews.length === 0) {
+    return {
+      count: 0,
+      average: 0,
+      verified: 0,
+      distribution: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 },
+    };
+  }
+
+  const verified = reviews.filter((r) => r.verified).length;
+  const distribution = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+  let sum = 0;
+
+  reviews.forEach((r) => {
+    sum += r.rating;
+    distribution[Math.ceil(r.rating) as 1 | 2 | 3 | 4 | 5]++;
+  });
+
+  return {
+    count: reviews.length,
+    average: sum / reviews.length,
+    verified,
+    distribution,
+  };
 }
 
 export function getSellerAnalytics(sellerId: string): SellerAnalytics {

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { BadgeCheck, MapPin, Heart } from "lucide-react";
+import { BadgeCheck, MapPin, Heart, Eye } from "lucide-react";
 import { formatPrice } from "@/lib/mock/data";
 import { resolveImages, type ListingRow } from "@/lib/catalog";
 import { useWishlist } from "@/lib/wishlist";
@@ -11,6 +11,7 @@ export function ListingCard({ l }: { l: ListingRow }) {
   const authenticated = Boolean(
     l.metadata && typeof l.metadata === "object" && (l.metadata as { authenticated?: boolean }).authenticated,
   );
+  const savedCount = (l.metadata && typeof l.metadata === "object" && (l.metadata as { savedCount?: number }).savedCount) || 0;
   return (
     <Link
       to="/oglas/$id"
@@ -50,6 +51,11 @@ export function ListingCard({ l }: { l: ListingRow }) {
           </div>
           <span className="text-[11px] font-semibold uppercase tracking-wider text-[color:var(--gold-deep)]">Detalji →</span>
         </div>
+        {savedCount > 0 && (
+          <div className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-[color:var(--gold)]/10 px-2 py-1 text-[11px] font-semibold text-[color:var(--gold-deep)]">
+            <Heart className="h-3 w-3 fill-current" /> {savedCount} {savedCount === 1 ? "osoba je spremila" : "osoba je spremilo"}
+          </div>
+        )}
       </div>
     </Link>
   );
