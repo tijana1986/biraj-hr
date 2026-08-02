@@ -166,7 +166,7 @@ export const SELLERS: Seller[] = FIRST_NAMES.map((fn, i) => ({
   bio: "Verificirani prodavač s pažljivo odabranim oglasima i transparentnim povijesnim ocjenama.",
 }));
 
-export type PromotionTier = "none" | "spotlight" | "premium" | "vip";
+export type PromotionTier = "none" | "spotlight" | "featured" | "premium" | "vip";
 
 export type Listing = {
   id: string;
@@ -528,6 +528,12 @@ export const PROMOTION_PRICING: Record<PromotionTier, { name: string; price: num
     period: "week",
     benefits: ["Top pozicija u pretrazi", "Istaknuta oznaka", "25% više pregleda (prosječno)"],
   },
+  featured: {
+    name: "Featured",
+    price: 15,
+    period: "week",
+    benefits: ["Vidljiv na homepage", "Featured oznaka", "35% više pregleda (prosječno)"],
+  },
   premium: {
     name: "Premium",
     price: 20,
@@ -560,11 +566,11 @@ export function getPromotedListings(limit?: number): Listing[] {
     return new Date(l.promotionExpiresAt) > now;
   });
 
-  // Sort by promotion tier (vip > premium > spotlight)
-  const tierOrder = { vip: 0, premium: 1, spotlight: 2 };
+  // Sort by promotion tier (vip > premium > featured > spotlight)
+  const tierOrder = { vip: 0, premium: 1, featured: 2, spotlight: 3 };
   promoted.sort((a, b) => {
-    const aOrder = tierOrder[a.promotionTier as "vip" | "premium" | "spotlight"] ?? 99;
-    const bOrder = tierOrder[b.promotionTier as "vip" | "premium" | "spotlight"] ?? 99;
+    const aOrder = tierOrder[a.promotionTier as "vip" | "premium" | "featured" | "spotlight"] ?? 99;
+    const bOrder = tierOrder[b.promotionTier as "vip" | "premium" | "featured" | "spotlight"] ?? 99;
     return aOrder - bOrder;
   });
 

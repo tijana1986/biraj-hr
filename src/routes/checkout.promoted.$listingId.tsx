@@ -4,7 +4,7 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LISTINGS, PROMOTION_PRICING } from "@/lib/mock/data";
-import { Zap, Shield, TrendingUp } from "lucide-react";
+import { Zap, Shield, TrendingUp, Star } from "lucide-react";
 
 export const Route = createFileRoute("/checkout/promoted/$listingId")({
   component: CheckoutPromoted,
@@ -13,7 +13,7 @@ export const Route = createFileRoute("/checkout/promoted/$listingId")({
 function CheckoutPromoted() {
   const { listingId } = Route.useParams();
   const navigate = useNavigate();
-  const [selectedTier, setSelectedTier] = useState<"spotlight" | "premium" | "vip">("premium");
+  const [selectedTier, setSelectedTier] = useState<"spotlight" | "featured" | "premium" | "vip">("featured");
   const [email, setEmail] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [loading, setLoading] = useState(false);
@@ -84,7 +84,7 @@ function CheckoutPromoted() {
             <div className="border-t border-border pt-4">
               <h4 className="font-semibold mb-3">Odaberi promotion tier:</h4>
               <div className="space-y-2">
-                {(["spotlight", "premium", "vip"] as const).map((tier) => {
+                {(["spotlight", "featured", "premium", "vip"] as const).map((tier) => {
                   const t = PROMOTION_PRICING[tier];
                   return (
                     <label
@@ -106,6 +106,7 @@ function CheckoutPromoted() {
                       <div className="flex-1">
                         <div className="font-semibold flex items-center gap-2">
                           {tier === "spotlight" && <Zap className="h-4 w-4" />}
+                          {tier === "featured" && <Star className="h-4 w-4" />}
                           {tier === "premium" && <Shield className="h-4 w-4" />}
                           {tier === "vip" && <TrendingUp className="h-4 w-4" />}
                           {t.name}
