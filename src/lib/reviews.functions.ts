@@ -1,117 +1,412 @@
-import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { supabase as publicSupabase } from "@/integrations/supabase/client";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { createServerFn } from "@tanstack/react-start";
 
-const listSchema = z.object({
-  ratee_id: z.string().uuid().optional(),
-  listing_id: z.string().uuid().optional(),
-  limit: z.number().int().positive().max(50).default(20),
-});
+// Get reviews for a listing
+export const getListingReviews = createServerFn({
+  method: "POST",
+})
+  .input(
+    z.object({
+      listingId: z.string(),
+      sortBy: z.enum(["recent", "helpful", "rating-high", "rating-low"]).optional(),
+      ratingFilter: z.number().optional(),
+      limit: z.number().default(10),
+      offset: z.number().default(0),
+    })
+  )
+  .handler(async ({ listingId, sortBy = "recent", ratingFilter, limit, offset }) => {
+    const supabase = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      );
 
-const createSchema = z.object({
-  ratee_id: z.string().uuid(),
-  listing_id: z.string().uuid().optional(),
-  rating: z.number().int().min(1).max(5),
-  body: z.string().trim().max(1200).optional(),
-});
+    let q = supabase
+      .from("listing_reviews")
+      .select(
+        `
+        id,
+        listing_id,
+        reviewer_id,
+        rating,
+        title,
+        comment,
+        photos,
+        is_verified_purchase,
+        helpful_count,
+        unhelpful_count,
+        created_at,
+        seller_review_responses (response, created_at),
+        profiles!reviewer_id (name, avatar_url)
+      `,
+        { count: "exact" }
+      )
+      .eq("listing_id", listingId)
+      .eq("status", "published");
 
-const deleteSchema = z.object({ id: z.string().uuid() });
+    if (ratingFilter) {
+      q = q.eq("rating", ratingFilter);
+    }
 
-export type ReviewRow = {
-  id: string;
-  rater_id: string;
-  ratee_id: string;
-  listing_id: string | null;
-  rating: number;
-  body: string | null;
-  created_at: string;
-  rater_name: string | null;
-  rater_avatar: string | null;
-};
+    switch (sortBy) {
+      case "helpful":
+        q = q.order("helpful_count", { ascending: false });
+        break;
+      case "rating-high":
+        q = q.order("rating", { ascending: false });
+        break;
+      case "rating-low":
+        q = q.order("rating", { ascending: true });
+        break;
+      case "recent":
+      default:
+        q = q.order("created_at", { ascending: false });
+    }
 
-/** Public: list reviews for a seller or listing. Two queries so we can attach rater profile names without a Postgres FK to profiles. */
-export async function fetchReviews(opts: { ratee_id?: string; listing_id?: string; limit?: number } = {}): Promise<ReviewRow[]> {
-  let base = publicSupabase
-    .from("reviews")
-    .select("id, rater_id, ratee_id, listing_id, rating, body, created_at")
-    .order("created_at", { ascending: false })
-    .limit(opts.limit ?? 20);
-  if (opts.ratee_id) base = base.eq("ratee_id", opts.ratee_id);
-  if (opts.listing_id) base = base.eq("listing_id", opts.listing_id);
-  const { data, error } = await base;
-  if (error) throw error;
-  const rows = data ?? [];
-  if (!rows.length) return [];
-  const raterIds = Array.from(new Set(rows.map((r) => r.rater_id)));
-  const { data: profs } = await publicSupabase
-    .from("profiles")
-    .select("id, full_name, avatar_url")
-    .in("id", raterIds);
-  const map = new Map((profs ?? []).map((p) => [p.id, p]));
-  return rows.map((r) => {
-    const p = map.get(r.rater_id);
+    q = q.range(offset, offset + limit - 1);
+
+    const { data: reviews, error, count } = await q;
+
+    if (error) {
+      throw new Error(`Failed to get reviews: ${error.message}`);
+    }
+
     return {
-      id: r.id,
-      rater_id: r.rater_id,
-      ratee_id: r.ratee_id,
-      listing_id: r.listing_id,
-      rating: r.rating,
-      body: r.body,
-      created_at: r.created_at,
-      rater_name: p?.full_name ?? null,
-      rater_avatar: p?.avatar_url ?? null,
+      reviews: reviews?.map((r: any) => ({
+        id: r.id,
+        listingId: r.listing_id,
+        reviewerId: r.reviewer_id,
+        reviewerName: r.profiles?.name || "Anonimni korisnik",
+        reviewerAvatar: r.profiles?.avatar_url,
+        rating: r.rating,
+        title: r.title,
+        comment: r.comment,
+        photos: r.photos || [],
+        isVerifiedPurchase: r.is_verified_purchase,
+        helpfulCount: r.helpful_count,
+        unhelpfulCount: r.unhelpful_count,
+        createdAt: r.created_at,
+        sellerResponse: r.seller_review_responses?.[0] || null,
+      })) || [],
+      total: count || 0,
+      page: Math.floor(offset / limit) + 1,
+      totalPages: Math.ceil((count || 0) / limit),
     };
   });
-}
 
-export async function fetchSellerRating(ratee_id: string): Promise<{ avg: number; count: number }> {
-  const { data, error } = await publicSupabase
-    .from("reviews")
-    .select("rating")
-    .eq("ratee_id", ratee_id);
-  if (error) throw error;
-  const rows = data ?? [];
-  if (!rows.length) return { avg: 0, count: 0 };
-  const sum = rows.reduce((a, r) => a + r.rating, 0);
-  return { avg: sum / rows.length, count: rows.length };
-}
+// Get seller rating summary
+export const getSellerRating = createServerFn({
+  method: "POST",
+})
+  .input(z.object({ sellerId: z.string() }))
+  .handler(async ({ sellerId }) => {
+    const supabase = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      );
 
-/** Kept for API parity with other server fns. Same shape as fetchReviews above. */
-export const listReviews = createServerFn({ method: "GET" })
-  .inputValidator((i) => listSchema.parse(i))
-  .handler(async ({ data }) => fetchReviews(data));
+    const { data: rating } = await supabase
+      .from("seller_ratings")
+      .select("*")
+      .eq("seller_id", sellerId)
+      .single();
 
-export const createReview = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((i) => createSchema.parse(i))
-  .handler(async ({ data, context }) => {
-    if (data.ratee_id === context.userId) {
-      throw new Error("Ne možete ostaviti recenziju sami sebi.");
-    }
-    const { error } = await context.supabase.from("reviews").upsert(
-      {
-        rater_id: context.userId,
-        ratee_id: data.ratee_id,
-        listing_id: data.listing_id ?? null,
-        rating: data.rating,
-        body: data.body ?? null,
-      },
-      { onConflict: "rater_id,ratee_id,listing_id" },
-    );
-    if (error) throw new Error(error.message);
-    return { ok: true as const };
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("name, avatar_url")
+      .eq("id", sellerId)
+      .single();
+
+    return {
+      sellerId,
+      sellerName: profile?.name || "Prodavač",
+      sellerAvatar: profile?.avatar_url,
+      averageRating: rating?.average_rating || 0,
+      totalReviews: rating?.total_reviews || 0,
+      rating1Count: rating?.rating_1_count || 0,
+      rating2Count: rating?.rating_2_count || 0,
+      rating3Count: rating?.rating_3_count || 0,
+      rating4Count: rating?.rating_4_count || 0,
+      rating5Count: rating?.rating_5_count || 0,
+      responseRate: rating?.response_rate || 0,
+    };
   });
 
-export const deleteReview = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((i) => deleteSchema.parse(i))
-  .handler(async ({ data, context }) => {
-    const { error } = await context.supabase
-      .from("reviews")
-      .delete()
-      .eq("id", data.id)
-      .eq("rater_id", context.userId);
-    if (error) throw new Error(error.message);
-    return { ok: true as const };
+// Create review
+export const createReview = createServerFn({
+  method: "POST",
+})
+  .input(
+    z.object({
+      listingId: z.string(),
+      sellerId: z.string(),
+      orderId: z.string().optional(),
+      rating: z.number().min(1).max(5),
+      title: z.string().min(5).max(200),
+      comment: z.string().min(10).max(2000),
+      photos: z.array(z.object({
+        url: z.string(),
+        description: z.string().optional(),
+      })).optional(),
+    })
+  )
+  .handler(async (input) => {
+    const { data: user } = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      )
+      .then((client) => client.auth.getUser());
+
+    if (!user?.user) {
+      throw new Error("Not authenticated");
+    }
+
+    const supabase = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      );
+
+    const { data: existing } = await supabase
+      .from("listing_reviews")
+      .select("id")
+      .eq("listing_id", input.listingId)
+      .eq("reviewer_id", user.user.id)
+      .single();
+
+    if (existing) {
+      throw new Error("Već si dao recenziju za ovaj oglas");
+    }
+
+    const { data: review, error } = await supabase
+      .from("listing_reviews")
+      .insert({
+        listing_id: input.listingId,
+        order_id: input.orderId,
+        reviewer_id: user.user.id,
+        seller_id: input.sellerId,
+        rating: input.rating,
+        title: input.title,
+        comment: input.comment,
+        photos: input.photos || [],
+        is_verified_purchase: !!input.orderId,
+      })
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error(`Failed to create review: ${error.message}`);
+    }
+
+    return {
+      success: true,
+      reviewId: review.id,
+    };
+  });
+
+// Update review
+export const updateReview = createServerFn({
+  method: "POST",
+})
+  .input(
+    z.object({
+      reviewId: z.string(),
+      rating: z.number().min(1).max(5),
+      title: z.string().min(5).max(200),
+      comment: z.string().min(10).max(2000),
+      photos: z.array(z.object({
+        url: z.string(),
+        description: z.string().optional(),
+      })).optional(),
+    })
+  )
+  .handler(async (input) => {
+    const { data: user } = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      )
+      .then((client) => client.auth.getUser());
+
+    if (!user?.user) {
+      throw new Error("Not authenticated");
+    }
+
+    const supabase = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      );
+
+    const { error } = await supabase
+      .from("listing_reviews")
+      .update({
+        rating: input.rating,
+        title: input.title,
+        comment: input.comment,
+        photos: input.photos || [],
+      })
+      .eq("id", input.reviewId)
+      .eq("reviewer_id", user.user.id);
+
+    if (error) {
+      throw new Error(`Failed to update review: ${error.message}`);
+    }
+
+    return { success: true };
+  });
+
+// Respond to review
+export const respondToReview = createServerFn({
+  method: "POST",
+})
+  .input(
+    z.object({
+      reviewId: z.string(),
+      response: z.string().min(10).max(1000),
+    })
+  )
+  .handler(async (input) => {
+    const { data: user } = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      )
+      .then((client) => client.auth.getUser());
+
+    if (!user?.user) {
+      throw new Error("Not authenticated");
+    }
+
+    const supabase = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      );
+
+    const { error } = await supabase.from("seller_review_responses").insert({
+      review_id: input.reviewId,
+      seller_id: user.user.id,
+      response: input.response,
+    });
+
+    if (error) {
+      throw new Error(`Failed to respond: ${error.message}`);
+    }
+
+    return { success: true };
+  });
+
+// Vote review helpful
+export const voteReviewHelpful = createServerFn({
+  method: "POST",
+})
+  .input(
+    z.object({
+      reviewId: z.string(),
+      isHelpful: z.boolean(),
+    })
+  )
+  .handler(async (input) => {
+    const { data: user } = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      )
+      .then((client) => client.auth.getUser());
+
+    if (!user?.user) {
+      throw new Error("Not authenticated");
+    }
+
+    const supabase = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      );
+
+    const { error } = await supabase
+      .from("review_votes")
+      .upsert({
+        review_id: input.reviewId,
+        voter_id: user.user.id,
+        is_helpful: input.isHelpful,
+      }, {
+        onConflict: "review_id,voter_id",
+      });
+
+    if (error) {
+      throw new Error(`Failed to vote: ${error.message}`);
+    }
+
+    return { success: true };
+  });
+
+// Flag review
+export const flagReview = createServerFn({
+  method: "POST",
+})
+  .input(
+    z.object({
+      reviewId: z.string(),
+      reason: z.enum(["spam", "offensive", "fake", "irrelevant"]),
+      description: z.string().optional(),
+    })
+  )
+  .handler(async (input) => {
+    const { data: user } = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      )
+      .then((client) => client.auth.getUser());
+
+    if (!user?.user) {
+      throw new Error("Not authenticated");
+    }
+
+    const supabase = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      );
+
+    const { error } = await supabase.from("review_flags").insert({
+      review_id: input.reviewId,
+      reported_by_id: user.user.id,
+      reason: input.reason,
+      description: input.description,
+    });
+
+    if (error) {
+      throw new Error(`Failed to flag review: ${error.message}`);
+    }
+
+    return { success: true };
   });
