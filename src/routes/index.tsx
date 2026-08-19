@@ -188,8 +188,30 @@ function SectionHeader({ eyebrow, title, desc }: { eyebrow: string; title: strin
 }
 
 function FeaturedListings() {
-  const promoted = getPromotedListings(3);
-  const { data: featured = [], isLoading } = useQuery({
+  const { data: promoted = [], isLoading } = useQuery({
+    queryKey: ["home-promoted"],
+    queryFn: async () => {
+      const { createClient } = await import("@supabase/supabase-js");
+      const supabase = createClient(
+        import.meta.env.VITE_SUPABASE_URL || "",
+        import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || ""
+      );
+
+      const now = new Date().toISOString();
+      const { data } = await supabase
+        .from("listings")
+        .select("*")
+        .neq("promotion_tier", "none")
+        .gt("promotion_expires_at", now)
+        .order("promotion_tier", { ascending: true })
+        .limit(3);
+
+      return data || [];
+    },
+    staleTime: 30_000,
+  });
+
+  const { data: featured = [] } = useQuery({
     queryKey: ["home-featured"],
     queryFn: () => fetchListings({ sort: "popularnost", verifiedOnly: true, limit: 4 }),
     staleTime: 60_000,
@@ -198,7 +220,7 @@ function FeaturedListings() {
   return (
     <section className="space-y-16">
       {/* Promoted/Featured Section */}
-      {promoted.length > 0 && (
+      {promoted && promoted.length > 0 && (
         <div className="mx-auto max-w-7xl px-6 py-16">
           <div className="mb-8">
             <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--gold)]/30 bg-[color:var(--gold)]/5 px-4 py-1.5">
@@ -211,9 +233,15 @@ function FeaturedListings() {
             <p className="mt-2 text-muted-foreground">Odabranih oglasa s dodatnom vidljivošću od prodavatelja</p>
           </div>
 
+          {isLoading ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            </div>
+          ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {promoted.map((listing) => {
-              const promo = PROMOTION_PRICING[listing.promotionTier || "none"];
+              const tier = (listing.promotion_tier || "none") as keyof typeof PROMOTION_PRICING;
+              const promo = PROMOTION_PRICING[tier] || PROMOTION_PRICING.none;
               return (
                 <Link
                   key={listing.id}
@@ -225,9 +253,9 @@ function FeaturedListings() {
                   <div
                     className="absolute right-3 top-3 z-10 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white"
                     style={{
-                      background: listing.promotionTier === "vip"
+                      background: listing.promotion_tier === "vip"
                         ? "var(--gradient-gold)"
-                        : listing.promotionTier === "premium"
+                        : listing.promotion_tier === "premium"
                         ? "var(--navy)"
                         : "var(--gold-deep)",
                     }}
@@ -264,6 +292,7 @@ function FeaturedListings() {
               );
             })}
           </div>
+          )}
         </div>
       )}
 
