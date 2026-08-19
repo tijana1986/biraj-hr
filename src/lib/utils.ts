@@ -5,3 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function formatNumber(num: number): string {
+  return num.toLocaleString("hr-HR");
+}
+
