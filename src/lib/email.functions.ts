@@ -183,3 +183,181 @@ export const resendVerificationEmail = createServerFn({ method: "POST" })
       throw new Error(`Failed to resend verification email: ${error instanceof Error ? error.message : String(error)}`);
     }
   });
+
+const sendPaymentConfirmationSchema = z.object({
+  email: z.string().email(),
+  orderNumber: z.string(),
+  tier: z.string(),
+  price: z.number(),
+  listingTitle: z.string(),
+  expiresAt: z.string(),
+});
+
+const sendRefundConfirmationSchema = z.object({
+  email: z.string().email(),
+  orderNumber: z.string(),
+  refundAmount: z.number(),
+  reason: z.string(),
+});
+
+export const sendPaymentConfirmation = createServerFn({ method: "POST" })
+  .inputValidator((input) => sendPaymentConfirmationSchema.parse(input))
+  .handler(async ({ data }) => {
+    const resend = await getResend();
+
+    const expiryDate = new Date(data.expiresAt).toLocaleDateString("hr-HR");
+
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: linear-gradient(135deg, #d4af37 0%, #c49a27 100%); color: white; padding: 30px; border-radius: 8px 8px 0 0; }
+            .content { background: #f9f9f9; padding: 30px; border: 1px solid #e0e0e0; }
+            .footer { background: #f0f0f0; padding: 20px; border-radius: 0 0 8px 8px; font-size: 12px; color: #666; }
+            .order-details { background: white; padding: 15px; border-radius: 4px; margin: 20px 0; }
+            .detail-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }
+            .detail-row:last-child { border-bottom: none; }
+            .button { background: #d4af37; color: white; padding: 12px 24px; border-radius: 4px; text-decoration: none; display: inline-block; margin: 20px 0; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>Plaćanje je uspješno! ✓</h1>
+              <p>Hvala što ste odabrali promotion za svoj oglas na Biraj.hr</p>
+            </div>
+
+            <div class="content">
+              <p>Poštovani,</p>
+              <p>Vaš promotion je aktiviran i vaš oglas će biti vidljiv u premium sekciji na početnoj stranici.</p>
+
+              <div class="order-details">
+                <h3>Detalji narudžbe</h3>
+                <div class="detail-row">
+                  <strong>Broj narudžbe:</strong>
+                  <span>${data.orderNumber}</span>
+                </div>
+                <div class="detail-row">
+                  <strong>Oglas:</strong>
+                  <span>${data.listingTitle}</span>
+                </div>
+                <div class="detail-row">
+                  <strong>Tier:</strong>
+                  <span>${data.tier}</span>
+                </div>
+                <div class="detail-row">
+                  <strong>Cijena:</strong>
+                  <span>€${data.price.toFixed(2)}/tjedan</span>
+                </div>
+                <div class="detail-row">
+                  <strong>Ističe:</strong>
+                  <span>${expiryDate}</span>
+                </div>
+              </div>
+
+              <p><strong>Što se dalje?</strong></p>
+              <ul>
+                <li>Promotion će biti aktivna u roku od 1 sata</li>
+                <li>Tvoj oglas će biti prikazan u "Premium oglasi" sekciji</li>
+                <li>Možeš pogledati status u <a href="https://biraj.hr/racun/placanja">Mojim plaćanjima</a></li>
+              </ul>
+
+              <p style="text-align: center;">
+                <a href="https://biraj.hr/racun/oglasi" class="button">Pogledaj svoje oglase</a>
+              </p>
+            </div>
+
+            <div class="footer">
+              <p>© 2024 Biraj.hr - Marketplace za oglase. Sva prava zadržana.</p>
+              <p>Ako imaš pitanja, kontaktiraj nas na <a href="mailto:support@biraj.hr">support@biraj.hr</a></p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `;
+
+    try {
+      const result = await resend.emails.send({
+        from: "noreply@biraj.hr",
+        to: data.email,
+        subject: `Potvrda plaćanja - Promotion aktiviran #${data.orderNumber}`,
+        html,
+      });
+
+      return { success: true, messageId: result.data?.id };
+    } catch (error) {
+      console.error("Email send error:", error);
+      return { success: false, error: error instanceof Error ? error.message : "Failed to send email" };
+    }
+  });
+
+export const sendRefundConfirmation = createServerFn({ method: "POST" })
+  .inputValidator((input) => sendRefundConfirmationSchema.parse(input))
+  .handler(async ({ data }) => {
+    const resend = await getResend();
+
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: #3b82f6; color: white; padding: 30px; border-radius: 8px 8px 0 0; }
+            .content { background: #f9f9f9; padding: 30px; border: 1px solid #e0e0e0; }
+            .footer { background: #f0f0f0; padding: 20px; border-radius: 0 0 8px 8px; font-size: 12px; color: #666; }
+            .refund-box { background: white; padding: 20px; border-radius: 4px; border-left: 4px solid #10b981; margin: 20px 0; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>Povraćaj novca - Potvrda ✓</h1>
+              <p>Vaš zahtjev je obrađen</p>
+            </div>
+
+            <div class="content">
+              <p>Poštovani,</p>
+              <p>Potvrdujemo da je povraćaj novca za vašu narudžbu #${data.orderNumber} obrađen.</p>
+
+              <div class="refund-box">
+                <h3>Detalji povraćaja</h3>
+                <p><strong>Narudžba:</strong> ${data.orderNumber}</p>
+                <p><strong>Iznos:</strong> €${data.refundAmount.toFixed(2)}</p>
+                <p><strong>Razlog:</strong> ${data.reason}</p>
+                <p style="margin-top: 15px; font-size: 14px; color: #666;">
+                  Novac bi trebao biti vraćen na vašu karticu u roku od 3-5 radnih dana, ovisno o vašoj banci.
+                </p>
+              </div>
+
+              <p>Ako imaš dodatnih pitanja ili trebam dodatnu pomoć, slobodno nas kontaktiraj.</p>
+            </div>
+
+            <div class="footer">
+              <p>© 2024 Biraj.hr - Marketplace za oglase. Sva prava zadržana.</p>
+              <p>Ako imaš pitanja, kontaktiraj nas na <a href="mailto:support@biraj.hr">support@biraj.hr</a></p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `;
+
+    try {
+      const result = await resend.emails.send({
+        from: "noreply@biraj.hr",
+        to: data.email,
+        subject: `Povraćaj novca - Potvrda #${data.orderNumber}`,
+        html,
+      });
+
+      return { success: true, messageId: result.data?.id };
+    } catch (error) {
+      console.error("Email send error:", error);
+      return { success: false, error: error instanceof Error ? error.message : "Failed to send email" };
+    }
+  });

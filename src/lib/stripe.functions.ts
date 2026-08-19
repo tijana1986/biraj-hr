@@ -24,6 +24,14 @@ const checkoutSchema = z.object({
   listingTitle: z.string().min(1),
 });
 
+const subscriptionSchema = z.object({
+  listingType: z.enum(["standard", "premium"]),
+  categorySlug: z.string().min(1),
+  userEmail: z.string().email(),
+  listingTitle: z.string().min(1),
+  billingInterval: z.enum(["month", "year"]),
+});
+
 export const createPaymentIntent = createServerFn({ method: "POST" })
   .inputValidator((input) => paymentIntentSchema.parse(input))
   .handler(async ({ data }) => {
@@ -104,5 +112,56 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
       };
     } catch (error) {
       throw new Error(`Failed to create checkout session: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  });
+
+export const createSubscriptionCheckout = createServerFn({ method: "POST" })
+  .inputValidator((input) => subscriptionSchema.parse(input))
+  .handler(async ({ data }) => {
+    const stripe = await getStripe();
+    const monthlyPrices: Record<"standard" | "premium", number> = {
+      standard: 29.99,
+      premium: 79.99,
+    };
+
+    const monthlyPrice = monthlyPrices[data.listingType];
+
+    try {
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: [
+          {
+            price_data: {
+              currency: "eur",
+              product_data: {
+                name: `${data.listingType === "premium" ? "TOP " : ""}Oglas - Subscription: ${data.listingTitle}`,
+                description: `Mjesečni subscription oglasa u kategoriji ${data.categorySlug}`,
+              },
+              unit_amount: Math.round(monthlyPrice * 100),
+              recurring: {
+                interval: data.billingInterval,
+                interval_count: 1,
+              },
+            },
+            quantity: 1,
+          },
+        ],
+        mode: "subscription",
+        success_url: `${process.env.VITE_APP_URL || "https://biraj.hr"}/racun/subscription-potvrda?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.VITE_APP_URL || "https://biraj.hr"}/racun/oglasi?payment=cancelled`,
+        customer_email: data.userEmail,
+        metadata: {
+          listingType: data.listingType,
+          categorySlug: data.categorySlug,
+          billingInterval: data.billingInterval,
+        },
+      });
+
+      return {
+        sessionId: session.id,
+        url: session.url,
+      };
+    } catch (error) {
+      throw new Error(`Failed to create subscription: ${error instanceof Error ? error.message : String(error)}`);
     }
   });

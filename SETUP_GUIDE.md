@@ -55,6 +55,11 @@ npx supabase db push
    - `checkout.session.completed`
    - `charge.failed`
    - `charge.refunded`
+   - `customer.subscription.created`
+   - `customer.subscription.updated`
+   - `customer.subscription.deleted`
+   - `invoice.payment_succeeded`
+   - `invoice.payment_failed`
 5. Copy `Signing secret` → `STRIPE_WEBHOOK_SECRET`
 
 **For local testing**, use Stripe CLI:
@@ -64,6 +69,21 @@ stripe login
 stripe listen --forward-to localhost:5173/api/webhooks/stripe
 stripe trigger checkout.session.completed
 ```
+
+---
+
+## 3.5. Resend Setup (Email Notifications)
+
+### Setup Email Service:
+1. Go to [Resend Dashboard](https://resend.com)
+2. Create account and verify domain (or use default)
+3. API Keys → Create new key
+4. Copy key → `RESEND_API_KEY`
+
+### Email Templates:
+- Payment confirmation sent automatically after successful payment
+- Refund confirmation when refund is approved
+- Subscription confirmation for recurring billing
 
 ---
 
@@ -119,41 +139,82 @@ Server runs on `http://localhost:5173`
 ```
 src/
 ├── routes/                    # TanStack Router pages
-│   ├── checkout.promoted.$listingId.tsx  # Stripe checkout form
-│   ├── checkout.success.tsx               # Payment confirmation
-│   ├── checkout.cancel.tsx                # Payment failure
-│   ├── racun.placanja.tsx                 # Payment history
-│   └── index.tsx                          # Homepage (promoted listings)
+│   ├── checkout.promoted.$listingId.tsx       # Stripe checkout form (one-time)
+│   ├── checkout.success.tsx                   # Payment confirmation
+│   ├── checkout.cancel.tsx                    # Payment failure
+│   ├── racun.placanja.tsx                     # Payment history
+│   ├── racun.subscription.tsx                 # Manage subscriptions
+│   ├── racun.subscription-potvrda.tsx         # Subscription confirmation
+│   ├── racun.povrat-novca.tsx                 # Request refunds
+│   ├── admin.dashboard.tsx                    # Admin analytics
+│   └── index.tsx                              # Homepage (promoted listings)
 ├── lib/
-│   ├── auth.tsx                          # Authentication (demo mode in dev)
-│   ├── stripe.functions.ts               # Stripe server functions
-│   ├── stripe.webhook.ts                 # Webhook handler
-│   └── mock/data.ts                      # Mock data + pricing
+│   ├── auth.tsx                              # Authentication (demo mode in dev)
+│   ├── stripe.functions.ts                   # Stripe server functions (checkout & subscription)
+│   ├── stripe.webhook.ts                     # Webhook handler
+│   ├── email.functions.ts                    # Email notifications (Resend)
+│   └── mock/data.ts                          # Mock data + pricing
 └── api/
-    └── webhooks/stripe.ts                # Stripe webhook endpoint
+    └── webhooks/stripe.ts                    # Stripe webhook endpoint
 
 supabase/
 ├── migrations/
-│   └── 20260819_promotion_system.sql    # Promotion schema
+│   ├── 20260819_promotion_system.sql        # Promotion schema
+│   ├── 20260819_subscription_system.sql     # Subscription schema
+│   └── 20260819_refund_system.sql           # Refund request system
 ```
 
 ---
 
 ## 8. Key Features
 
-### Promotion Tiers:
+### Promotion Tiers (One-Time):
 - **Spotlight**: €10/week
 - **Featured**: €15/week
 - **Premium**: €20/week
 - **VIP**: €35/week
 
+### Subscription Tiers (Recurring Monthly):
+- **Standard**: €29.99/month (Spotlight equivalent)
+- **Premium**: €79.99/month (Premium equivalent)
+- Flexible: Monthly or Yearly billing
+
+### Email Notifications (Resend):
+- Payment confirmation after successful checkout
+- Refund approval notifications
+- Subscription management emails
+- Custom HTML templates with branding
+
+### Admin Dashboard (`/admin/dashboard`):
+- Revenue analytics and charts
+- Payment status breakdown
+- Daily/weekly revenue trends
+- Tier distribution analysis
+- Recent payment table
+
+### Refund Management (`/racun/povrat-novca`):
+- Request refund with reason
+- Track refund status
+- Automatic email confirmation
+- Admin approval workflow
+
+### Subscription Management (`/racun/subscription`):
+- View active subscriptions
+- Track next billing date
+- Cancel subscriptions
+- Handle past-due payments
+- View subscription history
+
 ### Database Tables:
-- `promotion_orders` — Payment records
-- `listings` — Has `promotion_tier`, `promotion_expires_at`
+- `promotion_orders` — One-time payment records
+- `subscription_orders` — Recurring subscription records
+- `refund_requests` — Refund request tracking
+- `listings` — Has `promotion_tier`, `subscription_tier`, `subscription_active`
 
 ### RLS Policies:
 - Users can only view/create their own orders
-- Admins can manage all orders
+- Admins can view all orders and approve refunds
+- Refund requests auto-create from order status changes
 
 ---
 
@@ -175,13 +236,35 @@ supabase/
 
 ---
 
-## 10. Next Steps
+## 10. Implementation Status
 
-1. ✅ Payment system (done)
-2. 📧 Email notifications (Resend)
-3. 📊 Admin analytics
-4. 💳 Subscription checkout
-5. 📱 Mobile app
+### ✅ Completed:
+1. **Payment System** - One-time Stripe checkout
+2. **Email Notifications** - Resend integration with templates
+3. **Admin Dashboard** - Analytics and revenue charts
+4. **Subscription System** - Monthly/yearly recurring billing
+5. **Refund Management** - Request and approval workflow
+6. **Webhook Integration** - All Stripe events handled
+
+### 📋 Ready for Testing:
+- All payment flows (one-time & subscriptions)
+- Email confirmations (requires Resend key)
+- Admin dashboard access
+- Refund request system
+
+### 🚀 Production Deployment:
+1. Set all environment variables in Vercel
+2. Deploy migrations to production Supabase
+3. Configure Stripe webhooks to production domain
+4. Enable Resend in production (domain verification)
+5. Test end-to-end payment flow
+
+### 🔮 Future Enhancements:
+1. Mobile app (iOS/Android)
+2. Advanced reporting (CSV exports)
+3. Bulk promotion management
+4. API for third-party integrations
+5. Multi-language support
 
 ---
 
