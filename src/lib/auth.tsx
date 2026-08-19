@@ -79,83 +79,59 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login: Ctx["login"] = async (email, password) => {
-    try {
-      const { error, data } = await supabase.auth.signInWithPassword({ email, password });
+    const { error, data } = await supabase.auth.signInWithPassword({ email, password });
 
-      if (!error) return {};
+    if (!error) return {};
 
-      const demoUser: AppUser = {
-        id: `demo-${Date.now()}`,
-        name: email.split("@")[0].charAt(0).toUpperCase() + email.split("@")[0].slice(1),
-        email,
-        city: "Zagreb",
-        joined: new Date().toISOString(),
-        verified: true,
-      };
-      setUser(demoUser);
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem("demo_user", JSON.stringify(demoUser));
-      }
-      return {};
-    } catch (err) {
-      const demoUser: AppUser = {
-        id: `demo-${Date.now()}`,
-        name: email.split("@")[0].charAt(0).toUpperCase() + email.split("@")[0].slice(1),
-        email,
-        city: "Zagreb",
-        joined: new Date().toISOString(),
-        verified: true,
-      };
-      setUser(demoUser);
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem("demo_user", JSON.stringify(demoUser));
-      }
-      return {};
+    if (!import.meta.env.DEV) {
+      return { error: error?.message || "Neispravni kredencijali" };
     }
+
+    const demoUser: AppUser = {
+      id: `demo-${Date.now()}`,
+      name: email.split("@")[0].charAt(0).toUpperCase() + email.split("@")[0].slice(1),
+      email,
+      city: "Zagreb",
+      joined: new Date().toISOString(),
+      verified: true,
+    };
+    setUser(demoUser);
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("demo_user", JSON.stringify(demoUser));
+    }
+    return {};
   };
 
   const register: Ctx["register"] = async (name, email, password, city) => {
-    try {
-      const redirect = typeof window !== "undefined" ? window.location.origin : undefined;
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: redirect,
-          data: { full_name: name, city },
-        },
-      });
+    const redirect = typeof window !== "undefined" ? window.location.origin : undefined;
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: redirect,
+        data: { full_name: name, city },
+      },
+    });
 
-      if (!error) return {};
+    if (!error) return {};
 
-      const demoUser: AppUser = {
-        id: `demo-${Date.now()}`,
-        name,
-        email,
-        city,
-        joined: new Date().toISOString(),
-        verified: false,
-      };
-      setUser(demoUser);
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem("demo_user", JSON.stringify(demoUser));
-      }
-      return {};
-    } catch (err) {
-      const demoUser: AppUser = {
-        id: `demo-${Date.now()}`,
-        name,
-        email,
-        city,
-        joined: new Date().toISOString(),
-        verified: false,
-      };
-      setUser(demoUser);
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem("demo_user", JSON.stringify(demoUser));
-      }
-      return {};
+    if (!import.meta.env.DEV) {
+      return { error: error?.message || "Registracija nije dostupna" };
     }
+
+    const demoUser: AppUser = {
+      id: `demo-${Date.now()}`,
+      name,
+      email,
+      city,
+      joined: new Date().toISOString(),
+      verified: false,
+    };
+    setUser(demoUser);
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("demo_user", JSON.stringify(demoUser));
+    }
+    return {};
   };
 
   const loginWithGoogle: Ctx["loginWithGoogle"] = async () => {
