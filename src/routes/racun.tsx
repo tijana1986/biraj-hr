@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { LayoutDashboard, Package, MessageSquare, Heart, User, Shield, Plus, TrendingUp, Bell, CreditCard } from "lucide-react";
+import { LayoutDashboard, Package, MessageSquare, Heart, User, Shield, Plus, TrendingUp, Bell, CreditCard, FileText, RefreshCw } from "lucide-react";
 import { SiteShell } from "@/components/site/SiteShell";
 import { useAuth } from "@/lib/auth";
 
@@ -14,13 +14,17 @@ export const Route = createFileRoute("/racun")({
   component: AccountLayout,
 });
 
-const NAV: { to: "/racun" | "/racun/oglasi" | "/racun/dashboard" | "/racun/poruke" | "/racun/notifikacije" | "/racun/placanja" | "/racun/spremljeno" | "/racun/profil"; label: string; icon: typeof LayoutDashboard; exact?: boolean }[] = [
+const NAV: { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean }[] = [
   { to: "/racun", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/racun/oglasi", label: "Moji oglasi", icon: Package },
   { to: "/racun/dashboard", label: "Analitika", icon: TrendingUp },
   { to: "/racun/poruke", label: "Poruke", icon: MessageSquare },
   { to: "/racun/notifikacije", label: "Obavijesti", icon: Bell },
   { to: "/racun/placanja", label: "Plaćanja", icon: CreditCard },
+  { to: "/racun/subscription", label: "Subscription-i", icon: RefreshCw },
+  { to: "/racun/payment-methods", label: "Načini plaćanja", icon: CreditCard },
+  { to: "/racun/racuni", label: "Računi", icon: FileText },
+  { to: "/racun/povrat-novca", label: "Povrat novca", icon: RefreshCw },
   { to: "/racun/spremljeno", label: "Spremljeno", icon: Heart },
   { to: "/racun/profil", label: "Profil i sigurnost", icon: User },
 ];
