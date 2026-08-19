@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { SiteShell } from "@/components/site/SiteShell";
 import { Button } from "@/components/ui/button";
 import { Download, Eye } from "lucide-react";
@@ -8,38 +9,45 @@ export const Route = createFileRoute("/racun/placanja")({
   component: PaymentHistory,
 });
 
+async function fetchMyPromotionOrders() {
+  const { createClient } = await import("@supabase/supabase-js");
+  const { useAuth } = await import("@/lib/auth");
+
+  const supabase = createClient(
+    import.meta.env.VITE_SUPABASE_URL || "",
+    import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || ""
+  );
+
+  const { data } = await supabase
+    .from("promotion_orders")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  return data || [];
+}
+
 type Order = {
   id: string;
-  listingId: string;
+  listing_id: string;
   tier: string;
-  price: number;
-  email: string;
-  status: "completed" | "pending" | "failed";
-  date: string;
+  price_eur: number;
+  payment_status: "completed" | "pending" | "failed" | "refunded";
+  created_at: string;
+  expires_at: string;
 };
 
 function PaymentHistory() {
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (typeof window !== "undefined") {
-        const storedOrders = JSON.parse(sessionStorage.getItem("orders") || "[]");
-        setOrders(storedOrders.sort((a: Order, b: Order) =>
-          new Date(b.date).getTime() - new Date(a.date).getTime()
-        ));
-      }
-      setLoading(false);
-    }, 300);
-  }, []);
+  const { data: orders = [], isLoading } = useQuery({
+    queryKey: ["promotion-orders"],
+    queryFn: () => fetchMyPromotionOrders(),
+  });
 
   const stats = {
     total: orders.length,
-    completed: orders.filter((o) => o.status === "completed").length,
+    completed: orders.filter((o) => o.payment_status === "completed").length,
     totalSpent: orders
-      .filter((o) => o.status === "completed")
-      .reduce((sum, o) => sum + o.price, 0),
+      .filter((o) => o.payment_status === "completed")
+      .reduce((sum, o) => sum + o.price_eur, 0),
   };
 
   const getTierBadgeColor = (tier: string) => {
@@ -65,6 +73,8 @@ function PaymentHistory() {
         return "text-yellow-600";
       case "failed":
         return "text-red-600";
+      case "refunded":
+        return "text-blue-600";
       default:
         return "text-gray-600";
     }
@@ -78,6 +88,8 @@ function PaymentHistory() {
         return "Na čekanju";
       case "failed":
         return "Neuspješno";
+      case "refunded":
+        return "Vraćeno";
       default:
         return status;
     }
@@ -121,13 +133,13 @@ function PaymentHistory() {
             <h2 className="font-semibold">Sve transakcije</h2>
           </div>
 
-          {loading && (
+          {isLoading && (
             <div className="p-8 text-center text-sm text-muted-foreground">
               Učitavanje plaćanja…
             </div>
           )}
 
-          {!loading && orders.length === 0 && (
+          {!isLoading && orders.length === 0 && (
             <div className="p-8 text-center">
               <p className="text-sm text-muted-foreground">Još nemate plaćanja.</p>
               <Link to="/racun/oglasi" className="mt-4 inline-block">
@@ -136,7 +148,7 @@ function PaymentHistory() {
             </div>
           )}
 
-          {!loading && orders.length > 0 && (
+          {!isLoading && orders.length > 0 && (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead className="border-b border-border bg-muted/50">
@@ -146,21 +158,21 @@ function PaymentHistory() {
                     <th className="px-6 py-3 text-left font-semibold">Tier</th>
                     <th className="px-6 py-3 text-right font-semibold">Cijena</th>
                     <th className="px-6 py-3 text-left font-semibold">Status</th>
-                    <th className="px-6 py-3 text-right font-semibold">Akcija</th>
+                    <th className="px-6 py-3 text-left font-semibold">Ističe</th>
                   </tr>
                 </thead>
                 <tbody>
                   {orders.map((order, i) => (
                     <tr key={order.id} className={i < orders.length - 1 ? "border-b border-border" : ""}>
                       <td className="px-6 py-4">
-                        {new Date(order.date).toLocaleDateString("hr-HR", {
+                        {new Date(order.created_at).toLocaleDateString("hr-HR", {
                           year: "numeric",
                           month: "2-digit",
                           day: "2-digit",
                         })}
                       </td>
                       <td className="px-6 py-4 max-w-xs truncate">
-                        <div className="font-mono text-xs text-muted-foreground">{order.listingId}</div>
+                        <div className="font-mono text-xs text-muted-foreground">{order.listing_id || "—"}</div>
                       </td>
                       <td className="px-6 py-4">
                         <span
@@ -171,27 +183,14 @@ function PaymentHistory() {
                           {order.tier}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-right font-semibold">€{order.price.toFixed(2)}</td>
+                      <td className="px-6 py-4 text-right font-semibold">€{order.price_eur.toFixed(2)}</td>
                       <td className="px-6 py-4">
-                        <span className={`text-sm font-medium capitalize ${getStatusColor(order.status)}`}>
-                          {getStatusLabel(order.status)}
+                        <span className={`text-sm font-medium capitalize ${getStatusColor(order.payment_status)}`}>
+                          {getStatusLabel(order.payment_status)}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-right">
-                        <div className="flex justify-end gap-2">
-                          <button
-                            className="p-2 hover:bg-secondary rounded-md transition"
-                            title="Pregled"
-                          >
-                            <Eye className="h-4 w-4" />
-                          </button>
-                          <button
-                            className="p-2 hover:bg-secondary rounded-md transition"
-                            title="Preuzmi račun"
-                          >
-                            <Download className="h-4 w-4" />
-                          </button>
-                        </div>
+                      <td className="px-6 py-4">
+                        {new Date(order.expires_at).toLocaleDateString("hr-HR")}
                       </td>
                     </tr>
                   ))}

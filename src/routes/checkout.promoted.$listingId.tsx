@@ -55,14 +55,17 @@ function CheckoutPromoted() {
         listingTitle: listing.title,
       });
 
-      if (result.url) {
-        window.location.href = result.url;
+      if (result.sessionId) {
+        if (result.url) {
+          window.location.href = result.url;
+        } else {
+          navigate({ to: "/checkout/success", search: { session_id: result.sessionId } });
+        }
       } else {
         setError("Nije moguće otvoriti Stripe checkout");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Greška pri kreiranju checkout-a");
-    } finally {
       setLoading(false);
     }
   };
