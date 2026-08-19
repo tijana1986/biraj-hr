@@ -41,8 +41,10 @@ function VerifyEmail() {
 
       try {
         await verifyEmailFn({
-          token: params.token,
-          userId: user.id,
+          data: {
+            token: params.token,
+            userId: user.id,
+          },
         });
         setStatus("success");
         setMessage("Vaš e-mail je uspješno potvrđen!");
@@ -60,8 +62,10 @@ function VerifyEmail() {
     setResending(true);
     try {
       await resendFn({
-        userId: user.id,
-        email: user.email || "",
+        data: {
+          userId: user.id,
+          email: user.email || "",
+        },
       });
       alert("Verifikacijski email je ponovno poslan!");
     } catch (error) {

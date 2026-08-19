@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import {
   Search, MapPin, ShieldCheck, BadgeCheck, Lock, Camera, Sparkles,
   ArrowRight, Star, Quote, Mail,
-  Home as HomeIcon, Car, Smartphone, Tv, Briefcase, Hammer,
+  Home as HomeIcon, Car, Briefcase, MapPin as MapPinIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchListings } from "@/lib/catalog";
 import { ListingCard } from "@/components/site/ListingCard";
 import { Loader2 } from "lucide-react";
+import { CATEGORIES, getPromotedListings, PROMOTION_PRICING } from "@/lib/mock/data";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,14 +30,12 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const categories = [
-  { icon: HomeIcon, label: "Nekretnine", slug: "nekretnine" },
-  { icon: Car, label: "Vozila", slug: "vozila" },
-  { icon: Smartphone, label: "Mobiteli", slug: "mobiteli-tableti" },
-  { icon: Tv, label: "TV i foto", slug: "tv-audio-foto" },
-  { icon: Briefcase, label: "Poslovi", slug: "poslovi-usluge" },
-  { icon: Hammer, label: "Usluge", slug: "poslovi-usluge" },
-];
+const categoryIconMap: Record<string, typeof HomeIcon> = {
+  "nekretnine": HomeIcon,
+  "vozila": Car,
+  "poslovi-usluge": Briefcase,
+  "turizm-smjestaj": MapPinIcon,
+};
 
 const steps = [
   { n: "01", title: "Registracija i verifikacija", desc: "Kreirajte profil i prođite verifikaciju identiteta za pristup zajednici." },
@@ -156,20 +155,23 @@ function Stat({ n, label }: { n: string; label: string }) {
 function CategoryStrip() {
   return (
     <section className="border-b border-border bg-background">
-      <div className="mx-auto grid max-w-7xl grid-cols-3 gap-2 px-6 py-8 md:grid-cols-6">
-        {categories.map(({ icon: Icon, label, slug }) => (
-          <Link
-            key={slug}
-            to="/kategorija/$category"
-            params={{ category: slug }}
-            className="group flex flex-col items-center gap-3 rounded-2xl p-3 transition hover:bg-[color:var(--surface-muted)]"
-          >
-            <span className="grid h-14 w-14 place-items-center rounded-full bg-[color:var(--surface-muted)] transition group-hover:bg-white group-hover:shadow-[var(--shadow-raised)]">
-              <Icon className="h-5 w-5" style={{ color: "var(--navy)" }} />
-            </span>
-            <span className="text-xs font-medium tracking-wide text-foreground/80">{label}</span>
-          </Link>
-        ))}
+      <div className="mx-auto grid max-w-7xl gap-2 px-6 py-8" style={{ gridTemplateColumns: `repeat(${CATEGORIES.length}, minmax(0, 1fr))` }}>
+        {CATEGORIES.map(({ name, slug }) => {
+          const Icon = categoryIconMap[slug] || HomeIcon;
+          return (
+            <Link
+              key={slug}
+              to="/kategorija/$category"
+              params={{ category: slug }}
+              className="group flex flex-col items-center gap-3 rounded-2xl p-3 transition hover:bg-[color:var(--surface-muted)]"
+            >
+              <span className="grid h-14 w-14 place-items-center rounded-full bg-[color:var(--surface-muted)] transition group-hover:bg-white group-hover:shadow-[var(--shadow-raised)]">
+                <Icon className="h-5 w-5" style={{ color: "var(--navy)" }} />
+              </span>
+              <span className="text-xs font-medium tracking-wide text-foreground/80">{name}</span>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );
@@ -186,35 +188,143 @@ function SectionHeader({ eyebrow, title, desc }: { eyebrow: string; title: strin
 }
 
 function FeaturedListings() {
-  const { data: featured = [], isLoading } = useQuery({
+  const { data: promoted = [], isLoading } = useQuery({
+    queryKey: ["home-promoted"],
+    queryFn: async () => {
+      const { createClient } = await import("@supabase/supabase-js");
+      const supabase = createClient(
+        import.meta.env.VITE_SUPABASE_URL || "",
+        import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || ""
+      );
+
+      const now = new Date().toISOString();
+      const { data } = await supabase
+        .from("listings")
+        .select("*")
+        .neq("promotion_tier", "none")
+        .gt("promotion_expires_at", now)
+        .order("promotion_tier", { ascending: true })
+        .limit(3);
+
+      return data || [];
+    },
+    staleTime: 30_000,
+  });
+
+  const { data: featured = [] } = useQuery({
     queryKey: ["home-featured"],
     queryFn: () => fetchListings({ sort: "popularnost", verifiedOnly: true, limit: 4 }),
     staleTime: 60_000,
   });
-  return (
-    <section id="listings" className="mx-auto max-w-7xl px-6 py-24">
-      <div className="flex flex-wrap items-end justify-between gap-6">
-        <div>
-          <div className="text-xs font-medium uppercase tracking-[0.3em]" style={{ color: "var(--gold-deep)" }}>Izdvojeni oglasi</div>
-          <h2 className="mt-3 font-display text-4xl font-semibold md:text-5xl">Pažljivo odabrano za vas</h2>
-        </div>
-        <Link to="/browse" className="group inline-flex items-center gap-2 text-sm font-medium text-foreground">
-          Pogledaj sve oglase
-          <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-        </Link>
-      </div>
 
-      {isLoading ? (
-        <div className="mt-12 flex items-center justify-center gap-2 text-muted-foreground">
-          <Loader2 className="h-4 w-4 animate-spin" /> Učitavanje…
-        </div>
-      ) : featured.length === 0 ? (
-        <p className="mt-12 text-center text-muted-foreground">Trenutno nema izdvojenih oglasa.</p>
-      ) : (
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {featured.map((l) => <ListingCard key={l.id} l={l} />)}
+  return (
+    <section className="space-y-16">
+      {/* Promoted/Featured Section */}
+      {promoted && promoted.length > 0 && (
+        <div className="mx-auto max-w-7xl px-6 py-16">
+          <div className="mb-8">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--gold)]/30 bg-[color:var(--gold)]/5 px-4 py-1.5">
+              <Sparkles className="h-4 w-4" style={{ color: "var(--gold-deep)" }} />
+              <span className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: "var(--gold-deep)" }}>
+                Istaknuti oglasi
+              </span>
+            </div>
+            <h2 className="mt-4 font-display text-3xl font-semibold md:text-4xl">Premium oglasi ovog tjedna</h2>
+            <p className="mt-2 text-muted-foreground">Odabranih oglasa s dodatnom vidljivošću od prodavatelja</p>
+          </div>
+
+          {isLoading ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            </div>
+          ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {promoted.map((listing) => {
+              const tier = (listing.promotion_tier || "none") as keyof typeof PROMOTION_PRICING;
+              const promo = PROMOTION_PRICING[tier] || PROMOTION_PRICING.none;
+              return (
+                <Link
+                  key={listing.id}
+                  to="/oglas/$id"
+                  params={{ id: listing.id }}
+                  className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)] transition hover:shadow-md hover:border-[color:var(--gold-deep)]"
+                >
+                  {/* Promotion Badge */}
+                  <div
+                    className="absolute right-3 top-3 z-10 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white"
+                    style={{
+                      background: listing.promotion_tier === "vip"
+                        ? "var(--gradient-gold)"
+                        : listing.promotion_tier === "premium"
+                        ? "var(--navy)"
+                        : "var(--gold-deep)",
+                    }}
+                  >
+                    <Sparkles className="h-3 w-3" />
+                    {promo.name}
+                  </div>
+
+                  {/* Image */}
+                  <div className="relative h-48 overflow-hidden bg-muted">
+                    {listing.images?.[0] && (
+                      <img
+                        src={listing.images[0] as string}
+                        alt={listing.title}
+                        className="h-full w-full object-cover transition group-hover:scale-105"
+                      />
+                    )}
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-5">
+                    <h3 className="line-clamp-2 font-display text-lg font-semibold group-hover:text-[color:var(--gold-deep)]">
+                      {listing.title}
+                    </h3>
+                    <div className="mt-3 flex items-center justify-between">
+                      <div className="text-xs text-muted-foreground">{listing.city}</div>
+                      {listing.verified && <BadgeCheck className="h-4 w-4 text-[color:var(--gold-deep)]" />}
+                    </div>
+                    <div className="mt-3 font-display text-xl font-semibold" style={{ color: "var(--navy)" }}>
+                      {new Intl.NumberFormat("hr-HR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(listing.price)}
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+          )}
         </div>
       )}
+
+      {/* Regular Featured Section */}
+      <div id="listings" className="mx-auto max-w-7xl px-6 py-24">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <div className="text-xs font-medium uppercase tracking-[0.3em]" style={{ color: "var(--gold-deep)" }}>
+              Izdvojeni oglasi
+            </div>
+            <h2 className="mt-3 font-display text-4xl font-semibold md:text-5xl">Pažljivo odabrano za vas</h2>
+          </div>
+          <Link to="/browse" className="group inline-flex items-center gap-2 text-sm font-medium text-foreground">
+            Pogledaj sve oglase
+            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+          </Link>
+        </div>
+
+        {isLoading ? (
+          <div className="mt-12 flex items-center justify-center gap-2 text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin" /> Učitavanje…
+          </div>
+        ) : featured.length === 0 ? (
+          <p className="mt-12 text-center text-muted-foreground">Trenutno nema izdvojenih oglasa.</p>
+        ) : (
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {featured.map((l) => (
+              <ListingCard key={l.id} l={l} />
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }

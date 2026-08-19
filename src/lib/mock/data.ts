@@ -30,21 +30,6 @@ export type Category = {
 
 export const CATEGORIES: Category[] = [
   {
-    slug: "nekretnine",
-    name: "Nekretnine",
-    tagline: "Stanovi, kuće, poslovni prostori i zemljišta",
-    image: heroImg,
-    listingFee: 14.99,
-    premiumFee: 29.99,
-    subcategories: [
-      { slug: "prodaja-stanova", name: "Prodaja stanova" },
-      { slug: "najam-stanova", name: "Najam stanova" },
-      { slug: "kuce-vile", name: "Kuće i vile" },
-      { slug: "poslovni-prostori", name: "Poslovni prostori" },
-      { slug: "ostalo", name: "Ostalo", icon: "Tag", description: "Zemljišta, sobe i ostale nekretnine koje ne pripadaju gornjim podkategorijama." },
-    ],
-  },
-  {
     slug: "vozila",
     name: "Vozila",
     tagline: "Automobili, motocikli, kamioni, plovila i dijelovi",
@@ -52,151 +37,78 @@ export const CATEGORIES: Category[] = [
     listingFee: 6.99,
     premiumFee: 11.99,
     subcategories: [
-      { slug: "osobni-automobili", name: "Osobni automobili" },
-      { slug: "motocikli-skuteri", name: "Motocikli i skuteri" },
-      { slug: "kombi-kamioni", name: "Kombi i kamioni" },
-      { slug: "plovila", name: "Plovila i čamci" },
-      { slug: "ostalo", name: "Ostalo", icon: "Tag", description: "Kamp prikolice, dijelovi, oprema i ostala vozila." },
+      { slug: "osobni-automobili", name: "Osobni automobili", icon: "Car", description: "Novi i rabljeni automobili svih marki i godina." },
+      { slug: "motocikli-skuteri", name: "Motocikli i skuteri", icon: "Bike", description: "Motocikli, skueri, ATV-ovi i ostala motorna vozila." },
+      { slug: "kombi-kamioni", name: "Kombi i kamioni", icon: "Truck", description: "Kombiji, kamioni, autobusi i teretna vozila." },
+      { slug: "plovila", name: "Plovila i čamci", icon: "Anchor", description: "Jahte, čamci, brodice i ostala plovila." },
+      { slug: "dijelovi-oprema", name: "Dijelovi i oprema", icon: "Wrench", description: "Dijelovi motora, gume, akcesori, alat i ostala vozna oprema." },
     ],
   },
   {
-    slug: "mobiteli-tableti",
-    name: "Mobiteli i tableti",
-    tagline: "Pametni telefoni, tableti i nosivi uređaji",
-    image: listing2,
-    listingFee: 6.99,
-    premiumFee: 11.99,
-    subcategories: [
-      { slug: "pametni-telefoni", name: "Pametni telefoni" },
-      { slug: "tableti", name: "Tableti" },
-      { slug: "pametni-satovi", name: "Pametni satovi" },
-      { slug: "dodaci-mobiteli", name: "Dodaci i oprema" },
-      { slug: "ostalo", name: "Ostalo", icon: "Tag", description: "Ostali mobilni uređaji i nosiva tehnologija." },
-    ],
-  },
-  {
-    slug: "informatika",
-    name: "Informatika",
-    tagline: "Računala, gaming i mrežna oprema",
-    image: listing4,
-    listingFee: 6.99,
-    premiumFee: 11.99,
-    subcategories: [
-      { slug: "prijenosna-racunala", name: "Prijenosna računala" },
-      { slug: "stolna-racunala", name: "Stolna računala" },
-      { slug: "gaming", name: "Gaming" },
-      { slug: "mrezna-oprema", name: "Mrežna oprema" },
-      { slug: "ostalo", name: "Ostalo", icon: "Tag", description: "Komponente, periferija i ostala informatička oprema." },
-    ],
-  },
-  {
-    slug: "tv-audio-foto",
-    name: "TV, audio i foto",
-    tagline: "Televizori, audio sustavi, fotoaparati i dronovi",
-    image: listing1,
-    listingFee: 6.99,
-    premiumFee: 11.99,
-    subcategories: [
-      { slug: "televizori", name: "Televizori" },
-      { slug: "audio-zvucnici", name: "Audio i zvučnici" },
-      { slug: "fotoaparati", name: "Fotoaparati i objektivi" },
-      { slug: "dronovi-kamere", name: "Dronovi i akcijske kamere" },
-      { slug: "ostalo", name: "Ostalo", icon: "Tag", description: "Ostala TV, audio i foto oprema." },
-    ],
-  },
-  {
-    slug: "dom-namjestaj",
-    name: "Dom i namještaj",
-    tagline: "Namještaj, kućanski aparati i uređenje doma",
-    image: listing1,
-    listingFee: 6.99,
-    premiumFee: 11.99,
-    subcategories: [
-      { slug: "namjestaj", name: "Namještaj" },
-      { slug: "veliki-aparati", name: "Veliki kućanski aparati" },
-      { slug: "mali-aparati", name: "Mali kućanski aparati" },
-      { slug: "uredjenje-doma", name: "Uređenje doma" },
-      { slug: "ostalo", name: "Ostalo", icon: "Tag", description: "Kuhinja, pribor i ostalo za dom." },
-    ],
-  },
-  {
-    slug: "sport-rekreacija",
-    name: "Sport i rekreacija",
-    tagline: "Bicikli, fitness, zima, lov i ribolov",
-    image: listing3,
-    listingFee: 6.99,
-    premiumFee: 11.99,
-    subcategories: [
-      { slug: "bicikli", name: "Bicikli i e-bicikli" },
-      { slug: "fitness-oprema", name: "Fitness oprema" },
-      { slug: "skijanje-zima", name: "Skijanje i zimski sportovi" },
-      { slug: "lov-ribolov", name: "Lov i ribolov" },
-      { slug: "ostalo", name: "Ostalo", icon: "Tag", description: "Kamp, outdoor i ostala sportska oprema." },
-    ],
-  },
-  {
-    slug: "vrt-alat-strojevi",
-    name: "Vrt, alat i strojevi",
-    tagline: "Vrtna oprema, alat, strojevi i traktori",
+    slug: "nekretnine",
+    name: "Nekretnine",
+    tagline: "Stanovi, kuće, poslovni prostori i zemljišta",
     image: heroImg,
-    listingFee: 6.99,
-    premiumFee: 11.99,
+    listingFee: 14.99,
+    premiumFee: 29.99,
     subcategories: [
-      { slug: "vrtna-oprema", name: "Vrtna oprema" },
-      { slug: "elektricni-alat", name: "Električni alat" },
-      { slug: "strojevi-traktori", name: "Strojevi i traktori" },
-      { slug: "bazeni-sauna", name: "Bazeni i sauna" },
-      { slug: "ostalo", name: "Ostalo", icon: "Tag", description: "Ostali alati, strojevi i vrtna oprema." },
-    ],
-  },
-  {
-    slug: "djeca-ljubimci",
-    name: "Dječji svijet i ljubimci",
-    tagline: "Oprema za bebe, igračke, dječja odjeća i ljubimci",
-    image: listing4,
-    listingFee: 6.99,
-    premiumFee: 11.99,
-    subcategories: [
-      { slug: "oprema-za-bebe", name: "Oprema za bebe" },
-      { slug: "djecja-odjeca", name: "Dječja odjeća" },
-      { slug: "igracke", name: "Igračke" },
-      { slug: "kucni-ljubimci", name: "Kućni ljubimci" },
-      { slug: "ostalo", name: "Ostalo", icon: "Tag", description: "Ostalo za djecu i ljubimce." },
-    ],
-  },
-  {
-    slug: "smjestaj",
-    name: "Smještaj",
-    tagline: "Apartmani, kuće za odmor i luksuzni smještaji uz Jadran",
-    image: heroImg,
-    listingFee: 6.99,
-    premiumFee: 11.99,
-    subcategories: [
-      { slug: "luksuzni-apartmani", name: "Luksuzni apartmani", icon: "Sparkles", description: "Pažljivo odabrani apartmani vrhunske opremljenosti s privatnim sadržajima i premium uslugom." },
-      { slug: "vile-s-bazenom", name: "Vile s bazenom", icon: "Droplets", description: "Privatne vile s vlastitim bazenom, terasom i potpunom privatnošću za bezbrižan odmor." },
-      { slug: "boutique-hoteli", name: "Boutique hoteli", icon: "Crown", description: "Mali hoteli karaktera s personaliziranom uslugom, dizajnerskim interijerima i pažljivom selekcijom soba." },
-      { slug: "glamping", name: "Glamping", icon: "Tent", description: "Luksuzni kamping u prirodi — safari šatori, kupole i drvene kućice s vrhunskom opremom." },
-      { slug: "ostalo", name: "Ostalo", icon: "Tag", description: "Apartmani s pogledom, kamene kuće, resorti, penthouse i ostali smještaji." },
+      { slug: "prodaja-stanova", name: "Prodaja stanova", icon: "Home", description: "Stanovi na prodaju - novi i rabljeni." },
+      { slug: "najam-stanova", name: "Najam stanova", icon: "DoorOpen", description: "Stambeni prostori na najam - dugoročni i kratkoročni." },
+      { slug: "kuce-vile", name: "Kuće i vile", icon: "House", description: "Kuće, vile, vikendi i ostale obiteljske nekretnine." },
+      { slug: "poslovni-prostori", name: "Poslovni prostori", icon: "Building2", description: "Uredski prostori, prodajne površine, skladišta i garače." },
+      { slug: "zemljista", name: "Zemljišta", icon: "Trees", description: "Građevinska i poljoprivredna zemljišta." },
     ],
   },
   {
     slug: "poslovi-usluge",
     name: "Poslovi i usluge",
-    tagline: "Oglasi za posao, obrtničke i profesionalne usluge",
-    image: listing1,
+    tagline: "Ponude posla, traži posla, obrtničke i profesionalne usluge",
+    image: listing4,
     listingFee: 0,
     premiumFee: 0,
     specialModel: "services-contact",
     contactFee: 5.00,
     subcategories: [
-      { slug: "ponuda-posla", name: "Ponuda posla", icon: "Briefcase", description: "Oglasi poslodavaca — stalni posao, sezonski rad i ugovori o djelu." },
-      { slug: "potraznja-posla", name: "Potražnja posla", icon: "UserSearch", description: "Kandidati koji traže posao — životopisi i otvorene ponude." },
-      { slug: "obrtnicke-usluge", name: "Obrtničke usluge", icon: "Hammer", description: "Majstori, građevinari, vodoinstalateri, električari i ostali obrti." },
-      { slug: "it-dizajn", name: "IT i dizajn", icon: "Code2", description: "Razvoj weba, mobilnih aplikacija, grafički dizajn i digitalni marketing." },
-      { slug: "ostalo", name: "Ostalo", icon: "Tag", description: "Prijevoz, selidbe, edukacija, čišćenje, ugostiteljstvo i ostale usluge." },
+      { slug: "ponuda-posla", name: "Ponuda posla", icon: "Briefcase", description: "Poslodavci nude stalni posao, sezonski rad i ugovore o djelu." },
+      { slug: "potraznja-posla", name: "Potražnja posla", icon: "UserSearch", description: "Kandidati nude svoje vještine i iskustvo - životopisi i ponude." },
+      { slug: "obrtnicke-usluge", name: "Obrtničke usluge", icon: "Hammer", description: "Majstori, izvodači - elektrika, vodoinstalacije, zidanje, brisanje..." },
+      { slug: "it-dizajn", name: "IT i dizajn", icon: "Code2", description: "Razvoj web i mobilnih aplikacija, grafički dizajn, marketing." },
+      { slug: "ostale-usluge", name: "Ostale usluge", icon: "Tag", description: "Prijevoz, selidbe, edukacija, čišćenje i druge usluge." },
+    ],
+  },
+  {
+    slug: "turizm-smjestaj",
+    name: "Turizam i smještaj",
+    tagline: "Apartmani, kampovi, hoteli, restorani i turističke usluge",
+    image: listing2,
+    listingFee: 9.99,
+    premiumFee: 19.99,
+    subcategories: [
+      { slug: "apartmani-sobe", name: "Apartmani i privatni smještaj", icon: "Bed", description: "Apartmani, privatne sobe i kuće za turiste." },
+      { slug: "kampovi", name: "Kampovi", icon: "Tent", description: "Kampovi, kamp mjesta i glamping." },
+      { slug: "hoteli-hosteli", name: "Hoteli i hosteli", icon: "Building", description: "Hoteli, gostionice, hosteli i druge vrste smještaja." },
+      { slug: "restorani-barovi", name: "Restorani i barovi", icon: "UtensilsCrossed", description: "Restorani, barovi, kafići i specijaliteti." },
+      { slug: "atrakcije-usluge", name: "Atrakcije i usluge", icon: "MapPin", description: "Ture, adrenalin aktivnosti, rent-a-car i turističke usluge." },
     ],
   },
 ];
+
+export type Review = {
+  id: string;
+  sellerId: string;
+  buyerId: string;
+  buyerName: string;
+  listingId: string;
+  listingTitle: string;
+  rating: number; // 1-5 stars
+  title: string;
+  text: string;
+  verified: boolean;
+  helpful: number;
+  createdAt: string;
+};
+
+export type ReputationBadge = "trusted" | "excellent" | "outstanding";
 
 export type Seller = {
   id: string;
@@ -208,12 +120,40 @@ export type Seller = {
   joinedYear: number;
   verified: boolean;
   bio: string;
+  reviewCount?: number;
+  averageRating?: number;
+  reputationBadge?: ReputationBadge;
 };
 
 const FIRST_NAMES = ["Ana", "Luka", "Ivana", "Marko", "Petra", "Filip", "Maja", "Tomislav", "Nina", "Andrej", "Dora", "Vedran", "Sara", "Karlo", "Mia"];
 const LAST_NAMES = ["Marić", "Horvat", "Kovač", "Babić", "Šimić", "Novak", "Vuković", "Knežević", "Pavlović", "Tomić", "Jurić", "Matić", "Perić", "Lovrić", "Filipović"];
 const CITIES = ["Zagreb", "Split", "Rijeka", "Dubrovnik", "Pula", "Zadar", "Osijek", "Varaždin", "Šibenik", "Karlovac"];
 
+const BUYER_NAMES = FIRST_NAMES.map((fn, i) => `${fn} ${LAST_NAMES[i]}`);
+
+const REVIEW_TITLES = [
+  "Odličan prodavač, preporučujem!",
+  "Sve kako je napisano",
+  "Brza i pouzdana transakcija",
+  "Profesionalno i pažljivo",
+  "Bez zamjerki, sve savršeno",
+  "Kao na fotografiji",
+  "Odličan izbor",
+  "Preporuka od srca",
+];
+
+const REVIEW_TEXTS = [
+  "Sve je bilo savršeno — brza isporuka, točan opis, odličan proizvod. Siguran sam da će mi poslužiti dugo.",
+  "Prodavač je izuzetno ljubazan i spreman. Pregovora nije bilo, sve se brzo riješilo.",
+  "Obaveza preuzeta, obaveza ispunjena. Točno onako kako je bilo dogovoreno.",
+  "Profesionalni pristup od početka do kraja. Fotografije su točne, kvaliteta je do očekivanja.",
+  "Bez problema, bez žalbi, bez zamjerki. Preporuka za sve koji razmišljaju.",
+  "Odličan proizvod, točan opis, brza dostava. Što se više može tražiti?",
+  "Uvijek je dobro kada kreneš od povjerenja, a ovdje je to bilo opravdano.",
+  "Transakcija kao iz udžbenika — sve transparentno i prema dogovoru.",
+];
+
+// Initialize SELLERS first without reviews
 export const SELLERS: Seller[] = FIRST_NAMES.map((fn, i) => ({
   id: `s${i + 1}`,
   name: `${fn} ${LAST_NAMES[i]}`,
@@ -225,6 +165,8 @@ export const SELLERS: Seller[] = FIRST_NAMES.map((fn, i) => ({
   verified: i % 4 !== 0,
   bio: "Verificirani prodavač s pažljivo odabranim oglasima i transparentnim povijesnim ocjenama.",
 }));
+
+export type PromotionTier = "none" | "spotlight" | "featured" | "premium" | "vip";
 
 export type Listing = {
   id: string;
@@ -241,6 +183,9 @@ export type Listing = {
   authenticated: boolean;
   createdAt: string;
   specs: Record<string, string>;
+  promotionTier?: PromotionTier;
+  promotionExpiresAt?: string;
+  savedCount?: number;
 };
 
 const IMG_POOL = [listing1, listing2, listing3, listing4, heroImg];
@@ -333,6 +278,19 @@ function seedListings(): Listing[] {
           cat.slug === "poslovi-usluge" ? 50 + ((counter * 13) % 400) * 5 :
           800 + ((counter * 23) % 600) * 25;
         const img = IMG_POOL[counter % IMG_POOL.length];
+
+        // Randomly assign promotions to 10-20% of listings
+        const promotionRand = Math.random();
+        let promotionTier: PromotionTier = "none";
+        if (promotionRand < 0.05) promotionTier = "vip";
+        else if (promotionRand < 0.1) promotionTier = "premium";
+        else if (promotionRand < 0.2) promotionTier = "spotlight";
+
+        // Promotion expires in 7 days
+        const promotionExpiresAt = promotionTier !== "none"
+          ? new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+          : undefined;
+
         all.push({
           id: String(counter),
           title: i > 0 ? `${t} — primjerak ${i + 1}` : t,
@@ -356,6 +314,9 @@ function seedListings(): Listing[] {
               : cat.slug === "smjestaj"
               ? { Kapacitet: `${2 + (counter % 8)} osoba`, "Spavaće sobe": `${1 + (counter % 5)}`, "Udaljenost od mora": `${50 + (counter * 17) % 800} m`, "Wi-Fi": "Da" }
               : { Stanje: "Izvrsno", Materijal: "Premium", Dimenzije: "Standard", Porijeklo: "EU" },
+          promotionTier,
+          promotionExpiresAt,
+          savedCount: Math.floor(Math.random() * 100),
         });
         counter++;
       }
@@ -365,6 +326,55 @@ function seedListings(): Listing[] {
 }
 
 export const LISTINGS: Listing[] = seedListings();
+
+// Now that LISTINGS is initialized, seed reviews
+function seedReviews(): Review[] {
+  const reviews: Review[] = [];
+  let id = 1;
+
+  for (const seller of SELLERS) {
+    const reviewCount = 5 + Math.floor(Math.random() * 45);
+    for (let i = 0; i < reviewCount; i++) {
+      const rating = Math.random() < 0.85 ? (4 + Math.random()) : (2 + Math.random() * 3);
+      reviews.push({
+        id: `r${id++}`,
+        sellerId: seller.id,
+        buyerId: `b${Math.floor(Math.random() * 50) + 1}`,
+        buyerName: BUYER_NAMES[Math.floor(Math.random() * BUYER_NAMES.length)],
+        listingId: String(Math.floor(Math.random() * LISTINGS.length) + 1),
+        listingTitle: LISTINGS[Math.floor(Math.random() * LISTINGS.length)].title,
+        rating: Math.round(rating * 2) / 2,
+        title: REVIEW_TITLES[Math.floor(Math.random() * REVIEW_TITLES.length)],
+        text: REVIEW_TEXTS[Math.floor(Math.random() * REVIEW_TEXTS.length)],
+        verified: Math.random() < 0.9,
+        helpful: Math.floor(Math.random() * 20),
+        createdAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString(),
+      });
+    }
+  }
+
+  return reviews;
+}
+
+export const REVIEWS: Review[] = seedReviews();
+
+// Update SELLERS with review stats
+for (let i = 0; i < SELLERS.length; i++) {
+  const seller = SELLERS[i];
+  const sellerReviews = REVIEWS.filter((r) => r.sellerId === seller.id);
+  const avgRating = sellerReviews.length > 0
+    ? sellerReviews.reduce((sum, r) => sum + r.rating, 0) / sellerReviews.length
+    : 0;
+
+  let badge: ReputationBadge | undefined;
+  if (avgRating >= 4.7 && sellerReviews.length >= 20) badge = "outstanding";
+  else if (avgRating >= 4.5 && sellerReviews.length >= 10) badge = "excellent";
+  else if (avgRating >= 4.0 && sellerReviews.length >= 5) badge = "trusted";
+
+  seller.reviewCount = sellerReviews.length;
+  seller.averageRating = avgRating;
+  seller.reputationBadge = badge;
+}
 
 export function getCategory(slug: string) {
   return CATEGORIES.find((c) => c.slug === slug);
@@ -459,4 +469,203 @@ export function relatedListings(listing: Listing, limit = 4): Listing[] {
 
 export function listingsBySeller(sellerId: string) {
   return LISTINGS.filter((l) => l.sellerId === sellerId);
+}
+
+// Analytics data types and functions
+export type ListingAnalytics = {
+  listingId: string;
+  title: string;
+  views: number;
+  inquiries: number;
+  conversionRate: number;
+  revenue: number;
+  price: number;
+};
+
+export type SellerAnalytics = {
+  sellerId: string;
+  totalEarningsMonth: number;
+  totalEarningsYear: number;
+  activeListings: number;
+  totalViews: number;
+  totalInquiries: number;
+  conversionRate: number;
+  topProducts: ListingAnalytics[];
+  revenueByMonth: Array<{ month: string; revenue: number }>;
+  viewsTrend: Array<{ day: string; views: number }>;
+};
+
+function generateAnalyticsForListing(listing: Listing, sellerId: string): ListingAnalytics {
+  const daysOld = Math.floor((Date.now() - new Date(listing.createdAt).getTime()) / (1000 * 60 * 60 * 24));
+  const baseViews = 50 + daysOld * (15 + Math.random() * 30);
+  const views = Math.floor(baseViews * (0.8 + Math.random() * 0.4));
+  const inquiries = Math.floor(views * (0.05 + Math.random() * 0.15));
+  const conversionRate = inquiries > 0 ? (Math.random() * 0.3) : 0;
+  const revenue = Math.floor(listing.price * conversionRate * (0.5 + Math.random() * 0.5));
+
+  return {
+    listingId: listing.id,
+    title: listing.title,
+    views: Math.max(0, views),
+    inquiries: Math.max(0, inquiries),
+    conversionRate: Math.min(100, conversionRate * 100),
+    revenue: Math.max(0, revenue),
+    price: listing.price,
+  };
+}
+
+// Promotion pricing
+export const PROMOTION_PRICING: Record<PromotionTier, { name: string; price: number; period: "week" | "month"; benefits: string[] }> = {
+  none: {
+    name: "Standardna objava",
+    price: 0,
+    period: "month",
+    benefits: ["Vidljivost u kategoriji"],
+  },
+  spotlight: {
+    name: "Spotlight",
+    price: 10,
+    period: "week",
+    benefits: ["Top pozicija u pretrazi", "Istaknuta oznaka", "25% više pregleda (prosječno)"],
+  },
+  featured: {
+    name: "Featured",
+    price: 15,
+    period: "week",
+    benefits: ["Vidljiv na homepage", "Featured oznaka", "35% više pregleda (prosječno)"],
+  },
+  premium: {
+    name: "Premium",
+    price: 20,
+    period: "week",
+    benefits: ["Gola pozicija na homepage", "Premium oznaka", "Prioritetna podrška", "50% više pregleda"],
+  },
+  vip: {
+    name: "VIP",
+    price: 35,
+    period: "week",
+    benefits: ["Homepage hero section", "VIP oznaka", "Priority customer support", "75% više pregleda", "Featured social media"],
+  },
+};
+
+export type NotificationPreferences = {
+  userId: string;
+  newListingsInSavedSearches: boolean;
+  priceDropAlerts: boolean;
+  messageReminders: boolean;
+  weeklyDigest: boolean;
+  emailFrequency: "instant" | "daily" | "weekly";
+  savedSearches: Array<{ id: string; category?: string; subcategory?: string; query?: string; maxPrice?: number }>;
+};
+
+export function getPromotedListings(limit?: number): Listing[] {
+  const now = new Date();
+  const promoted = LISTINGS.filter((l) => {
+    if (!l.promotionTier || l.promotionTier === "none") return false;
+    if (!l.promotionExpiresAt) return false;
+    return new Date(l.promotionExpiresAt) > now;
+  });
+
+  // Sort by promotion tier (vip > premium > featured > spotlight)
+  const tierOrder = { vip: 0, premium: 1, featured: 2, spotlight: 3 };
+  promoted.sort((a, b) => {
+    const aOrder = tierOrder[a.promotionTier as "vip" | "premium" | "featured" | "spotlight"] ?? 99;
+    const bOrder = tierOrder[b.promotionTier as "vip" | "premium" | "featured" | "spotlight"] ?? 99;
+    return aOrder - bOrder;
+  });
+
+  return limit ? promoted.slice(0, limit) : promoted;
+}
+
+export function getSellerReviews(sellerId: string): Review[] {
+  return REVIEWS.filter((r) => r.sellerId === sellerId).sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+}
+
+export function getReviewStats(sellerId: string) {
+  const reviews = getSellerReviews(sellerId);
+  if (reviews.length === 0) {
+    return {
+      count: 0,
+      average: 0,
+      verified: 0,
+      distribution: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 },
+    };
+  }
+
+  const verified = reviews.filter((r) => r.verified).length;
+  const distribution = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+  let sum = 0;
+
+  reviews.forEach((r) => {
+    sum += r.rating;
+    distribution[Math.ceil(r.rating) as 1 | 2 | 3 | 4 | 5]++;
+  });
+
+  return {
+    count: reviews.length,
+    average: sum / reviews.length,
+    verified,
+    distribution,
+  };
+}
+
+export function getSellerAnalytics(sellerId: string): SellerAnalytics {
+  const sellerListings = listingsBySeller(sellerId);
+  const analyticsPerListing = sellerListings.map((l) => generateAnalyticsForListing(l, sellerId));
+
+  const totalViews = analyticsPerListing.reduce((sum, a) => sum + a.views, 0);
+  const totalInquiries = analyticsPerListing.reduce((sum, a) => sum + a.inquiries, 0);
+  const totalRevenue = analyticsPerListing.reduce((sum, a) => sum + a.revenue, 0);
+  const avgConversionRate = analyticsPerListing.length > 0
+    ? analyticsPerListing.reduce((sum, a) => sum + a.conversionRate, 0) / analyticsPerListing.length
+    : 0;
+
+  // Generate month revenue data (last 12 months)
+  const revenueByMonth = [];
+  const now = new Date();
+  for (let i = 11; i >= 0; i--) {
+    const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const monthLabel = new Intl.DateTimeFormat("hr-HR", { month: "short", year: "2-digit" }).format(date);
+    const monthRevenue = totalRevenue * (0.3 + Math.random() * 0.7) * Math.max(0.2, 1 - i * 0.05);
+    revenueByMonth.push({
+      month: monthLabel,
+      revenue: Math.floor(monthRevenue),
+    });
+  }
+
+  // This month earnings = last month in trend
+  const thisMonthRevenue = revenueByMonth[revenueByMonth.length - 1]?.revenue ?? 0;
+
+  // Generate views trend (last 30 days)
+  const viewsTrend = [];
+  for (let i = 29; i >= 0; i--) {
+    const date = new Date(now);
+    date.setDate(date.getDate() - i);
+    const dayLabel = new Intl.DateTimeFormat("hr-HR", { month: "short", day: "numeric" }).format(date);
+    const dayViews = Math.floor((totalViews / 30) * (0.5 + Math.random() * 1.5));
+    viewsTrend.push({
+      day: dayLabel,
+      views: dayViews,
+    });
+  }
+
+  // Top products (sorted by views)
+  const topProducts = analyticsPerListing
+    .sort((a, b) => b.views - a.views)
+    .slice(0, 5);
+
+  return {
+    sellerId,
+    totalEarningsMonth: thisMonthRevenue,
+    totalEarningsYear: totalRevenue,
+    activeListings: sellerListings.length,
+    totalViews,
+    totalInquiries,
+    conversionRate: avgConversionRate,
+    topProducts,
+    revenueByMonth,
+    viewsTrend,
+  };
 }

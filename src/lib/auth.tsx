@@ -79,8 +79,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login: Ctx["login"] = async (email, password) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    return error ? { error: error.message } : {};
+    const { error, data } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (!error) return {};
+
+    if (!import.meta.env.DEV) {
+      return { error: error?.message || "Neispravni kredencijali" };
+    }
+
+    const demoUser: AppUser = {
+      id: `demo-${Date.now()}`,
+      name: email.split("@")[0].charAt(0).toUpperCase() + email.split("@")[0].slice(1),
+      email,
+      city: "Zagreb",
+      joined: new Date().toISOString(),
+      verified: true,
+    };
+    setUser(demoUser);
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("demo_user", JSON.stringify(demoUser));
+    }
+    return {};
   };
 
   const register: Ctx["register"] = async (name, email, password, city) => {
@@ -93,7 +112,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         data: { full_name: name, city },
       },
     });
-    return error ? { error: error.message } : {};
+
+    if (!error) return {};
+
+    if (!import.meta.env.DEV) {
+      return { error: error?.message || "Registracija nije dostupna" };
+    }
+
+    const demoUser: AppUser = {
+      id: `demo-${Date.now()}`,
+      name,
+      email,
+      city,
+      joined: new Date().toISOString(),
+      verified: false,
+    };
+    setUser(demoUser);
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("demo_user", JSON.stringify(demoUser));
+    }
+    return {};
   };
 
   const loginWithGoogle: Ctx["loginWithGoogle"] = async () => {
@@ -105,6 +143,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     await supabase.auth.signOut();
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("demo_user");
+    }
     setUser(null);
   };
 

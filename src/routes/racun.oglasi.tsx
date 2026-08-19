@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Eye, Trash2, Plus, RefreshCw } from "lucide-react";
+import { Eye, Trash2, Plus, RefreshCw, Zap } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { formatPrice } from "@/lib/mock/data";
@@ -80,6 +80,14 @@ function MyListings() {
             <div className="text-right">
               <div className="font-display text-xl font-semibold" style={{ color: "var(--navy)" }}>{formatPrice(Number(l.price_eur))}</div>
               <div className="mt-2 flex justify-end gap-2">
+                <Link to="/checkout/promoted/$listingId" params={{ listingId: l.id }}>
+                  <button
+                    className="inline-flex items-center gap-1 rounded-md bg-[color:var(--gold-deep)] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[color:var(--gold-darker)]"
+                    title="Promiraj oglas"
+                  >
+                    <Zap className="h-3 w-3" /> Promiraj
+                  </button>
+                </Link>
                 <button
                   onClick={() => {
                     if (window.confirm("Obrisati ovaj oglas? Radnja je nepovratna.")) del.mutate(l.id);

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, Menu, X, Instagram, Facebook, Twitter, ChevronDown, User, Heart, MessageSquare, LayoutDashboard, LogOut, ShieldAlert } from "lucide-react";
+import { Search, Menu, X, Instagram, Facebook, Twitter, ChevronDown, User, Heart, MessageSquare, LayoutDashboard, LogOut, ShieldAlert, TrendingUp, Bell, Star } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { CATEGORIES } from "@/lib/mock/data";
 import { useAuth } from "@/lib/auth";
@@ -136,7 +136,10 @@ export function SiteHeader() {
                 <div className="absolute right-0 top-full z-50 mt-2 w-56 overflow-hidden rounded-xl border border-border bg-background shadow-[var(--shadow-luxe)]">
                   <Link to="/racun" className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-secondary"><LayoutDashboard className="h-4 w-4" /> Dashboard</Link>
                   <Link to="/racun/oglasi" className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-secondary"><User className="h-4 w-4" /> Moji oglasi</Link>
+                  <Link to="/racun/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-secondary"><TrendingUp className="h-4 w-4" /> Analitika</Link>
                   <Link to="/racun/poruke" className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-secondary"><MessageSquare className="h-4 w-4" /> Poruke</Link>
+                  <Link to="/racun/notifikacije" className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-secondary"><Bell className="h-4 w-4" /> Obavijesti</Link>
+                  <Link to="/racun/ostavi-recenziju" className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-secondary"><Star className="h-4 w-4" /> Ostavi recenziju</Link>
                   <Link to="/racun/spremljeno" className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-secondary"><Heart className="h-4 w-4" /> Spremljeno</Link>
                   <Link to="/racun/profil" className="flex items-center gap-2 border-t border-border px-4 py-2.5 text-sm hover:bg-secondary"><User className="h-4 w-4" /> Profil</Link>
                   {isMod && (
@@ -270,8 +273,9 @@ export function SiteFooter() {
             { to: "/faq", label: "Česta pitanja" },
           ]} />
           <FCol title="Pravno" links={[
-            { to: "/uvjeti", label: "Uvjeti korištenja" },
-            { to: "/privatnost", label: "Privatnost" },
+            { to: "/uvjeti-koristenja", label: "Uvjeti korištenja" },
+            { to: "/politika-privatnosti", label: "Politika privatnosti" },
+            { to: "/politika-kolacica", label: "Politika kolačića" },
           ]} />
         </div>
         <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center">
