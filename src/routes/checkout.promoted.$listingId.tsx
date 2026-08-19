@@ -1,9 +1,11 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { SiteShell } from "@/components/site/SiteShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LISTINGS, PROMOTION_PRICING } from "@/lib/mock/data";
+import { createCheckoutSession } from "@/lib/stripe.functions";
 import { Zap, Shield, TrendingUp, Star } from "lucide-react";
 
 export const Route = createFileRoute("/checkout/promoted/$listingId")({
@@ -13,9 +15,10 @@ export const Route = createFileRoute("/checkout/promoted/$listingId")({
 function CheckoutPromoted() {
   const { listingId } = Route.useParams();
   const navigate = useNavigate();
+  const checkoutFn = useServerFn(createCheckoutSession);
+
   const [selectedTier, setSelectedTier] = useState<"spotlight" | "featured" | "premium" | "vip">("featured");
   const [email, setEmail] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,31 +45,26 @@ function CheckoutPromoted() {
       setError("Unesite ispravnu e-poštu");
       return;
     }
-    if (!cardNumber || cardNumber.length < 10) {
-      setError("Unesite ispravnu karticu");
-      return;
-    }
 
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const result = await checkoutFn({
+        listingType: selectedTier === "spotlight" ? "standard" : "premium",
+        categorySlug: listing.category || "general",
+        userEmail: email,
+        listingTitle: listing.title,
+      });
 
-    const order = {
-      id: `order-${Date.now()}`,
-      listingId,
-      tier: selectedTier,
-      price: weeklyPrice,
-      email,
-      status: "completed",
-      date: new Date().toISOString(),
-    };
-
-    if (typeof window !== "undefined") {
-      const orders = JSON.parse(sessionStorage.getItem("orders") || "[]");
-      orders.push(order);
-      sessionStorage.setItem("orders", JSON.stringify(orders));
+      if (result.url) {
+        window.location.href = result.url;
+      } else {
+        setError("Nije moguće otvoriti Stripe checkout");
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Greška pri kreiranju checkout-a");
+    } finally {
+      setLoading(false);
     }
-
-    navigate({ to: "/checkout/success", search: { orderId: order.id } });
   };
 
   return (
@@ -149,29 +147,8 @@ function CheckoutPromoted() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="vas@email.com"
                 className="mt-1"
+                required
               />
-            </div>
-
-            <div>
-              <label className="text-sm font-medium">Broj kartice</label>
-              <Input
-                value={cardNumber}
-                onChange={(e) => setCardNumber(e.target.value.replace(/\D/g, "").slice(0, 16))}
-                placeholder="4242 4242 4242 4242"
-                className="mt-1 font-mono"
-              />
-              <p className="text-xs text-muted-foreground mt-1">Test: 4242 4242 4242 4242</p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-sm font-medium">MM/YY</label>
-                <Input placeholder="12/25" className="mt-1" />
-              </div>
-              <div>
-                <label className="text-sm font-medium">CVC</label>
-                <Input placeholder="123" className="mt-1" />
-              </div>
             </div>
 
             {error && <p className="text-sm text-destructive">{error}</p>}
@@ -181,11 +158,11 @@ function CheckoutPromoted() {
               disabled={loading}
               className="w-full bg-[color:var(--gold-deep)] text-white hover:bg-[color:var(--gold-darker)]"
             >
-              {loading ? "Obrada..." : `Kupi za €${weeklyPrice}`}
+              {loading ? "Preusmjeravanje na Stripe..." : `Nastavi na Stripe za €${weeklyPrice}`}
             </Button>
 
             <p className="text-xs text-muted-foreground text-center">
-              Novac će biti upućen na Nexora grupu račun.
+              Plaćanje je sigurno preko Stripe-a. Novac ide na Nexora grupu.
             </p>
           </form>
 
