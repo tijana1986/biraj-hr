@@ -9,24 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SubscribeRouteImport } from './routes/subscribe'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ListingIdRouteImport } from './routes/listing.$id'
+import { Route as InvoiceIdRouteImport } from './routes/invoice.$id'
 import { Route as ApiWebhooksStripeRouteImport } from './routes/api/webhooks/stripe'
-import { Route as ApiStripeCreateSubscriptionCheckoutRouteImport } from './routes/api/stripe/create-subscription-checkout'
-import { Route as ApiStripeCreateCustomerRouteImport } from './routes/api/stripe/create-customer'
 
-const SubscribeRoute = SubscribeRouteImport.update({
-  id: '/subscribe',
-  path: '/subscribe',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -49,20 +48,14 @@ const ListingIdRoute = ListingIdRouteImport.update({
   path: '/listing/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InvoiceIdRoute = InvoiceIdRouteImport.update({
+  id: '/invoice/$id',
+  path: '/invoice/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiWebhooksStripeRoute = ApiWebhooksStripeRouteImport.update({
   id: '/api/webhooks/stripe',
   path: '/api/webhooks/stripe',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiStripeCreateSubscriptionCheckoutRoute =
-  ApiStripeCreateSubscriptionCheckoutRouteImport.update({
-    id: '/api/stripe/create-subscription-checkout',
-    path: '/api/stripe/create-subscription-checkout',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiStripeCreateCustomerRoute = ApiStripeCreateCustomerRouteImport.update({
-  id: '/api/stripe/create-customer',
-  path: '/api/stripe/create-customer',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -70,22 +63,20 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
-  '/subscribe': typeof SubscribeRoute
+  '/invoice/$id': typeof InvoiceIdRoute
   '/listing/$id': typeof ListingIdRoute
-  '/api/stripe/create-customer': typeof ApiStripeCreateCustomerRoute
-  '/api/stripe/create-subscription-checkout': typeof ApiStripeCreateSubscriptionCheckoutRoute
   '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
-  '/subscribe': typeof SubscribeRoute
+  '/invoice/$id': typeof InvoiceIdRoute
   '/listing/$id': typeof ListingIdRoute
-  '/api/stripe/create-customer': typeof ApiStripeCreateCustomerRoute
-  '/api/stripe/create-subscription-checkout': typeof ApiStripeCreateSubscriptionCheckoutRoute
   '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
 }
 export interface FileRoutesById {
@@ -93,11 +84,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/pricing': typeof PricingRoute
   '/register': typeof RegisterRoute
-  '/subscribe': typeof SubscribeRoute
+  '/invoice/$id': typeof InvoiceIdRoute
   '/listing/$id': typeof ListingIdRoute
-  '/api/stripe/create-customer': typeof ApiStripeCreateCustomerRoute
-  '/api/stripe/create-subscription-checkout': typeof ApiStripeCreateSubscriptionCheckoutRoute
   '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
 }
 export interface FileRouteTypes {
@@ -106,33 +96,30 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/login'
+    | '/pricing'
     | '/register'
-    | '/subscribe'
+    | '/invoice/$id'
     | '/listing/$id'
-    | '/api/stripe/create-customer'
-    | '/api/stripe/create-subscription-checkout'
     | '/api/webhooks/stripe'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/dashboard'
     | '/login'
+    | '/pricing'
     | '/register'
-    | '/subscribe'
+    | '/invoice/$id'
     | '/listing/$id'
-    | '/api/stripe/create-customer'
-    | '/api/stripe/create-subscription-checkout'
     | '/api/webhooks/stripe'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
     | '/login'
+    | '/pricing'
     | '/register'
-    | '/subscribe'
+    | '/invoice/$id'
     | '/listing/$id'
-    | '/api/stripe/create-customer'
-    | '/api/stripe/create-subscription-checkout'
     | '/api/webhooks/stripe'
   fileRoutesById: FileRoutesById
 }
@@ -140,28 +127,27 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
+  PricingRoute: typeof PricingRoute
   RegisterRoute: typeof RegisterRoute
-  SubscribeRoute: typeof SubscribeRoute
+  InvoiceIdRoute: typeof InvoiceIdRoute
   ListingIdRoute: typeof ListingIdRoute
-  ApiStripeCreateCustomerRoute: typeof ApiStripeCreateCustomerRoute
-  ApiStripeCreateSubscriptionCheckoutRoute: typeof ApiStripeCreateSubscriptionCheckoutRoute
   ApiWebhooksStripeRoute: typeof ApiWebhooksStripeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/subscribe': {
-      id: '/subscribe'
-      path: '/subscribe'
-      fullPath: '/subscribe'
-      preLoaderRoute: typeof SubscribeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/register': {
       id: '/register'
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -192,25 +178,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ListingIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/invoice/$id': {
+      id: '/invoice/$id'
+      path: '/invoice/$id'
+      fullPath: '/invoice/$id'
+      preLoaderRoute: typeof InvoiceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/webhooks/stripe': {
       id: '/api/webhooks/stripe'
       path: '/api/webhooks/stripe'
       fullPath: '/api/webhooks/stripe'
       preLoaderRoute: typeof ApiWebhooksStripeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/stripe/create-subscription-checkout': {
-      id: '/api/stripe/create-subscription-checkout'
-      path: '/api/stripe/create-subscription-checkout'
-      fullPath: '/api/stripe/create-subscription-checkout'
-      preLoaderRoute: typeof ApiStripeCreateSubscriptionCheckoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/stripe/create-customer': {
-      id: '/api/stripe/create-customer'
-      path: '/api/stripe/create-customer'
-      fullPath: '/api/stripe/create-customer'
-      preLoaderRoute: typeof ApiStripeCreateCustomerRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -220,12 +199,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
+  PricingRoute: PricingRoute,
   RegisterRoute: RegisterRoute,
-  SubscribeRoute: SubscribeRoute,
+  InvoiceIdRoute: InvoiceIdRoute,
   ListingIdRoute: ListingIdRoute,
-  ApiStripeCreateCustomerRoute: ApiStripeCreateCustomerRoute,
-  ApiStripeCreateSubscriptionCheckoutRoute:
-    ApiStripeCreateSubscriptionCheckoutRoute,
   ApiWebhooksStripeRoute: ApiWebhooksStripeRoute,
 }
 export const routeTree = rootRouteImport
