@@ -37,7 +37,7 @@ function TermsOfService() {
         <section className="space-y-4">
           <h2 className="font-display text-2xl font-semibold">1. Definicije</h2>
           <div className="space-y-3 text-sm">
-            <div><strong>"Platforma"</strong> — Web aplikacija dostupna na https://biraj.hr</div>
+            <div><strong>"Platforma"</strong> — Web aplikacija dostupna na https://biraj.com.hr</div>
             <div><strong>"Vlasnica"</strong> — NEXORA grupa, vl. Tijana Dusper</div>
             <div><strong>"Korisnik"</strong> — Bilo koja osoba koja koristi Platformu (Kupac, Prodavač, Preglednik)</div>
             <div><strong>"Prodavač"</strong> — Korisnik koji objavljuje oglase i nudi proizvode/usluge</div>
@@ -179,7 +179,7 @@ function TermsOfService() {
           </ul>
 
           <h3 className="text-base font-medium text-foreground mt-4">6.2. Povrat naknade:</h3>
-          <p className="text-sm text-muted-foreground">Nema povrata nakon što je oglas objavljena. Ako postoji tehnička greška, kontaktirajte nas na support@biraj.hr.</p>
+          <p className="text-sm text-muted-foreground">Nema povrata nakon što je oglas objavljena. Ako postoji tehnička greška, kontaktirajte nas na support@biraj.com.hr.</p>
 
           <h3 className="text-base font-medium text-foreground mt-4">6.3. Provizije:</h3>
           <p className="text-sm text-muted-foreground">Biraj.HR <strong>ne uzima proviziju</strong> od prodaje između kupca i prodavača. Jedina naknada je za premijumski sadržaj.</p>
@@ -200,7 +200,7 @@ function TermsOfService() {
           </ul>
 
           <h3 className="text-base font-medium text-foreground mt-4">7.2. Izvještavanje:</h3>
-          <p className="text-sm text-muted-foreground">Ako primijetite narušavanje ovih pravila, molimo vas da prijavite to e-mailom na <strong>support@biraj.hr</strong> s detaljima. Razmatramo svaku prijavu.</p>
+          <p className="text-sm text-muted-foreground">Ako primijetite narušavanje ovih pravila, molimo vas da prijavite to e-mailom na <strong>support@biraj.com.hr</strong> s detaljima. Razmatramo svaku prijavu.</p>
         </section>
 
         {/* 8. Intelektualno vlasništvo */}
@@ -219,7 +219,7 @@ function TermsOfService() {
           </ul>
 
           <h3 className="text-base font-medium text-foreground mt-4">8.3. DMCA i avtorska prava:</h3>
-          <p className="text-sm text-muted-foreground">Ako smatrate da je vaša autorska prava narušena, pošaljite pisanu prijavu s dokazima na support@biraj.hr. Postupit ćemo prema zakonu.</p>
+          <p className="text-sm text-muted-foreground">Ako smatrate da je vaša autorska prava narušena, pošaljite pisanu prijavu s dokazima na support@biraj.com.hr. Postupit ćemo prema zakonu.</p>
         </section>
 
         {/* 9. Odgovornost i ograničenja */}
@@ -252,7 +252,7 @@ function TermsOfService() {
           <h2 className="font-display text-2xl font-semibold">10. Rješavanje sporova</h2>
 
           <h3 className="text-base font-medium text-foreground mt-4">10.1. Mediacija:</h3>
-          <p className="text-sm text-muted-foreground">Ako imate spor s drugom osobom na Platformi, molimo pokušajte riješiti direktnom komunikacijom. Ako to ne uspije, kontaktirajte nas na support@biraj.hr s detaljima.</p>
+          <p className="text-sm text-muted-foreground">Ako imate spor s drugom osobom na Platformi, molimo pokušajte riješiti direktnom komunikacijom. Ako to ne uspije, kontaktirajte nas na support@biraj.com.hr s detaljima.</p>
 
           <h3 className="text-base font-medium text-foreground mt-4">10.2. Arbitraža ili sud:</h3>
           <p className="text-sm text-muted-foreground">Ako je spor između vas i Biraj.HR-a, pristanjete na <strong>rješavanje arbitražom</strong> prema pravilima Hrvatske arbitraže. Ako neki spor ne može biti rješen arbitražom, primjenjuje se redovni sudski postupak pred <strong>Trgovačkim sudom u Zagrebu</strong>.</p>
@@ -291,7 +291,7 @@ function TermsOfService() {
         <section className="space-y-4 rounded-lg border border-border/50 bg-background p-6 mt-8">
           <h2 className="text-lg font-medium text-foreground">Pitanja ili žalbe?</h2>
           <div className="text-sm space-y-2">
-            <p className="text-muted-foreground"><span className="font-medium text-foreground">Email:</span> <a href="mailto:support@biraj.hr" className="text-foreground hover:underline font-medium">support@biraj.hr</a></p>
+            <p className="text-muted-foreground"><span className="font-medium text-foreground">Email:</span> <a href="mailto:support@biraj.com.hr" className="text-foreground hover:underline font-medium">support@biraj.com.hr</a></p>
             <p className="text-muted-foreground"><span className="font-medium text-foreground">Odgovori u roku:</span> 7 radnih dana</p>
             <p className="text-muted-foreground mt-3">Za žalbe o zaštiti potrošača kontaktirajte Ministarstvo gospodarstva, poduzetništva i obrta.</p>
           </div>

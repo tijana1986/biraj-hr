@@ -49,7 +49,7 @@ function PrivacyPolicy() {
               <div className="flex items-start gap-2 text-sm">
                 <Mail className="h-4 w-4 shrink-0 mt-0.5 text-[color:var(--gold-deep)]" />
                 <div>
-                  <p><span className="font-medium">Email:</span> support@biraj.hr</p>
+                  <p><span className="font-medium">Email:</span> support@biraj.com.hr</p>
                   <p><span className="font-medium">Podaci za naplatu:</span> HR1823600001103274166</p>
                   <p><span className="font-medium">Mjesto registracije:</span> Republika Hrvatska</p>
                 </div>
@@ -265,7 +265,7 @@ function PrivacyPolicy() {
           </div>
 
           <div className="mt-4 p-4 rounded-lg bg-blue-50 border border-blue-200">
-            <p className="text-sm text-blue-900"><strong>Kako postaviti zahtjev:</strong> Pošaljite e-mail na <strong>support@biraj.hr</strong> s jasnom specifikacijom što tražite. Odgovor dajemo u roku od 30 dana.</p>
+            <p className="text-sm text-blue-900"><strong>Kako postaviti zahtjev:</strong> Pošaljite e-mail na <strong>support@biraj.com.hr</strong> s jasnom specifikacijom što tražite. Odgovor dajemo u roku od 30 dana.</p>
           </div>
         </section>
 
@@ -289,7 +289,7 @@ function PrivacyPolicy() {
           <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-4">
             <div className="flex gap-2">
               <AlertCircle className="h-5 w-5 shrink-0 text-amber-600" />
-              <p className="text-xs text-amber-900">Premda primjenjujemo sve dostupne mjere zaštite, nijedan sustav nije 100% bezopasan. Ako primijetite neobičnu aktivnost na svom računu, odmah nas kontaktirajte na support@biraj.hr.</p>
+              <p className="text-xs text-amber-900">Premda primjenjujemo sve dostupne mjere zaštite, nijedan sustav nije 100% bezopasan. Ako primijetite neobičnu aktivnost na svom računu, odmah nas kontaktirajte na support@biraj.com.hr.</p>
             </div>
           </div>
         </section>
@@ -313,7 +313,7 @@ function PrivacyPolicy() {
           <h2 className="font-display text-2xl font-semibold">11. Odgovorna osoba za zaštitu podataka (DPO)</h2>
 
           <div className="rounded-lg border border-border bg-background p-4 text-sm">
-            <p className="text-muted-foreground">U skladu s GDPR članak 37, čitavo poduzeće je odgovorna za zaštitu podataka. Kontaktirajte nas na <strong>support@biraj.hr</strong> za sve zahtjeve vezane uz zaštitu podataka.</p>
+            <p className="text-muted-foreground">U skladu s GDPR članak 37, čitavo poduzeće je odgovorna za zaštitu podataka. Kontaktirajte nas na <strong>support@biraj.com.hr</strong> za sve zahtjeve vezane uz zaštitu podataka.</p>
           </div>
         </section>
 
@@ -338,7 +338,7 @@ function PrivacyPolicy() {
             Ako imate pitanja ili željete postaviti zahtjev u vezi s vašim podacima:
           </p>
           <div className="text-sm">
-            <p><strong>Email:</strong> <a href="mailto:support@biraj.hr" className="text-[color:var(--gold-deep)] hover:underline">support@biraj.hr</a></p>
+            <p><strong>Email:</strong> <a href="mailto:support@biraj.com.hr" className="text-[color:var(--gold-deep)] hover:underline">support@biraj.com.hr</a></p>
             <p><strong>Vremenski okvir odgovora:</strong> 30 dana</p>
           </div>
         </section>

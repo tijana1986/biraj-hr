@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CATEGORIES } from "@/lib/mock/data";
 
-const BASE_URL = "https://biraj.hr";
+const BASE_URL = "https://biraj.com.hr";
 
 interface Entry {
   path: string;

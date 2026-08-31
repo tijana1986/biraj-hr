@@ -294,7 +294,7 @@ Format: PDF with company details and itemization
 1. Verify Resend API key
 2. Check Resend dashboard for bounces
 3. Verify domain is verified
-4. Check sender address (noreply@biraj.hr)
+4. Check sender address (noreply@biraj.com.hr)
 
 ### Database Connection Error
 1. Verify Supabase project is running

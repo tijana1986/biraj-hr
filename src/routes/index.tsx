@@ -23,9 +23,9 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Premium hrvatski marketplace s provjerenim prodavačima i provjerenim oglasima. Bez naknade za kupce — dogovor izravno s prodavateljem." },
       { property: "og:title", content: "Biraj.HR — Kupi i prodaj s povjerenjem" },
       { property: "og:description", content: "Hrvatski marketplace provjerenih oglasa. Provjereni prodavači, transparentne cijene objave, izravni kontakt." },
-      { property: "og:url", content: "https://biraj.hr/" },
+      { property: "og:url", content: "https://biraj.com.hr/" },
     ],
-    links: [{ rel: "canonical", href: "https://biraj.hr/" }],
+    links: [{ rel: "canonical", href: "https://biraj.com.hr/" }],
   }),
   component: Index,
 });

@@ -44,7 +44,7 @@ function Contact() {
       </section>
       <section className="mx-auto grid max-w-5xl gap-12 px-6 py-16 md:grid-cols-[1fr_1.2fr]">
         <div className="space-y-6">
-          <Info icon={Mail} title="E-pošta" value="podrska@biraj.hr" />
+          <Info icon={Mail} title="E-pošta" value="podrska@biraj.com.hr" />
           <Info icon={Phone} title="Telefon" value="+385 1 234 5678" />
           <Info icon={MapPin} title="Adresa" value="Ilica 1, 10000 Zagreb" />
           <div className="rounded-2xl border border-border bg-card p-5 text-sm">

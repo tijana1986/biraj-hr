@@ -125,7 +125,7 @@ supabase/
 
 ### Domain & Deployment
 - Current: `http://localhost:8080` (dev)
-- Target: `biraj.hr` (production)
+- Target: `biraj.com.hr` (production)
 - Hosting: Ready for Vercel, Cloudflare, or self-hosted deployment
 
 ## 🧪 Quick Start for Development
@@ -162,7 +162,7 @@ npm run format
 
 3. **Before Launch**
    - [ ] Setup production Stripe account and keys
-   - [ ] Configure custom domain (biraj.hr)
+   - [ ] Configure custom domain (biraj.com.hr)
    - [ ] Setup SSL certificate
    - [ ] Deploy to production environment
    - [ ] Run security audit

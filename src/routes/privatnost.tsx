@@ -30,10 +30,10 @@ function Privacy() {
             Koristimo nužne i analitičke kolačiće. Postavke možete promijeniti u svom pregledniku ili kroz banner za privolu.
           </S>
           <S t="Vaša prava">
-            Pravo na pristup, ispravak, brisanje, ograničenje obrade, prenosivost podataka i prigovor. Zahtjev možete poslati na privatnost@biraj.hr.
+            Pravo na pristup, ispravak, brisanje, ograničenje obrade, prenosivost podataka i prigovor. Zahtjev možete poslati na privatnost@biraj.com.hr.
           </S>
           <S t="Voditelj obrade">
-            Biraj.HR d.o.o., Ilica 1, 10000 Zagreb. Kontakt: privatnost@biraj.hr.
+            Biraj.HR d.o.o., Ilica 1, 10000 Zagreb. Kontakt: privatnost@biraj.com.hr.
           </S>
         </div>
       </article>

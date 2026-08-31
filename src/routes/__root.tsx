@@ -111,8 +111,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Biraj.HR",
-          url: "https://biraj.hr",
-          logo: "https://biraj.hr/favicon.ico",
+          url: "https://biraj.com.hr",
+          logo: "https://biraj.com.hr/favicon.ico",
           description:
             "Biraj.HR — premium hrvatski marketplace provjerenih oglasa i prodavača.",
           areaServed: "HR",

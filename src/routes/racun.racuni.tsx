@@ -240,7 +240,7 @@ function InvoicesPage() {
             Svi PDF računi su dostupni za preuzimanje 7 dana nakon transakcije.
           </p>
           <p className="text-sm text-muted-foreground">
-            Ako trebaaš starije račune, <a href="mailto:support@biraj.hr" className="text-amber-600 hover:underline">kontaktiraj support</a>.
+            Ako trebaaš starije račune, <a href="mailto:support@biraj.com.hr" className="text-amber-600 hover:underline">kontaktiraj support</a>.
           </p>
         </div>
       </div>

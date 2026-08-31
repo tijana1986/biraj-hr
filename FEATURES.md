@@ -91,7 +91,7 @@ Content:
 - Resend SDK for sending
 - Custom HTML templates
 - Error handling and logging
-- Sent from noreply@biraj.hr
+- Sent from noreply@biraj.com.hr
 
 **Files**:
 - email.functions.ts - sendPaymentConfirmation(), sendRefundConfirmation()
@@ -283,7 +283,7 @@ Added:
 ### Email:
 - Resend API key server-only
 - No sensitive data in email templates
-- From: noreply@biraj.hr (verified domain)
+- From: noreply@biraj.com.hr (verified domain)
 
 ### Admin:
 - Role-based access control

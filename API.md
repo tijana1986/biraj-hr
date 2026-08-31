@@ -483,7 +483,7 @@ const customTemplate = `
 `;
 
 await resend.emails.send({
-  from: "noreply@biraj.hr",
+  from: "noreply@biraj.com.hr",
   to: email,
   subject: "Custom Subject",
   html: customTemplate
@@ -523,4 +523,4 @@ For issues or questions:
 1. Check documentation: https://stripe.com/docs, https://supabase.com/docs
 2. Review error logs in Stripe/Supabase dashboards
 3. Test with: `stripe trigger` CLI commands
-4. Contact: support@biraj.hr
+4. Contact: support@biraj.com.hr

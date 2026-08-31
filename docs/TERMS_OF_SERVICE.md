@@ -7,7 +7,7 @@
 
 ## 1. OPĆE ODREDBE
 
-Ovi Opći uvjeti korištenja („**Uvjeti**") utvrđuju pravila i odgovornosti korisnika pri korištenju mrežne platforme Biraj.HR dostupne na www.biraj.hr (u nastavku: „**Tržnica**") te svih povezanih usluga.
+Ovi Opći uvjeti korištenja („**Uvjeti**") utvrđuju pravila i odgovornosti korisnika pri korištenju mrežne platforme Biraj.HR dostupne na www.biraj.com.hr (u nastavku: „**Tržnica**") te svih povezanih usluga.
 
 Biraj.HR d.o.o. (u nastavku: „**Pružatelj**", „**Mi**", „**Nas**") pruža Tržnicu kao sredstvo za povezivanje pružatelja usluga (u nastavku: „**Partneri**") i osoba ili subjekata koji traže određene usluge (u nastavku: „**Tražitelji**").
 
@@ -99,7 +99,7 @@ Svi oblici pretplate funkcioniraju kroz sustav **elektroničkih ponuda (invoica)
 ### 3.4 Povrat Novca
 
 - Ako plaćanje primimo i aktiviramo uslugu, povrat novca **se ne provodi** osim ako je došlo do greške u obradi ili ako Tržnica pretrpi značajnu servisnu grešku
-- Ako platite dvostruko ili slučajno, kontaktirajte nas na **support@biraj.hr** s dokazom plaćanja
+- Ako platite dvostruko ili slučajno, kontaktirajte nas na **support@biraj.com.hr** s dokazom plaćanja
 - Odustanak od pretplate moguć je **bez penala** prije isteka razdoblja, ali povrat se ne provodi za već korištene dane
 
 ---
@@ -270,7 +270,7 @@ Ako **nastavite koristiti Tržnicu nakon objave** novih Uvjeta, **automatski pri
 ### 10.1 Korak 1: Izravna Komunikacija
 
 Ako imate prigovor:
-1. Kontaktirajte nas na **support@biraj.hr** sa detaljima problema
+1. Kontaktirajte nas na **support@biraj.com.hr** sa detaljima problema
 2. Priložite bilo kakve dokaze (snimka zaslona, reference, itd.)
 3. Očekujte odgovor u roku od **7 radnih dana**
 
@@ -279,7 +279,7 @@ Ako imate prigovor:
 Ako niste zadovoljni odgovorom:
 1. Pošaljite pisani prigovor (e-pošta ili pismo) na:
    - **Adresa:** [Vaša adresa]
-   - **E-pošta:** complaints@biraj.hr
+   - **E-pošta:** complaints@biraj.com.hr
 2. U prigovoru navedite:
    - Vaš naziv/ime
    - Broj računa
@@ -358,8 +358,8 @@ Ovi Uvjeti:
 Za sve pitanja vezana uz ove Uvjete:
 
 **Biraj.HR d.o.o.**
-- **E-pošta:** support@biraj.hr
-- **Pritužbe:** complaints@biraj.hr
+- **E-pošta:** support@biraj.com.hr
+- **Pritužbe:** complaints@biraj.com.hr
 - **Adresa:** [Vaša adresa]
 - **Telefonski broj:** [Vaš broj]
 - **Radno vrijeme:** Ponedjeljak – Petak, 09:00 – 17:00 (po dogovoru)

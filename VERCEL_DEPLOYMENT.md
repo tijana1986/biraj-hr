@@ -11,7 +11,7 @@ Complete guide to deploy Biraj.HR payment system on Vercel.
 3. **Stripe Account** (Live Mode)
 4. **Supabase Project** (Production)
 5. **Resend Account** (with domain verified)
-6. **Domain** - biraj.hr (or your domain)
+6. **Domain** - biraj.com.hr (or your domain)
 
 ---
 
@@ -96,7 +96,7 @@ Environments: Production, Preview, Development
 #### App URL Variable
 ```
 Name: VITE_APP_URL
-Value: https://biraj.hr (your domain)
+Value: https://biraj.com.hr (your domain)
 Environments: Production
 ```
 
@@ -106,7 +106,7 @@ Environments: Production
 
 1. Go to Vercel Project Settings
 2. Domains → Add Domain
-3. Enter: `biraj.hr`
+3. Enter: `biraj.com.hr`
 4. Vercel shows DNS records to add
 
 ### Add DNS Records
@@ -125,7 +125,7 @@ Wait 5-10 minutes for DNS propagation.
 1. Go to Stripe Dashboard
 2. Developers → Webhooks
 3. Find endpoint → Click to edit
-4. Update URL to: `https://biraj.hr/api/webhooks/stripe`
+4. Update URL to: `https://biraj.com.hr/api/webhooks/stripe`
 5. Save changes
 
 ### Verify Webhook Events
@@ -191,7 +191,7 @@ Should show:
 ### Domain Verification
 1. Go to Resend Dashboard
 2. Domains → Add Domain
-3. Enter: `biraj.hr`
+3. Enter: `biraj.com.hr`
 4. Add DNS records shown
 
 ### Test Email Delivery
@@ -199,7 +199,7 @@ Should show:
 curl -X POST https://api.resend.com/emails \
   -H "Authorization: Bearer $RESEND_API_KEY" \
   -d '{
-    "from": "noreply@biraj.hr",
+    "from": "noreply@biraj.com.hr",
     "to": "test@example.com",
     "subject": "Test Email",
     "html": "<p>Test</p>"
@@ -230,7 +230,7 @@ git push origin main
 ## Step 8: Post-Deployment Testing
 
 ### Test Payment Flow
-1. Go to https://biraj.hr
+1. Go to https://biraj.com.hr
 2. Click on listing → "Promiraj oglas"
 3. Select tier → Enter email
 4. Click "Nastavi na Stripe"
@@ -287,7 +287,7 @@ git push origin main
 1. Verify RESEND_API_KEY
 2. Check Resend dashboard for bounces
 3. Verify domain is verified
-4. Check sender is `noreply@biraj.hr`
+4. Check sender is `noreply@biraj.com.hr`
 
 ### Issue: Database Connection Error
 **Solution:**
@@ -302,7 +302,7 @@ git push origin main
 
 - [ ] Vercel project created and connected
 - [ ] All 9 environment variables added
-- [ ] Domain configured (biraj.hr)
+- [ ] Domain configured (biraj.com.hr)
 - [ ] DNS records propagated
 - [ ] Stripe webhook updated to production URL
 - [ ] Stripe live mode enabled
@@ -409,7 +409,7 @@ git push origin main
 | STRIPE_SECRET_KEY | sk_live_... | Production |
 | STRIPE_WEBHOOK_SECRET | whsec_... | Production |
 | RESEND_API_KEY | re_... | All |
-| VITE_APP_URL | https://biraj.hr | Production |
+| VITE_APP_URL | https://biraj.com.hr | Production |
 
 ---
 
@@ -442,13 +442,13 @@ vercel domains ls
 ### Smoke Tests
 ```bash
 # Check homepage
-curl https://biraj.hr
+curl https://biraj.com.hr
 
 # Check admin dashboard
-curl https://biraj.hr/admin/dashboard
+curl https://biraj.com.hr/admin/dashboard
 
 # Check payment endpoint
-curl https://biraj.hr/api/webhooks/stripe -X POST
+curl https://biraj.com.hr/api/webhooks/stripe -X POST
 # Should return 400 (no body)
 ```
 

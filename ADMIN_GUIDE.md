@@ -185,7 +185,7 @@ Sve rad sa bazom ide kroz server functions:
 
 ## 📞 Podrška
 
-Za dodatne upite ili probleme, kontaktirajte support@biraj.hr
+Za dodatne upite ili probleme, kontaktirajte support@biraj.com.hr
 
 ---
 

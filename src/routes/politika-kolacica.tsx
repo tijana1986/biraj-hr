@@ -178,7 +178,7 @@ function CookiePolicy() {
           <ul className="space-y-2 text-sm ml-4">
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Postavke računa:</strong> Račun → Sigurnost → Kolačići i praćenje</span></li>
             <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Banner pri posjeti:</strong> Prikazan je banner — odaberite "Prihvati sve", "Odbij sve" ili "Prilagođene postavke"</span></li>
-            <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Kontaktirajte nas:</strong> Pošaljite e-mail na support@biraj.hr kako bi povukli pristanak</span></li>
+            <li className="flex gap-2"><span className="text-[color:var(--gold-deep)]">•</span><span><strong>Kontaktirajte nas:</strong> Pošaljite e-mail na support@biraj.com.hr kako bi povukli pristanak</span></li>
           </ul>
 
           <h3 className="font-semibold mt-4">3.2. U vašem web pregledniku:</h3>
@@ -274,7 +274,7 @@ function CookiePolicy() {
           <h2 className="text-lg font-medium text-foreground">Pitanja ili žalbe?</h2>
           <div className="space-y-2 text-sm">
             <p>Ako imate pitanja o kolačićima ili željite povući pristanak:</p>
-            <p><strong>Email:</strong> <a href="mailto:support@biraj.hr" className="text-[color:var(--gold-deep)] hover:underline">support@biraj.hr</a></p>
+            <p><strong>Email:</strong> <a href="mailto:support@biraj.com.hr" className="text-[color:var(--gold-deep)] hover:underline">support@biraj.com.hr</a></p>
             <p className="text-muted-foreground">Odgovaramo u roku od 7 radnih dana.</p>
           </div>
         </section>

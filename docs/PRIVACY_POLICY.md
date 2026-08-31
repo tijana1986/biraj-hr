@@ -7,7 +7,7 @@
 
 ## 1. OPĆE ODREDBE
 
-Biraj.HR d.o.o. (u nastavku: „**Pružatelj**", „**Mi**", „**Nas**") posvećen je zaštiti vašeg prava na privatnost. Ova Politika zaštite podataka („**Politika**") objašnjava kako prikupljamo, koristimo, obrađujemo i štitimo vaše osobne podatke kada koristite našu mrežnu platformu dostupnu na www.biraj.hr (u nastavku: „**Tržnica**") te sve povezane usluge.
+Biraj.HR d.o.o. (u nastavku: „**Pružatelj**", „**Mi**", „**Nas**") posvećen je zaštiti vašeg prava na privatnost. Ova Politika zaštite podataka („**Politika**") objašnjava kako prikupljamo, koristimo, obrađujemo i štitimo vaše osobne podatke kada koristite našu mrežnu platformu dostupnu na www.biraj.com.hr (u nastavku: „**Tržnica**") te sve povezane usluge.
 
 Molimo vas da pažljivo pročitate ovu Politiku. Korištenjem Tržnice pristajete na prikupljanje i korištenje vaših podataka kako je opisano u ovoj Politici. Ako se ne slažete s bilo kojom odredbom, molimo vas da prestanete koristiti Tržnicu.
 
@@ -18,7 +18,7 @@ Molimo vas da pažljivo pročitate ovu Politiku. Korištenjem Tržnice pristajet
 **Naziv:** Biraj.HR d.o.o.  
 **Adresa:** [Vaša adresa]  
 **OIB:** [Vaš OIB]  
-**E-pošta:** privacy@biraj.hr  
+**E-pošta:** privacy@biraj.com.hr  
 **Telefon:** [Vaš telefonski broj]
 
 ---
@@ -102,7 +102,7 @@ Vaše podatke dijelimo samo u sljedećim slučajevima:
 Prema GDPR-u, imate sljedeća prava:
 
 ### 7.1 Pravo na Pristup
-Možete zahtijevati da vam proslijedimo sve podatke koje o vama obrađujemo. Zahtjev podnesite na: **privacy@biraj.hr**
+Možete zahtijevati da vam proslijedimo sve podatke koje o vama obrađujemo. Zahtjev podnesite na: **privacy@biraj.com.hr**
 
 ### 7.2 Pravo na Ispravak
 Ako su vaši podaci netočni ili nepotpuni, možete zahtijevati ispravku.
@@ -122,7 +122,7 @@ Možete prigovoriti na obradu podataka na osnovu legitimnog interesa.
 ### 7.7 Pravo na Odluka Automskom Obradom
 Niste predmet odluka koje se donose isključivo automskom obradom osim ako to dopušta zakon.
 
-**Zahtjeve podnešite na: privacy@biraj.hr. Odgovorit ćemo u roku od 30 dana.**
+**Zahtjeve podnešite na: privacy@biraj.com.hr. Odgovorit ćemo u roku od 30 dana.**
 
 ---
 
@@ -149,7 +149,7 @@ Primjenjujemo sljedeće mjere zaštite:
 - **Redoviti auditi:** Redoviti sigurnosni pregledi i testiranja
 - **GDPR:** Proces procjene učinka zaštite podataka (DPIA)
 
-Međutim, niti jedan sustav nije apsolutno siguran. Ako sumnjate na sigurnosnu povredu, odmah nas obavijestite na **privacy@biraj.hr**.
+Međutim, niti jedan sustav nije apsolutno siguran. Ako sumnjate na sigurnosnu povredu, odmah nas obavijestite na **privacy@biraj.com.hr**.
 
 ---
 
@@ -176,7 +176,7 @@ Možemo promijeniti ovu Politiku bilo kada. Promjene će biti objavljene na Trž
 Za sva pitanja vezana uz ovu Politiku:
 
 **Biraj.HR d.o.o.**  
-E-pošta: privacy@biraj.hr  
+E-pošta: privacy@biraj.com.hr  
 Adresa: [Vaša adresa]  
 Telefon: [Vaš broj]
 

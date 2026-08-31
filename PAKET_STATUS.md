@@ -179,7 +179,7 @@ VITE_APP_URL=https://your-domain.com
 9. Email delivery testing
 10. Security audit
 11. Performance optimization
-12. Domain setup (biraj.hr)
+12. Domain setup (biraj.com.hr)
 13. SSL certificate
 14. Production Stripe/Resend accounts
 

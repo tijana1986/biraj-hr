@@ -92,7 +92,7 @@ export async function POST({ request }: { request: Request }) {
           const price = (session.amount_total || 0) / 100;
 
           await resend.emails.send({
-            from: "noreply@biraj.hr",
+            from: "noreply@biraj.com.hr",
             to: session.customer_email,
             subject: `Potvrda plaćanja - Promotion aktiviran #${session.id}`,
             html: `
@@ -147,17 +147,17 @@ export async function POST({ request }: { request: Request }) {
                       <ul>
                         <li>Promotion će biti aktivna u roku od 1 sata</li>
                         <li>Tvoj oglas će biti prikazan u "Premium oglasi" sekciji</li>
-                        <li>Možeš pogledati status u <a href="https://biraj.hr/racun/placanja">Mojim plaćanjima</a></li>
+                        <li>Možeš pogledati status u <a href="https://biraj.com.hr/racun/placanja">Mojim plaćanjima</a></li>
                       </ul>
 
                       <p style="text-align: center;">
-                        <a href="https://biraj.hr/racun/oglasi" class="button">Pogledaj svoje oglase</a>
+                        <a href="https://biraj.com.hr/racun/oglasi" class="button">Pogledaj svoje oglase</a>
                       </p>
                     </div>
 
                     <div class="footer">
                       <p>© 2024 Biraj.hr - Marketplace za oglase. Sva prava zadržana.</p>
-                      <p>Ako imaš pitanja, kontaktiraj nas na <a href="mailto:support@biraj.hr">support@biraj.hr</a></p>
+                      <p>Ako imaš pitanja, kontaktiraj nas na <a href="mailto:support@biraj.com.hr">support@biraj.com.hr</a></p>
                     </div>
                   </div>
                 </body>

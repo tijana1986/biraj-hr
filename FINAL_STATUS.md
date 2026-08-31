@@ -200,7 +200,7 @@ c852cef - Implement Paket 2 Part 1 - Email Verification
 - [ ] Setup production Stripe account
 - [ ] Setup production Resend account
 - [ ] Update `.env` with production keys
-- [ ] Configure custom domain (biraj.hr)
+- [ ] Configure custom domain (biraj.com.hr)
 
 ### Phase 2: Testing (2-3 hours)
 - [ ] Test payment flow end-to-end
@@ -323,7 +323,7 @@ c852cef - Implement Paket 2 Part 1 - Email Verification
 4. **Production Configuration**
    - [ ] Get production Stripe account & keys
    - [ ] Get production Resend account & API key
-   - [ ] Setup custom domain (biraj.hr)
+   - [ ] Setup custom domain (biraj.com.hr)
    - [ ] Update DNS records
    - [ ] Configure SSL/TLS certificate
 

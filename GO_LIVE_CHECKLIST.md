@@ -7,7 +7,7 @@ Complete checklist before going live to production. Follow in order.
 ## Phase 1: Infrastructure Setup (Days 1-2)
 
 ### Domain & DNS
-- [ ] Purchase domain `biraj.hr`
+- [ ] Purchase domain `biraj.com.hr`
 - [ ] Add Vercel DNS records (CNAME)
 - [ ] Verify DNS propagation (5-10 min wait)
 - [ ] Test domain loads in browser
@@ -18,13 +18,13 @@ Complete checklist before going live to production. Follow in order.
 - [ ] Add 9 environment variables (see VERCEL_DEPLOYMENT.md)
 - [ ] Configure domain in Vercel
 - [ ] Verify deployment preview works
-- [ ] Test production URL: https://biraj.hr
+- [ ] Test production URL: https://biraj.com.hr
 
 ### Stripe Configuration
 - [ ] Create Stripe account (Live Mode)
 - [ ] Add live publishable key (pk_live_...)
 - [ ] Add live secret key (sk_live_...)
-- [ ] Configure webhook to `https://biraj.hr/api/webhooks/stripe`
+- [ ] Configure webhook to `https://biraj.com.hr/api/webhooks/stripe`
 - [ ] Enable webhook events: checkout.session.completed, charge.failed, customer.subscription.*
 - [ ] Test webhook delivery
 
@@ -42,7 +42,7 @@ Complete checklist before going live to production. Follow in order.
 
 ### Resend Email
 - [ ] Create Resend account
-- [ ] Add domain `biraj.hr`
+- [ ] Add domain `biraj.com.hr`
 - [ ] Verify DNS records for email
 - [ ] Test email sending
 - [ ] Verify confirmation emails working

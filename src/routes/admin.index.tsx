@@ -46,7 +46,7 @@ function AdminDefaultPage() {
           Možete uređivati FAQ stavke, postavke stranice i drugo.
         </p>
         <p className="text-xs text-muted-foreground">
-          Za dodatnu pomoć, kontaktirajte support@biraj.hr.
+          Za dodatnu pomoć, kontaktirajte support@biraj.com.hr.
         </p>
       </div>
     </div>

@@ -120,7 +120,7 @@ function PostListing() {
         data: {
           listingType,
           categorySlug: form.category,
-          userEmail: user?.email || "user@biraj.hr",
+          userEmail: user?.email || "user@biraj.com.hr",
           listingTitle: form.title,
         },
       });

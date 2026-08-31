@@ -131,7 +131,7 @@ function AdminSettingsPage() {
           <li>• Upravljati FAQ stavkama bez trebanja znati kod</li>
         </ul>
         <p className="mt-3 text-xs text-muted-foreground">
-          Za dodatne značajke ili prilagodbe, kontaktirajte support@biraj.hr.
+          Za dodatne značajke ili prilagodbe, kontaktirajte support@biraj.com.hr.
         </p>
       </div>
     </div>

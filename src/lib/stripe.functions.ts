@@ -97,8 +97,8 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
           },
         ],
         mode: "payment",
-        success_url: `${process.env.VITE_APP_URL || "https://biraj.hr"}/racun/plaćanje-potvrda?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.VITE_APP_URL || "https://biraj.hr"}/objavi?payment=cancelled`,
+        success_url: `${process.env.VITE_APP_URL || "https://biraj.com.hr"}/racun/plaćanje-potvrda?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.VITE_APP_URL || "https://biraj.com.hr"}/objavi?payment=cancelled`,
         customer_email: data.userEmail,
         metadata: {
           listingType: data.listingType,
@@ -147,8 +147,8 @@ export const createSubscriptionCheckout = createServerFn({ method: "POST" })
           },
         ],
         mode: "subscription",
-        success_url: `${process.env.VITE_APP_URL || "https://biraj.hr"}/racun/subscription-potvrda?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.VITE_APP_URL || "https://biraj.hr"}/racun/oglasi?payment=cancelled`,
+        success_url: `${process.env.VITE_APP_URL || "https://biraj.com.hr"}/racun/subscription-potvrda?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.VITE_APP_URL || "https://biraj.com.hr"}/racun/oglasi?payment=cancelled`,
         customer_email: data.userEmail,
         metadata: {
           listingType: data.listingType,

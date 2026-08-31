@@ -7,4 +7,4 @@ Disallow: /prijava
 Disallow: /registracija
 Disallow: /objavi
 
-Sitemap: https://biraj.hr/sitemap.xml
+Sitemap: https://biraj.com.hr/sitemap.xml

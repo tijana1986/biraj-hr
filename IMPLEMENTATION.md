@@ -305,7 +305,7 @@ RESEND_API_KEY=re_xxx
 
 ### Application
 ```
-VITE_APP_URL=http://localhost:5173  # For local, use https://biraj.hr for prod
+VITE_APP_URL=http://localhost:5173  # For local, use https://biraj.com.hr for prod
 ```
 
 ---
@@ -342,12 +342,12 @@ VITE_APP_URL=http://localhost:5173  # For local, use https://biraj.hr for prod
 
 3. **Stripe Configuration:**
    - Switch to live mode (if not already)
-   - Update webhook endpoint: `https://biraj.hr/api/webhooks/stripe`
+   - Update webhook endpoint: `https://biraj.com.hr/api/webhooks/stripe`
    - Add production webhook secret
 
 4. **Resend Setup:**
    - Verify domain for production
-   - Update email sender to `noreply@biraj.hr`
+   - Update email sender to `noreply@biraj.com.hr`
    - Test email delivery
 
 5. **Deploy:**
@@ -530,7 +530,7 @@ For issues or questions:
 1. Check the [TESTING.md](TESTING.md) guide
 2. Review error logs in Stripe/Supabase dashboards
 3. Run diagnostic tests with Stripe CLI
-4. Contact: support@biraj.hr
+4. Contact: support@biraj.com.hr
 
 ---
 

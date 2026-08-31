@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const baseUrl = () => process.env.VITE_APP_URL || "https://biraj.hr";
+const baseUrl = () => process.env.VITE_APP_URL || "https://biraj.com.hr";
 
 // Resend is server-only — load it inside handlers so it never ships to the client bundle.
 async function getResend() {
@@ -57,7 +57,7 @@ export const sendListingCreatedEmail = createServerFn({ method: "POST" })
       const dashboardUrl = `${baseUrl()}/racun/oglasi`;
 
       return await resend.emails.send({
-        from: "oglasi@biraj.hr",
+        from: "oglasi@biraj.com.hr",
         to: data.email,
         subject: `Oglas "${data.listingTitle}" je objavljen! 🎉`,
         html: `
@@ -98,7 +98,7 @@ export const sendPaymentConfirmationEmail = createServerFn({ method: "POST" })
       const resend = await getResend();
 
       return await resend.emails.send({
-        from: "placanja@biraj.hr",
+        from: "placanja@biraj.com.hr",
         to: data.email,
         subject: `Plaćanje potvrđeno - ${data.listingTitle}`,
         html: `
@@ -139,7 +139,7 @@ export const sendNewMessageEmail = createServerFn({ method: "POST" })
       const resend = await getResend();
 
       return await resend.emails.send({
-        from: "poruke@biraj.hr",
+        from: "poruke@biraj.com.hr",
         to: data.email,
         subject: `Nova poruka od ${data.senderName} - ${data.listingTitle}`,
         html: `
@@ -178,7 +178,7 @@ export const sendReviewReceivedEmail = createServerFn({ method: "POST" })
       const stars = "⭐".repeat(data.rating);
 
       return await resend.emails.send({
-        from: "recenzije@biraj.hr",
+        from: "recenzije@biraj.com.hr",
         to: data.email,
         subject: `Nova recenzija od ${data.reviewerName} - ${stars}`,
         html: `
@@ -214,7 +214,7 @@ export const sendWelcomeEmail = createServerFn({ method: "POST" })
       const browseUrl = `${baseUrl()}/browse`;
 
       return await resend.emails.send({
-        from: "noreply@biraj.hr",
+        from: "noreply@biraj.com.hr",
         to: data.email,
         subject: "Dobrodošao na Biraj.HR! 🎉",
         html: `

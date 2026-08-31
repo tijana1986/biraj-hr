@@ -63,10 +63,10 @@ export const sendVerificationEmail = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     try {
       const resend = await getResend();
-      const verificationUrl = `${process.env.VITE_APP_URL || "https://biraj.hr"}/provjeri-email?token=${data.verificationToken}`;
+      const verificationUrl = `${process.env.VITE_APP_URL || "https://biraj.com.hr"}/provjeri-email?token=${data.verificationToken}`;
 
       const result = await resend.emails.send({
-        from: "noreply@biraj.hr",
+        from: "noreply@biraj.com.hr",
         to: data.email,
         subject: "Potvrdi svoj e-mail na Biraj.HR",
         html: verificationEmailHtml(verificationUrl, data.userName),
@@ -167,9 +167,9 @@ export const resendVerificationEmail = createServerFn({ method: "POST" })
       if (error) throw error;
 
       const resend = await getResend();
-      const verificationUrl = `${process.env.VITE_APP_URL || "https://biraj.hr"}/provjeri-email?token=${token}`;
+      const verificationUrl = `${process.env.VITE_APP_URL || "https://biraj.com.hr"}/provjeri-email?token=${token}`;
       await resend.emails.send({
-        from: "noreply@biraj.hr",
+        from: "noreply@biraj.com.hr",
         to: input.email,
         subject: "Potvrdi svoj e-mail na Biraj.HR",
         html: verificationEmailHtml(verificationUrl),
@@ -263,17 +263,17 @@ export const sendPaymentConfirmation = createServerFn({ method: "POST" })
               <ul>
                 <li>Promotion će biti aktivna u roku od 1 sata</li>
                 <li>Tvoj oglas će biti prikazan u "Premium oglasi" sekciji</li>
-                <li>Možeš pogledati status u <a href="https://biraj.hr/racun/placanja">Mojim plaćanjima</a></li>
+                <li>Možeš pogledati status u <a href="https://biraj.com.hr/racun/placanja">Mojim plaćanjima</a></li>
               </ul>
 
               <p style="text-align: center;">
-                <a href="https://biraj.hr/racun/oglasi" class="button">Pogledaj svoje oglase</a>
+                <a href="https://biraj.com.hr/racun/oglasi" class="button">Pogledaj svoje oglase</a>
               </p>
             </div>
 
             <div class="footer">
               <p>© 2024 Biraj.hr - Marketplace za oglase. Sva prava zadržana.</p>
-              <p>Ako imaš pitanja, kontaktiraj nas na <a href="mailto:support@biraj.hr">support@biraj.hr</a></p>
+              <p>Ako imaš pitanja, kontaktiraj nas na <a href="mailto:support@biraj.com.hr">support@biraj.com.hr</a></p>
             </div>
           </div>
         </body>
@@ -282,7 +282,7 @@ export const sendPaymentConfirmation = createServerFn({ method: "POST" })
 
     try {
       const result = await resend.emails.send({
-        from: "noreply@biraj.hr",
+        from: "noreply@biraj.com.hr",
         to: data.email,
         subject: `Potvrda plaćanja - Promotion aktiviran #${data.orderNumber}`,
         html,
@@ -340,7 +340,7 @@ export const sendRefundConfirmation = createServerFn({ method: "POST" })
 
             <div class="footer">
               <p>© 2024 Biraj.hr - Marketplace za oglase. Sva prava zadržana.</p>
-              <p>Ako imaš pitanja, kontaktiraj nas na <a href="mailto:support@biraj.hr">support@biraj.hr</a></p>
+              <p>Ako imaš pitanja, kontaktiraj nas na <a href="mailto:support@biraj.com.hr">support@biraj.com.hr</a></p>
             </div>
           </div>
         </body>
@@ -349,7 +349,7 @@ export const sendRefundConfirmation = createServerFn({ method: "POST" })
 
     try {
       const result = await resend.emails.send({
-        from: "noreply@biraj.hr",
+        from: "noreply@biraj.com.hr",
         to: data.email,
         subject: `Povraćaj novca - Potvrda #${data.orderNumber}`,
         html,
