@@ -36,7 +36,7 @@ export const STRIPE_TEST_CARDS = {
     cvc: "123",
     description: "Processing error"
   },
-  3D_SECURE: {
+  "3D_SECURE": {
     number: "4000 0025 0000 3155",
     expiry: "12/25",
     cvc: "123",

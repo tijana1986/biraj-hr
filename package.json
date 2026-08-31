@@ -64,7 +64,6 @@
     "recharts": "^2.15.4",
     "resend": "^6.17.2",
     "@sentry/react": "^8.0.0",
-    "@sentry/tracing": "^8.0.0",
     "sharp": "^0.35.3",
     "sonner": "^2.0.7",
     "stripe": "^22.3.1",

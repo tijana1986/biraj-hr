@@ -7,7 +7,7 @@ import { ChatWindow } from "@/components/messaging/chat-window";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MessageCircle, Archive } from "lucide-react";
-import { getUserProfile } from "@/lib/auth.functions";
+import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/poruke")({
   head: () => ({
@@ -27,10 +27,7 @@ function MessagingPage() {
   const [showArchived, setShowArchived] = useState(false);
 
   // Get current user
-  const { data: user } = useSuspenseQuery({
-    queryKey: ["userProfile"],
-    queryFn: () => getUserProfile(),
-  });
+  const { user } = useAuth();
 
   // Get selected conversation data
   const { data: conversations } = useSuspenseQuery({

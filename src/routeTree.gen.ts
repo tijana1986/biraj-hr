@@ -19,6 +19,7 @@ import { Route as PrivatnostRouteImport } from './routes/privatnost'
 import { Route as PrijavaRouteImport } from './routes/prijava'
 import { Route as PretragaRouteImport } from './routes/pretraga'
 import { Route as PosloviRouteImport } from './routes/poslovi'
+import { Route as PorukeRouteImport } from './routes/poruke'
 import { Route as PolitikaPrivatnostiRouteImport } from './routes/politika-privatnosti'
 import { Route as PolitikaKolacicaRouteImport } from './routes/politika-kolacica'
 import { Route as ObjaviRouteImport } from './routes/objavi'
@@ -33,10 +34,16 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RacunIndexRouteImport } from './routes/racun.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as RacunSubscriptionPotvrdaRouteImport } from './routes/racun.subscription-potvrda'
+import { Route as RacunSubscriptionRouteImport } from './routes/racun.subscription'
 import { Route as RacunSpremljenoRouteImport } from './routes/racun.spremljeno'
+import { Route as RacunRacuniRouteImport } from './routes/racun.racuni'
 import { Route as RacunProfilRouteImport } from './routes/racun.profil'
+import { Route as RacunPovratNovcaRouteImport } from './routes/racun.povrat-novca'
 import { Route as RacunPorukeRouteImport } from './routes/racun.poruke'
 import { Route as RacunPlaChar263anjePotvrdaRouteImport } from './routes/racun.plaćanje-potvrda'
+import { Route as RacunPlacanjaRouteImport } from './routes/racun.placanja'
+import { Route as RacunPaymentMethodsRouteImport } from './routes/racun.payment-methods'
 import { Route as RacunOstaviRecenzijuRouteImport } from './routes/racun.ostavi-recenziju'
 import { Route as RacunOglasiRouteImport } from './routes/racun.oglasi'
 import { Route as RacunNotifikacijeRouteImport } from './routes/racun.notifikacije'
@@ -46,11 +53,15 @@ import { Route as ProdavacUserIdRouteImport } from './routes/prodavac.$userId'
 import { Route as PosloviIdRouteImport } from './routes/poslovi.$id'
 import { Route as OglasIdRouteImport } from './routes/oglas.$id'
 import { Route as KategorijaCategoryRouteImport } from './routes/kategorija.$category'
+import { Route as CheckoutSuccessRouteImport } from './routes/checkout.success'
+import { Route as CheckoutCancelRouteImport } from './routes/checkout.cancel'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminTestimonialsRouteImport } from './routes/admin.testimonials'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminFaqRouteImport } from './routes/admin.faq'
+import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 import { Route as KategorijaCategorySubcategoryRouteImport } from './routes/kategorija.$category.$subcategory'
+import { Route as CheckoutPromotedListingIdRouteImport } from './routes/checkout.promoted.$listingId'
 
 const UvjetiKoristenjaRoute = UvjetiKoristenjaRouteImport.update({
   id: '/uvjeti-koristenja',
@@ -100,6 +111,11 @@ const PretragaRoute = PretragaRouteImport.update({
 const PosloviRoute = PosloviRouteImport.update({
   id: '/poslovi',
   path: '/poslovi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PorukeRoute = PorukeRouteImport.update({
+  id: '/poruke',
+  path: '/poruke',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PolitikaPrivatnostiRoute = PolitikaPrivatnostiRouteImport.update({
@@ -172,14 +188,35 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const RacunSubscriptionPotvrdaRoute =
+  RacunSubscriptionPotvrdaRouteImport.update({
+    id: '/subscription-potvrda',
+    path: '/subscription-potvrda',
+    getParentRoute: () => RacunRoute,
+  } as any)
+const RacunSubscriptionRoute = RacunSubscriptionRouteImport.update({
+  id: '/subscription',
+  path: '/subscription',
+  getParentRoute: () => RacunRoute,
+} as any)
 const RacunSpremljenoRoute = RacunSpremljenoRouteImport.update({
   id: '/spremljeno',
   path: '/spremljeno',
   getParentRoute: () => RacunRoute,
 } as any)
+const RacunRacuniRoute = RacunRacuniRouteImport.update({
+  id: '/racuni',
+  path: '/racuni',
+  getParentRoute: () => RacunRoute,
+} as any)
 const RacunProfilRoute = RacunProfilRouteImport.update({
   id: '/profil',
   path: '/profil',
+  getParentRoute: () => RacunRoute,
+} as any)
+const RacunPovratNovcaRoute = RacunPovratNovcaRouteImport.update({
+  id: '/povrat-novca',
+  path: '/povrat-novca',
   getParentRoute: () => RacunRoute,
 } as any)
 const RacunPorukeRoute = RacunPorukeRouteImport.update({
@@ -193,6 +230,16 @@ const RacunPlaChar263anjePotvrdaRoute =
     path: '/plaćanje-potvrda',
     getParentRoute: () => RacunRoute,
   } as any)
+const RacunPlacanjaRoute = RacunPlacanjaRouteImport.update({
+  id: '/placanja',
+  path: '/placanja',
+  getParentRoute: () => RacunRoute,
+} as any)
+const RacunPaymentMethodsRoute = RacunPaymentMethodsRouteImport.update({
+  id: '/payment-methods',
+  path: '/payment-methods',
+  getParentRoute: () => RacunRoute,
+} as any)
 const RacunOstaviRecenzijuRoute = RacunOstaviRecenzijuRouteImport.update({
   id: '/ostavi-recenziju',
   path: '/ostavi-recenziju',
@@ -238,6 +285,16 @@ const KategorijaCategoryRoute = KategorijaCategoryRouteImport.update({
   path: '/kategorija/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CheckoutSuccessRoute = CheckoutSuccessRouteImport.update({
+  id: '/checkout/success',
+  path: '/checkout/success',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutCancelRoute = CheckoutCancelRouteImport.update({
+  id: '/checkout/cancel',
+  path: '/checkout/cancel',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminUsersRoute = AdminUsersRouteImport.update({
   id: '/users',
   path: '/users',
@@ -258,11 +315,22 @@ const AdminFaqRoute = AdminFaqRouteImport.update({
   path: '/faq',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminRoute,
+} as any)
 const KategorijaCategorySubcategoryRoute =
   KategorijaCategorySubcategoryRouteImport.update({
     id: '/$subcategory',
     path: '/$subcategory',
     getParentRoute: () => KategorijaCategoryRoute,
+  } as any)
+const CheckoutPromotedListingIdRoute =
+  CheckoutPromotedListingIdRouteImport.update({
+    id: '/checkout/promoted/$listingId',
+    path: '/checkout/promoted/$listingId',
+    getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -278,6 +346,7 @@ export interface FileRoutesByFullPath {
   '/objavi': typeof ObjaviRoute
   '/politika-kolacica': typeof PolitikaKolacicaRoute
   '/politika-privatnosti': typeof PolitikaPrivatnostiRoute
+  '/poruke': typeof PorukeRoute
   '/poslovi': typeof PosloviRouteWithChildren
   '/pretraga': typeof PretragaRoute
   '/prijava': typeof PrijavaRoute
@@ -288,10 +357,13 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/uvjeti': typeof UvjetiRoute
   '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/faq': typeof AdminFaqRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin/users': typeof AdminUsersRoute
+  '/checkout/cancel': typeof CheckoutCancelRoute
+  '/checkout/success': typeof CheckoutSuccessRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
@@ -301,12 +373,19 @@ export interface FileRoutesByFullPath {
   '/racun/notifikacije': typeof RacunNotifikacijeRoute
   '/racun/oglasi': typeof RacunOglasiRoute
   '/racun/ostavi-recenziju': typeof RacunOstaviRecenzijuRoute
+  '/racun/payment-methods': typeof RacunPaymentMethodsRoute
+  '/racun/placanja': typeof RacunPlacanjaRoute
   '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
   '/racun/poruke': typeof RacunPorukeRoute
+  '/racun/povrat-novca': typeof RacunPovratNovcaRoute
   '/racun/profil': typeof RacunProfilRoute
+  '/racun/racuni': typeof RacunRacuniRoute
   '/racun/spremljeno': typeof RacunSpremljenoRoute
+  '/racun/subscription': typeof RacunSubscriptionRoute
+  '/racun/subscription-potvrda': typeof RacunSubscriptionPotvrdaRoute
   '/admin/': typeof AdminIndexRoute
   '/racun/': typeof RacunIndexRoute
+  '/checkout/promoted/$listingId': typeof CheckoutPromotedListingIdRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
 }
 export interface FileRoutesByTo {
@@ -321,6 +400,7 @@ export interface FileRoutesByTo {
   '/objavi': typeof ObjaviRoute
   '/politika-kolacica': typeof PolitikaKolacicaRoute
   '/politika-privatnosti': typeof PolitikaPrivatnostiRoute
+  '/poruke': typeof PorukeRoute
   '/poslovi': typeof PosloviRouteWithChildren
   '/pretraga': typeof PretragaRoute
   '/prijava': typeof PrijavaRoute
@@ -330,10 +410,13 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/uvjeti': typeof UvjetiRoute
   '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/faq': typeof AdminFaqRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin/users': typeof AdminUsersRoute
+  '/checkout/cancel': typeof CheckoutCancelRoute
+  '/checkout/success': typeof CheckoutSuccessRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
@@ -343,12 +426,19 @@ export interface FileRoutesByTo {
   '/racun/notifikacije': typeof RacunNotifikacijeRoute
   '/racun/oglasi': typeof RacunOglasiRoute
   '/racun/ostavi-recenziju': typeof RacunOstaviRecenzijuRoute
+  '/racun/payment-methods': typeof RacunPaymentMethodsRoute
+  '/racun/placanja': typeof RacunPlacanjaRoute
   '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
   '/racun/poruke': typeof RacunPorukeRoute
+  '/racun/povrat-novca': typeof RacunPovratNovcaRoute
   '/racun/profil': typeof RacunProfilRoute
+  '/racun/racuni': typeof RacunRacuniRoute
   '/racun/spremljeno': typeof RacunSpremljenoRoute
+  '/racun/subscription': typeof RacunSubscriptionRoute
+  '/racun/subscription-potvrda': typeof RacunSubscriptionPotvrdaRoute
   '/admin': typeof AdminIndexRoute
   '/racun': typeof RacunIndexRoute
+  '/checkout/promoted/$listingId': typeof CheckoutPromotedListingIdRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
 }
 export interface FileRoutesById {
@@ -365,6 +455,7 @@ export interface FileRoutesById {
   '/objavi': typeof ObjaviRoute
   '/politika-kolacica': typeof PolitikaKolacicaRoute
   '/politika-privatnosti': typeof PolitikaPrivatnostiRoute
+  '/poruke': typeof PorukeRoute
   '/poslovi': typeof PosloviRouteWithChildren
   '/pretraga': typeof PretragaRoute
   '/prijava': typeof PrijavaRoute
@@ -375,10 +466,13 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/uvjeti': typeof UvjetiRoute
   '/uvjeti-koristenja': typeof UvjetiKoristenjaRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/faq': typeof AdminFaqRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin/users': typeof AdminUsersRoute
+  '/checkout/cancel': typeof CheckoutCancelRoute
+  '/checkout/success': typeof CheckoutSuccessRoute
   '/kategorija/$category': typeof KategorijaCategoryRouteWithChildren
   '/oglas/$id': typeof OglasIdRoute
   '/poslovi/$id': typeof PosloviIdRoute
@@ -388,12 +482,19 @@ export interface FileRoutesById {
   '/racun/notifikacije': typeof RacunNotifikacijeRoute
   '/racun/oglasi': typeof RacunOglasiRoute
   '/racun/ostavi-recenziju': typeof RacunOstaviRecenzijuRoute
+  '/racun/payment-methods': typeof RacunPaymentMethodsRoute
+  '/racun/placanja': typeof RacunPlacanjaRoute
   '/racun/plaćanje-potvrda': typeof RacunPlaChar263anjePotvrdaRoute
   '/racun/poruke': typeof RacunPorukeRoute
+  '/racun/povrat-novca': typeof RacunPovratNovcaRoute
   '/racun/profil': typeof RacunProfilRoute
+  '/racun/racuni': typeof RacunRacuniRoute
   '/racun/spremljeno': typeof RacunSpremljenoRoute
+  '/racun/subscription': typeof RacunSubscriptionRoute
+  '/racun/subscription-potvrda': typeof RacunSubscriptionPotvrdaRoute
   '/admin/': typeof AdminIndexRoute
   '/racun/': typeof RacunIndexRoute
+  '/checkout/promoted/$listingId': typeof CheckoutPromotedListingIdRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
 }
 export interface FileRouteTypes {
@@ -411,6 +512,7 @@ export interface FileRouteTypes {
     | '/objavi'
     | '/politika-kolacica'
     | '/politika-privatnosti'
+    | '/poruke'
     | '/poslovi'
     | '/pretraga'
     | '/prijava'
@@ -421,10 +523,13 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/uvjeti'
     | '/uvjeti-koristenja'
+    | '/admin/dashboard'
     | '/admin/faq'
     | '/admin/settings'
     | '/admin/testimonials'
     | '/admin/users'
+    | '/checkout/cancel'
+    | '/checkout/success'
     | '/kategorija/$category'
     | '/oglas/$id'
     | '/poslovi/$id'
@@ -434,12 +539,19 @@ export interface FileRouteTypes {
     | '/racun/notifikacije'
     | '/racun/oglasi'
     | '/racun/ostavi-recenziju'
+    | '/racun/payment-methods'
+    | '/racun/placanja'
     | '/racun/plaćanje-potvrda'
     | '/racun/poruke'
+    | '/racun/povrat-novca'
     | '/racun/profil'
+    | '/racun/racuni'
     | '/racun/spremljeno'
+    | '/racun/subscription'
+    | '/racun/subscription-potvrda'
     | '/admin/'
     | '/racun/'
+    | '/checkout/promoted/$listingId'
     | '/kategorija/$category/$subcategory'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -454,6 +566,7 @@ export interface FileRouteTypes {
     | '/objavi'
     | '/politika-kolacica'
     | '/politika-privatnosti'
+    | '/poruke'
     | '/poslovi'
     | '/pretraga'
     | '/prijava'
@@ -463,10 +576,13 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/uvjeti'
     | '/uvjeti-koristenja'
+    | '/admin/dashboard'
     | '/admin/faq'
     | '/admin/settings'
     | '/admin/testimonials'
     | '/admin/users'
+    | '/checkout/cancel'
+    | '/checkout/success'
     | '/kategorija/$category'
     | '/oglas/$id'
     | '/poslovi/$id'
@@ -476,12 +592,19 @@ export interface FileRouteTypes {
     | '/racun/notifikacije'
     | '/racun/oglasi'
     | '/racun/ostavi-recenziju'
+    | '/racun/payment-methods'
+    | '/racun/placanja'
     | '/racun/plaćanje-potvrda'
     | '/racun/poruke'
+    | '/racun/povrat-novca'
     | '/racun/profil'
+    | '/racun/racuni'
     | '/racun/spremljeno'
+    | '/racun/subscription'
+    | '/racun/subscription-potvrda'
     | '/admin'
     | '/racun'
+    | '/checkout/promoted/$listingId'
     | '/kategorija/$category/$subcategory'
   id:
     | '__root__'
@@ -497,6 +620,7 @@ export interface FileRouteTypes {
     | '/objavi'
     | '/politika-kolacica'
     | '/politika-privatnosti'
+    | '/poruke'
     | '/poslovi'
     | '/pretraga'
     | '/prijava'
@@ -507,10 +631,13 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/uvjeti'
     | '/uvjeti-koristenja'
+    | '/admin/dashboard'
     | '/admin/faq'
     | '/admin/settings'
     | '/admin/testimonials'
     | '/admin/users'
+    | '/checkout/cancel'
+    | '/checkout/success'
     | '/kategorija/$category'
     | '/oglas/$id'
     | '/poslovi/$id'
@@ -520,12 +647,19 @@ export interface FileRouteTypes {
     | '/racun/notifikacije'
     | '/racun/oglasi'
     | '/racun/ostavi-recenziju'
+    | '/racun/payment-methods'
+    | '/racun/placanja'
     | '/racun/plaćanje-potvrda'
     | '/racun/poruke'
+    | '/racun/povrat-novca'
     | '/racun/profil'
+    | '/racun/racuni'
     | '/racun/spremljeno'
+    | '/racun/subscription'
+    | '/racun/subscription-potvrda'
     | '/admin/'
     | '/racun/'
+    | '/checkout/promoted/$listingId'
     | '/kategorija/$category/$subcategory'
   fileRoutesById: FileRoutesById
 }
@@ -542,6 +676,7 @@ export interface RootRouteChildren {
   ObjaviRoute: typeof ObjaviRoute
   PolitikaKolacicaRoute: typeof PolitikaKolacicaRoute
   PolitikaPrivatnostiRoute: typeof PolitikaPrivatnostiRoute
+  PorukeRoute: typeof PorukeRoute
   PosloviRoute: typeof PosloviRouteWithChildren
   PretragaRoute: typeof PretragaRoute
   PrijavaRoute: typeof PrijavaRoute
@@ -552,9 +687,12 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UvjetiRoute: typeof UvjetiRoute
   UvjetiKoristenjaRoute: typeof UvjetiKoristenjaRoute
+  CheckoutCancelRoute: typeof CheckoutCancelRoute
+  CheckoutSuccessRoute: typeof CheckoutSuccessRoute
   KategorijaCategoryRoute: typeof KategorijaCategoryRouteWithChildren
   OglasIdRoute: typeof OglasIdRoute
   ProdavacUserIdRoute: typeof ProdavacUserIdRoute
+  CheckoutPromotedListingIdRoute: typeof CheckoutPromotedListingIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -627,6 +765,13 @@ declare module '@tanstack/react-router' {
       path: '/poslovi'
       fullPath: '/poslovi'
       preLoaderRoute: typeof PosloviRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/poruke': {
+      id: '/poruke'
+      path: '/poruke'
+      fullPath: '/poruke'
+      preLoaderRoute: typeof PorukeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/politika-privatnosti': {
@@ -727,6 +872,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/racun/subscription-potvrda': {
+      id: '/racun/subscription-potvrda'
+      path: '/subscription-potvrda'
+      fullPath: '/racun/subscription-potvrda'
+      preLoaderRoute: typeof RacunSubscriptionPotvrdaRouteImport
+      parentRoute: typeof RacunRoute
+    }
+    '/racun/subscription': {
+      id: '/racun/subscription'
+      path: '/subscription'
+      fullPath: '/racun/subscription'
+      preLoaderRoute: typeof RacunSubscriptionRouteImport
+      parentRoute: typeof RacunRoute
+    }
     '/racun/spremljeno': {
       id: '/racun/spremljeno'
       path: '/spremljeno'
@@ -734,11 +893,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RacunSpremljenoRouteImport
       parentRoute: typeof RacunRoute
     }
+    '/racun/racuni': {
+      id: '/racun/racuni'
+      path: '/racuni'
+      fullPath: '/racun/racuni'
+      preLoaderRoute: typeof RacunRacuniRouteImport
+      parentRoute: typeof RacunRoute
+    }
     '/racun/profil': {
       id: '/racun/profil'
       path: '/profil'
       fullPath: '/racun/profil'
       preLoaderRoute: typeof RacunProfilRouteImport
+      parentRoute: typeof RacunRoute
+    }
+    '/racun/povrat-novca': {
+      id: '/racun/povrat-novca'
+      path: '/povrat-novca'
+      fullPath: '/racun/povrat-novca'
+      preLoaderRoute: typeof RacunPovratNovcaRouteImport
       parentRoute: typeof RacunRoute
     }
     '/racun/poruke': {
@@ -753,6 +926,20 @@ declare module '@tanstack/react-router' {
       path: '/plaćanje-potvrda'
       fullPath: '/racun/plaćanje-potvrda'
       preLoaderRoute: typeof RacunPlaChar263anjePotvrdaRouteImport
+      parentRoute: typeof RacunRoute
+    }
+    '/racun/placanja': {
+      id: '/racun/placanja'
+      path: '/placanja'
+      fullPath: '/racun/placanja'
+      preLoaderRoute: typeof RacunPlacanjaRouteImport
+      parentRoute: typeof RacunRoute
+    }
+    '/racun/payment-methods': {
+      id: '/racun/payment-methods'
+      path: '/payment-methods'
+      fullPath: '/racun/payment-methods'
+      preLoaderRoute: typeof RacunPaymentMethodsRouteImport
       parentRoute: typeof RacunRoute
     }
     '/racun/ostavi-recenziju': {
@@ -818,6 +1005,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KategorijaCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/checkout/success': {
+      id: '/checkout/success'
+      path: '/checkout/success'
+      fullPath: '/checkout/success'
+      preLoaderRoute: typeof CheckoutSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout/cancel': {
+      id: '/checkout/cancel'
+      path: '/checkout/cancel'
+      fullPath: '/checkout/cancel'
+      preLoaderRoute: typeof CheckoutCancelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/users': {
       id: '/admin/users'
       path: '/users'
@@ -846,6 +1047,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminFaqRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/kategorija/$category/$subcategory': {
       id: '/kategorija/$category/$subcategory'
       path: '/$subcategory'
@@ -853,10 +1061,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KategorijaCategorySubcategoryRouteImport
       parentRoute: typeof KategorijaCategoryRoute
     }
+    '/checkout/promoted/$listingId': {
+      id: '/checkout/promoted/$listingId'
+      path: '/checkout/promoted/$listingId'
+      fullPath: '/checkout/promoted/$listingId'
+      preLoaderRoute: typeof CheckoutPromotedListingIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminDashboardRoute: typeof AdminDashboardRoute
   AdminFaqRoute: typeof AdminFaqRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminTestimonialsRoute: typeof AdminTestimonialsRoute
@@ -865,6 +1081,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminDashboardRoute: AdminDashboardRoute,
   AdminFaqRoute: AdminFaqRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminTestimonialsRoute: AdminTestimonialsRoute,
@@ -891,10 +1108,16 @@ interface RacunRouteChildren {
   RacunNotifikacijeRoute: typeof RacunNotifikacijeRoute
   RacunOglasiRoute: typeof RacunOglasiRoute
   RacunOstaviRecenzijuRoute: typeof RacunOstaviRecenzijuRoute
+  RacunPaymentMethodsRoute: typeof RacunPaymentMethodsRoute
+  RacunPlacanjaRoute: typeof RacunPlacanjaRoute
   RacunPlaChar263anjePotvrdaRoute: typeof RacunPlaChar263anjePotvrdaRoute
   RacunPorukeRoute: typeof RacunPorukeRoute
+  RacunPovratNovcaRoute: typeof RacunPovratNovcaRoute
   RacunProfilRoute: typeof RacunProfilRoute
+  RacunRacuniRoute: typeof RacunRacuniRoute
   RacunSpremljenoRoute: typeof RacunSpremljenoRoute
+  RacunSubscriptionRoute: typeof RacunSubscriptionRoute
+  RacunSubscriptionPotvrdaRoute: typeof RacunSubscriptionPotvrdaRoute
   RacunIndexRoute: typeof RacunIndexRoute
 }
 
@@ -904,10 +1127,16 @@ const RacunRouteChildren: RacunRouteChildren = {
   RacunNotifikacijeRoute: RacunNotifikacijeRoute,
   RacunOglasiRoute: RacunOglasiRoute,
   RacunOstaviRecenzijuRoute: RacunOstaviRecenzijuRoute,
+  RacunPaymentMethodsRoute: RacunPaymentMethodsRoute,
+  RacunPlacanjaRoute: RacunPlacanjaRoute,
   RacunPlaChar263anjePotvrdaRoute: RacunPlaChar263anjePotvrdaRoute,
   RacunPorukeRoute: RacunPorukeRoute,
+  RacunPovratNovcaRoute: RacunPovratNovcaRoute,
   RacunProfilRoute: RacunProfilRoute,
+  RacunRacuniRoute: RacunRacuniRoute,
   RacunSpremljenoRoute: RacunSpremljenoRoute,
+  RacunSubscriptionRoute: RacunSubscriptionRoute,
+  RacunSubscriptionPotvrdaRoute: RacunSubscriptionPotvrdaRoute,
   RacunIndexRoute: RacunIndexRoute,
 }
 
@@ -937,6 +1166,7 @@ const rootRouteChildren: RootRouteChildren = {
   ObjaviRoute: ObjaviRoute,
   PolitikaKolacicaRoute: PolitikaKolacicaRoute,
   PolitikaPrivatnostiRoute: PolitikaPrivatnostiRoute,
+  PorukeRoute: PorukeRoute,
   PosloviRoute: PosloviRouteWithChildren,
   PretragaRoute: PretragaRoute,
   PrijavaRoute: PrijavaRoute,
@@ -947,9 +1177,12 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   UvjetiRoute: UvjetiRoute,
   UvjetiKoristenjaRoute: UvjetiKoristenjaRoute,
+  CheckoutCancelRoute: CheckoutCancelRoute,
+  CheckoutSuccessRoute: CheckoutSuccessRoute,
   KategorijaCategoryRoute: KategorijaCategoryRouteWithChildren,
   OglasIdRoute: OglasIdRoute,
   ProdavacUserIdRoute: ProdavacUserIdRoute,
+  CheckoutPromotedListingIdRoute: CheckoutPromotedListingIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
