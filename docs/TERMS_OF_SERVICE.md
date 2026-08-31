@@ -32,7 +32,7 @@ Tržnica je samo **platforma** za komunikaciju – **nismo mi** pružatelj stvar
 ### 2.2 Funkcionalnosti
 
 Tržnica omogućava:
-- Registraciju i upravljanje korisnickh računa
+- Registraciju i upravljanje korisničkih računa
 - Objavljivanje oglasa/ponuda usluga (Partnerima)
 - Pretraživanje i pregledavanje dostupnih usluga
 - Komunikaciju između korisnika (poruke, upiti)
@@ -89,7 +89,7 @@ Svi oblici pretplate funkcioniraju kroz sustav **elektroničkih ponuda (invoica)
    - Jedinstvenim brojem reference u formatu: **BIRAJ-YYYY-MM-XXXX**
    - IBAN podacima za plaćanje
    - Rokom plaćanja (obično 14 dana)
-   - Detaljima o ponuđenoj uslugii
+   - Detaljima o ponuđenoj usluzi
 3. **Plaćanje:** Korisnik plaća putem svoje banke (elektroničko bankarstvo, transfer, itd.) koristeći **IBAN i broj reference**
 4. **Verifikacija:** Naš administrativni tim provjerava primitak plaćanja (obično isti dan, maksimalno 24 sata)
 5. **Aktivacija:** Nakon verifikacije, pretplata se automatski aktivira
@@ -98,7 +98,7 @@ Svi oblici pretplate funkcioniraju kroz sustav **elektroničkih ponuda (invoica)
 
 ### 3.4 Povrat Novca
 
-- Ako plaćanje primimo i aktiviramo uslugu, povrat novca **se ne provodi** osim ako je došlo do greške u obrade ili ako Tržnica pretrpi značajnu servisnu grešku
+- Ako plaćanje primimo i aktiviramo uslugu, povrat novca **se ne provodi** osim ako je došlo do greške u obradi ili ako Tržnica pretrpi značajnu servisnu grešku
 - Ako platite dvostruko ili slučajno, kontaktirajte nas na **support@biraj.hr** s dokazom plaćanja
 - Odustanak od pretplate moguć je **bez penala** prije isteka razdoblja, ali povrat se ne provodi za već korištene dane
 
@@ -122,7 +122,7 @@ Kao korisnik, **morate**:
 #### **Registracijski podatci**
 - Pružiti točne, potpune i ažurirane podatke pri registraciji
 - Zaštititi lozinku i ne dijeliti je s drugima
-- Odmah nas obavijestiti ako nekom drugi koristi vaš račun
+- Odmah nas obavijestiti ako neki drugi koristi vaš račun
 - Odgovarate za sve aktivnosti na vašem računu
 
 #### **Ponašanje na Tržnici**
@@ -134,8 +134,8 @@ Kao korisnik, **morate**:
 - Ne pokušavati pristupiti dijelovima Tržnice za koje nemate dozvolu
 
 #### **Oglasi i Ponude**
-- Voditi računa da su svi oglasi istiniti i nije autentični
-- Ikke advertiser ilegalne usluge
+- Voditi računa da su svi oglasi točni i istiniti
+- Ne oglašavati ilegalne usluge
 - Ažurirati oglase kako se promijene vaše usluge
 - Odgovarate za sadržaj vlastitih oglasa
 - Ne koristiti tuđe fotografije ili intelektualno vlasništvo bez dozvole
@@ -172,7 +172,7 @@ Niste dužni dozvoliti dalje korištenje izvan ovih svrha.
 
 ### 5.3 Zabrana Plagijatiranja
 
-Krađa tuđeg sadržaja (fotografije, opise, britke) je **kršenja zakona** i rezultirat će:
+Krađa tuđeg sadržaja (fotografije, opise, tekste) je **kršenja zakona** i rezultirat će:
 - Brisanjem oglasa
 - Obustavom računa
 - Mogućim pravnim mjerama
@@ -277,14 +277,14 @@ Ako imate prigovor:
 ### 10.2 Korak 2: Formalni Prigovor
 
 Ako niste zadovoljni odgovorom:
-1. Pošalji pisani prigovor (e-pošta ili pismo) na:
+1. Pošaljite pisani prigovor (e-pošta ili pismo) na:
    - **Adresa:** [Vaša adresa]
    - **E-pošta:** complaints@biraj.hr
 2. U prigovoru navedite:
    - Vaš naziv/ime
    - Broj računa
    - Detaljni opis problema
-   - Datume relevantnih dogšaja
+   - Datume relevantnih događaja
    - Željeno rješenje
 3. Odgovor u roku od **14 dana**
 
@@ -317,7 +317,7 @@ Tržnica je namjenjena samo **punoljetnim osobama** (18+ godina). Ako ste mladji
 
 Ako ste roditelj/staratelj:
 - **Vi ste odgovorni** za nadzor korištenja Tržnice maloletnim osobama
-- Ako maloljetna osoba nesto kupi, vi ste odgovoran za plaćanje
+- Ako maloljetna osoba nešto kupi, vi ste odgovoran za plaćanje
 - Kontaktirajte nas odmah ako znate da maloljetna osoba koristi Tržnicu
 
 ---
@@ -362,7 +362,7 @@ Za sve pitanja vezana uz ove Uvjete:
 - **Pritužbe:** complaints@biraj.hr
 - **Adresa:** [Vaša adresa]
 - **Telefonski broj:** [Vaš broj]
-- **Radno vrijeme:** Ponedjeljak – Petak, 09:00 – 17:00 (само po dogovoru)
+- **Radno vrijeme:** Ponedjeljak – Petak, 09:00 – 17:00 (po dogovoru)
 
 Ako niste zadovoljni našim odgovorom, možete podnijeti žalbu kod:
 - **Povjereniku za zaštitu podataka:** https://www.azop.hr/

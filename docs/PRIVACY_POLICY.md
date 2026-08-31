@@ -111,7 +111,7 @@ Ako su vaši podaci netočni ili nepotpuni, možete zahtijevati ispravku.
 Možete zahtijevati brisanje svojih podataka (osim ako postoji pravna obveza njihova čuvanja). Ovo se naziva "pravo biti zaboravljen".
 
 ### 7.4 Pravo na Ograničenje Obrade
-Možete zahtijevati da ograničimo obrada vaših podataka.
+Možete zahtijevati da ograničimo obradu vaših podataka.
 
 ### 7.5 Pravo na Prenosivost Podataka
 Možete zahtijevati da vam proslijedimo vaše podatke u čitljivom obliku ili drugoj usluzi.
