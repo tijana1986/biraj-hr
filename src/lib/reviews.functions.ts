@@ -410,3 +410,47 @@ export const flagReview = createServerFn({
 
     return { success: true };
   });
+
+// Delete review
+export const deleteReview = createServerFn({
+  method: "POST",
+})
+  .input(z.object({ reviewId: z.string() }))
+  .handler(async (input) => {
+    const { data: user } = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      )
+      .then((client) => client.auth.getUser());
+
+    if (!user?.user) {
+      throw new Error("Not authenticated");
+    }
+
+    const supabase = await import("@supabase/supabase-js")
+      .then((m) =>
+        m.createClient(
+          process.env.VITE_SUPABASE_URL || "",
+          process.env.SUPABASE_PUBLISHABLE_KEY || ""
+        )
+      );
+
+    const { error } = await supabase
+      .from("listing_reviews")
+      .delete()
+      .eq("id", input.reviewId)
+      .eq("reviewer_id", user.user.id);
+
+    if (error) {
+      throw new Error(`Failed to delete review: ${error.message}`);
+    }
+
+    return { success: true };
+  });
+
+// Compatibility aliases
+export const fetchReviews = getListingReviews;
+export const fetchSellerRating = getSellerRating;

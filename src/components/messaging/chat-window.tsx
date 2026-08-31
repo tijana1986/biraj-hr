@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { getMessages, sendMessage, blockUser } from "@/lib/messaging.functions";
 import { formatDistanceToNow } from "date-fns";
-import { hrHR } from "date-fns/locale";
+import { hr } from "date-fns/locale";
 import { Send, MoreVertical, AlertTriangle } from "lucide-react";
 
 interface ChatWindowProps {
@@ -151,7 +151,7 @@ export function ChatWindow({
                     }`}
                   >
                     {formatDistanceToNow(new Date(message.createdAt), {
-                      locale: hrHR,
+                      locale: hr,
                     })}
                   </p>
                 </div>

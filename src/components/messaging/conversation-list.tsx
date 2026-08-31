@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { getConversations } from "@/lib/messaging.functions";
 import { Archive, MessageCircle } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
-import { hrHR } from "date-fns/locale";
+import { hr } from "date-fns/locale";
 
 interface ConversationListProps {
   selectedConversationId?: string;
@@ -83,7 +83,7 @@ export function ConversationList({
               {/* Timestamp */}
               <p className="text-xs text-muted-foreground mt-1">
                 {formatDistanceToNow(new Date(conversation.lastMessageAt), {
-                  locale: hrHR,
+                  locale: hr,
                   addSuffix: true,
                 })}
               </p>
