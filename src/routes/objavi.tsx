@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth";
 import { CATEGORIES, CITIES_LIST } from "@/lib/mock/data";
 import { createListing } from "@/lib/listings.functions";
-import { createCheckoutSession } from "@/lib/stripe.functions";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/objavi")({
@@ -34,7 +33,7 @@ type Form = {
   images: string[];
 };
 
-const STEPS = ["Kategorija", "Detalji", "Lokacija", "Kontakt", "Pregled", "Plaćanje"] as const;
+const STEPS = ["Kategorija", "Detalji", "Lokacija", "Kontakt", "Pregled"] as const;
 
 function PostListing() {
   const { user } = useAuth();
@@ -44,10 +43,7 @@ function PostListing() {
   const [err, setErr] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [createdId, setCreatedId] = useState<string | null>(null);
-  const [paymentUrl, setPaymentUrl] = useState<string | null>(null);
-  const [listingType, setListingType] = useState<"standard" | "premium">("standard");
   const create = useServerFn(createListing);
-  const checkout = useServerFn(createCheckoutSession);
   const [form, setForm] = useState<Form>({
     category: "",
     subcategory: "",

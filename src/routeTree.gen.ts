@@ -61,7 +61,6 @@ import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminFaqRouteImport } from './routes/admin.faq'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 import { Route as KategorijaCategorySubcategoryRouteImport } from './routes/kategorija.$category.$subcategory'
-import { Route as CheckoutPromotedListingIdRouteImport } from './routes/checkout.promoted.$listingId'
 
 const UvjetiKoristenjaRoute = UvjetiKoristenjaRouteImport.update({
   id: '/uvjeti-koristenja',
@@ -326,12 +325,6 @@ const KategorijaCategorySubcategoryRoute =
     path: '/$subcategory',
     getParentRoute: () => KategorijaCategoryRoute,
   } as any)
-const CheckoutPromotedListingIdRoute =
-  CheckoutPromotedListingIdRouteImport.update({
-    id: '/checkout/promoted/$listingId',
-    path: '/checkout/promoted/$listingId',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -385,7 +378,6 @@ export interface FileRoutesByFullPath {
   '/racun/subscription-potvrda': typeof RacunSubscriptionPotvrdaRoute
   '/admin/': typeof AdminIndexRoute
   '/racun/': typeof RacunIndexRoute
-  '/checkout/promoted/$listingId': typeof CheckoutPromotedListingIdRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
 }
 export interface FileRoutesByTo {
@@ -438,7 +430,6 @@ export interface FileRoutesByTo {
   '/racun/subscription-potvrda': typeof RacunSubscriptionPotvrdaRoute
   '/admin': typeof AdminIndexRoute
   '/racun': typeof RacunIndexRoute
-  '/checkout/promoted/$listingId': typeof CheckoutPromotedListingIdRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
 }
 export interface FileRoutesById {
@@ -494,7 +485,6 @@ export interface FileRoutesById {
   '/racun/subscription-potvrda': typeof RacunSubscriptionPotvrdaRoute
   '/admin/': typeof AdminIndexRoute
   '/racun/': typeof RacunIndexRoute
-  '/checkout/promoted/$listingId': typeof CheckoutPromotedListingIdRoute
   '/kategorija/$category/$subcategory': typeof KategorijaCategorySubcategoryRoute
 }
 export interface FileRouteTypes {
@@ -551,7 +541,6 @@ export interface FileRouteTypes {
     | '/racun/subscription-potvrda'
     | '/admin/'
     | '/racun/'
-    | '/checkout/promoted/$listingId'
     | '/kategorija/$category/$subcategory'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -604,7 +593,6 @@ export interface FileRouteTypes {
     | '/racun/subscription-potvrda'
     | '/admin'
     | '/racun'
-    | '/checkout/promoted/$listingId'
     | '/kategorija/$category/$subcategory'
   id:
     | '__root__'
@@ -659,7 +647,6 @@ export interface FileRouteTypes {
     | '/racun/subscription-potvrda'
     | '/admin/'
     | '/racun/'
-    | '/checkout/promoted/$listingId'
     | '/kategorija/$category/$subcategory'
   fileRoutesById: FileRoutesById
 }
@@ -692,7 +679,6 @@ export interface RootRouteChildren {
   KategorijaCategoryRoute: typeof KategorijaCategoryRouteWithChildren
   OglasIdRoute: typeof OglasIdRoute
   ProdavacUserIdRoute: typeof ProdavacUserIdRoute
-  CheckoutPromotedListingIdRoute: typeof CheckoutPromotedListingIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1061,13 +1047,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KategorijaCategorySubcategoryRouteImport
       parentRoute: typeof KategorijaCategoryRoute
     }
-    '/checkout/promoted/$listingId': {
-      id: '/checkout/promoted/$listingId'
-      path: '/checkout/promoted/$listingId'
-      fullPath: '/checkout/promoted/$listingId'
-      preLoaderRoute: typeof CheckoutPromotedListingIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -1182,7 +1161,6 @@ const rootRouteChildren: RootRouteChildren = {
   KategorijaCategoryRoute: KategorijaCategoryRouteWithChildren,
   OglasIdRoute: OglasIdRoute,
   ProdavacUserIdRoute: ProdavacUserIdRoute,
-  CheckoutPromotedListingIdRoute: CheckoutPromotedListingIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
